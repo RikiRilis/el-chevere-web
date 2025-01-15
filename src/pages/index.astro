@@ -1,8 +1,17 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Contact from '@/components/Contact.astro'
+import SectionContainer from '@/components/SectionContainer.astro'
+import Layout from '../layouts/Layout.astro'
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title='Foto Estudio El Chévere | Official Web'
+	description="The Photo Studio El Chevere's Website."
+	canonical='https://fotoestudioelchevere.com/'
+>
+	<main>
+		<SectionContainer id='contact'>
+			<Contact />
+		</SectionContainer>
+	</main>
 </Layout>

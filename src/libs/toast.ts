@@ -1,5 +1,5 @@
 // from: https://github.com/dgtlss/butterup/tree/main
-import { $ } from "@/lib/dom-selector";
+import { $ } from "@/libs/dom-selector";
 
 export interface ToastOptions {
   dismissible?: boolean;

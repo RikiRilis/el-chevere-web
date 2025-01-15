@@ -1,0 +1,111 @@
+---
+import GitHub from '@/icons/GitHub.astro'
+import Instagram from '@/icons/Instagram.astro'
+import WhatsApp from '@/icons/WhatsApp.astro'
+import X from '@/icons/X.astro'
+import { getI18N } from '@/languages/index.ts'
+
+const { currentLocale } = Astro
+const i18n = getI18N({ currentLocale })
+---
+
+<footer class='flex w-full items-center justify-center'>
+	<div class='flex w-full max-w-4xl flex-col px-4 py-10 sm:w-11/12 sm:px-6 md:w-8/12 lg:px-8'>
+		<hr
+			class='my-6 h-0.5 w-full border-0 bg-gradient-to-r from-transparent via-cyan-800 to-transparent md:inline-block'
+		/>
+
+		<div
+			class='flex w-full flex-col-reverse items-center gap-4 md:justify-between lg:flex-row lg:items-center'
+		>
+			<p
+				class='max-w-md text-pretty text-center text-sm text-slate-600 lg:text-start dark:text-slate-400'
+			>
+				&#169; 2024 RikiRilis. {i18n.FOOTER_TXT_1}
+				<a
+					rel='noopener noreferrer'
+					href='https://rikirilis.xyz'
+					class='font-bold text-cyan-600 transition-colors active:text-slate-700 active:underline sm:hover:text-slate-700 sm:hover:underline dark:active:text-slate-300 dark:sm:hover:text-slate-300'
+					>RikiRilis</a
+				>
+				(Rikelvi Capellán García) {i18n.FOOTER_TXT_2}
+				<a
+					rel='noopener noreferrer'
+					href='https://astro.build'
+					target='_blank'
+					class='font-bold text-cyan-600 transition-colors active:text-slate-700 active:underline sm:hover:text-slate-700 sm:hover:underline dark:active:text-slate-300 dark:sm:hover:text-slate-300'
+					>Astro</a
+				>, <a
+					rel='noopener noreferrer'
+					href='https://tailwindcss.com'
+					target='_blank'
+					class='font-bold text-cyan-600 transition-colors active:text-slate-700 active:underline sm:hover:text-slate-700 sm:hover:underline dark:active:text-slate-300 dark:sm:hover:text-slate-300'
+					>Tailwind CSS</a
+				>
+				{i18n.FOOTER_TXT_3}
+				<a
+					rel='noopener noreferrer'
+					href='https://vercel.com'
+					target='_blank'
+					class='font-bold text-cyan-600 transition-colors active:text-slate-700 active:underline sm:hover:text-slate-700 sm:hover:underline dark:active:text-slate-300 dark:sm:hover:text-slate-300'
+					>Vercel</a
+				>.
+			</p>
+
+			<ul class='flex flex-row items-center gap-x-6'>
+				<li>
+					<a
+						target='_blank'
+						href='https://github.com/RikiRilis'
+						rel='noopener noreferrer'
+						aria-label="Rikelvi's GitHub brand logo will open in a new window"
+						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
+					>
+						<GitHub
+							class='size-8 text-slate-600 transition-colors active:text-cyan-600 motion-reduce:duration-0 sm:hover:text-cyan-600 dark:text-slate-400'
+						/>
+					</a>
+				</li>
+				<li>
+					<a
+						target='_blank'
+						href='https://instagram.com/rikirilis'
+						rel='noopener noreferrer'
+						aria-label="Rikelvi's Instagram brand logo will open in a new window"
+						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
+					>
+						<Instagram
+							class='size-10 text-slate-600 transition-colors active:text-cyan-600 motion-reduce:duration-0 sm:hover:text-cyan-600 dark:text-slate-400'
+						/>
+					</a>
+				</li>
+				<li>
+					<a
+						target='_blank'
+						href='https://twitter.com/rikirilis_'
+						rel='noopener noreferrer'
+						aria-label="Rikelvi's X brand logo will open in a new window"
+						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
+					>
+						<X
+							class='size-8 text-slate-600 transition-colors active:text-cyan-600 motion-reduce:duration-0 sm:hover:text-cyan-600 dark:text-slate-400'
+						/>
+					</a>
+				</li>
+				<li>
+					<a
+						target='_blank'
+						href='https://whatsapp.com/channel/0029Va8erNPAojYouLjOuG0Y'
+						rel='noopener noreferrer'
+						aria-label="Rikelvi's WhatsApp channel brand logo will open in a new window"
+						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
+					>
+						<WhatsApp
+							class='size-9 text-slate-600 transition-colors active:text-cyan-600 motion-reduce:duration-0 sm:hover:text-cyan-600 dark:text-slate-400'
+						/>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</footer>

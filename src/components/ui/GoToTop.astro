@@ -1,0 +1,40 @@
+---
+import UpArrow from '@/icons/UpArrow.astro'
+---
+
+<a
+	id='go-top-btn'
+	class='group fixed bottom-4 right-4 z-30 flex size-10 cursor-pointer items-center justify-center rounded-xl border border-slate-800 bg-slate-900 transition duration-300 active:border-slate-700 active:bg-slate-800 sm:hover:border-slate-700 sm:hover:bg-slate-800'
+>
+	<UpArrow
+		class='size-6 transform text-slate-400 transition duration-300 sm:rotate-45 sm:group-hover:rotate-0'
+	/>
+</a>
+
+<style>
+	#go-top-btn {
+		visibility: hidden;
+		opacity: 0;
+		animation: visibility linear both;
+		animation-timeline: scroll();
+		animation-range: 0 200px;
+	}
+
+	@keyframes visibility {
+		to {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+</style>
+
+<script>
+	import { $ } from '@/libs/dom-selector.ts'
+
+	document.addEventListener('astro:page-load', () => {
+		const goToTopBtn = $('#go-top-btn') as HTMLAnchorElement
+		goToTopBtn.addEventListener('click', () => {
+			window.scrollTo(0, 0)
+		})
+	})
+</script>

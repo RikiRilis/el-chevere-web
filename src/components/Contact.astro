@@ -1,0 +1,100 @@
+---
+import MainTitle from '@/components/MainTitle.astro'
+// import { SendForm } from '@/components/SendForm'
+import Chat from '@/icons/Chat.astro'
+import Check from '@/icons/Check.astro'
+import Copy from '@/icons/Copy.astro'
+import { getI18N } from '@/languages/index.ts'
+
+const email: string = 'rikelvicapellan15@gmail.com'
+const { currentLocale } = Astro
+const i18n = getI18N({ currentLocale })
+---
+
+<div class='flex w-full max-w-4xl flex-col sm:w-11/12 md:w-8/12'>
+	<MainTitle>
+		<Chat class='size-8' />
+		{i18n.CONTACT}
+	</MainTitle>
+
+	<div class='mt-4 flex w-full flex-col gap-4 sm:flex-row sm:justify-between'>
+		<div class='flex-1'>
+			<p class='mb-6 text-pretty text-slate-600 dark:text-slate-400'>
+				<strong class='text-cyan-600'>{i18n.CONTACT_TXT_1}</strong>
+				{i18n.CONTACT_TXT_2}
+				<a
+					rel='noopener noreferrer'
+					href='https://instagram.com/rikirilis'
+					target='_blank'
+					class='font-bold text-cyan-600 transition-colors active:text-slate-700 active:underline sm:hover:text-slate-700 sm:hover:underline dark:active:text-slate-300 dark:sm:hover:text-slate-300'
+					>Instagram</a
+				>
+				{i18n.OR}
+				<a
+					rel='noopener noreferrer'
+					href='https://twitter.com/rikirilis_'
+					target='_blank'
+					class='font-bold text-cyan-600 transition-colors active:text-slate-700 active:underline sm:hover:text-slate-700 sm:hover:underline dark:active:text-slate-300 dark:sm:hover:text-slate-300'
+					>X</a
+				>.
+			</p>
+
+			<p class='mb-6 text-pretty text-slate-600 dark:text-slate-400'>
+				{i18n.CONTACT_TXT_3}
+				<strong class='text-cyan-600'>{i18n.CONTACT_TXT_4}</strong>
+				{i18n.CONTACT_TXT_5}
+			</p>
+
+			<div
+				class='flex h-fit w-fit flex-row items-center justify-center gap-2 rounded-xl bg-cyan-800 bg-opacity-20 px-2 text-cyan-600'
+			>
+				<h5 id='email' class='font-bold text-cyan-600'>{email}</h5>
+
+				<Copy
+					id='copyEmailIcon'
+					class='inline-block h-5 w-5 cursor-pointer transition-transform hover:scale-105 hover:text-slate-600 dark:hover:text-slate-400'
+				/>
+
+				<Check id='copiedEmailIcon' class='hidden h-5 w-5 text-cyan-600' />
+			</div>
+		</div>
+
+		<!-- <SendForm client:visible /> -->
+	</div>
+</div>
+
+<script>
+	import { getI18N } from '@/languages/index'
+	import { $ } from '@/libs/dom-selector.ts'
+
+	document.addEventListener('astro:page-load', () => {
+		const copyEmailIcon = $('#copyEmailIcon')
+		const copiedEmailIcon = $('#copiedEmailIcon')
+		const currentLocale = navigator.language.split('-')[0]
+		const i18n = getI18N({ currentLocale })
+
+		copyEmailIcon?.addEventListener('click', () => {
+			copyEmailIcon?.classList.remove('inline-block')
+			copyEmailIcon?.classList.add('hidden')
+			copiedEmailIcon?.classList.add('inline-block')
+			copiedEmailIcon?.classList.remove('hidden')
+
+			navigator.clipboard.writeText('rikelvicapellan15@gmail.com')
+
+			window.toast({
+				dismissible: true,
+				icon: true,
+				location: 'bottom-center',
+				title: i18n.EMAIL_COPIED,
+				type: 'success',
+			})
+
+			setTimeout(() => {
+				copyEmailIcon?.classList.add('inline-block')
+				copyEmailIcon?.classList.remove('hidden')
+				copiedEmailIcon?.classList.remove('inline-block')
+				copiedEmailIcon?.classList.add('hidden')
+			}, 3000)
+		})
+	})
+</script>

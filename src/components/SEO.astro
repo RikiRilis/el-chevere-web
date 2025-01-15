@@ -1,0 +1,75 @@
+---
+import type { Preload } from '@/interfaces/preload'
+
+interface Props {
+	title: string
+	description: string
+	preload?: Array<Preload>
+	canonical?: string
+	image?: string
+}
+
+const {
+	title = 'Web | RikiRilis',
+	description = "The RikiRilis' Website. Read stories and comments about all you want to know. I build easy-to-use websites and Android apps, with fast technologies and UX/UI standards to improve user experience.",
+	preload,
+	canonical = 'https://rikirilis.xyz/',
+	image = 'https://ynbjmptmmmbaspzfxzdu.supabase.co/storage/v1/object/sign/portfolio/src/embedded-img.avif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwb3J0Zm9saW8vc3JjL2VtYmVkZGVkLWltZy5hdmlmIiwiaWF0IjoxNzIxNDUyMTE1LCJleHAiOjE3NDg5NDUyMTE1fQ.VbJVUYEZOfDbRGpU04vfA20wllxbYkzICFJv_hk_S24&t=2024-07-20T05%3A08%3A28.369Z',
+} = Astro.props as Props
+---
+
+<title>{title}</title>
+
+<meta charset='UTF-8' />
+<meta name='description' content={description} />
+<meta name='generator' content={Astro.generator} />
+<meta name='viewport' content='width=device-width' />
+<meta name='theme-color' content='#020617' />
+
+<link rel='canonical' href={canonical} />
+<link rel='author' href='https://www.linkedin.com/in/rikirilis' />
+
+{
+	preload?.map(({ href, as, type, rel = 'preload', crossorigin }) => (
+		<link {rel} {href} {as} {type} {crossorigin} />
+	))
+}
+
+<meta
+	name='keywords'
+	content='astro, html, javascript, js, css, rikirilis, portfolio, angular, rikelvi capellan, republica dominicana, dominican republic, developer, desarrollador web, web developer, blog, rikirilis blog, projects, rikirilis projects, rikelvi capellan projects, ts, typescript, components, anciano, corta, fama, historia, joven, leche, moraleja, relato, riquezas, sueños, vaca, short story'
+/>
+
+<meta name='twitter:card' content='summary_large_image' />
+<meta name='twitter:site' content='@rikirilis_' />
+<meta name='twitter:creator' content='@rikirilis_' />
+<meta name='twitter:title' content={title} />
+<meta name='twitter:description' content={description} />
+<meta name='twitter:image' content={new URL(image, Astro.url)} />
+
+<meta property='og:image' content={new URL(image, Astro.url)} />
+<meta property='og:title' content={title} />
+<meta property='og:description' content={description} />
+<meta property='og:url' content={Astro.url} />
+<meta property='og:site_name' content='Web | RikiRilis' />
+<meta property='og:type' content='website' />
+<meta name='og:locale' content='en_EN' />
+
+<meta name='robots' content='index, follow' />
+<meta name='googlebot' content='index, follow' />
+
+<link rel='icon' type='image/svg+xml' href='/favicon.ico' />
+<link rel='apple-touch-icon' href='/img/icons/apple-touch-icon.png' />
+
+<link rel='icon' type='image/svg+xml' href='/favicon.ico' />
+<meta name='msapplication-config' content='/browserconfig.xml' />
+
+<link rel='manifest' href='/manifest.webmanifest' />
+
+<script>
+	import { applyTheme } from '@/libs/theme'
+
+	document.addEventListener('astro:page-load', () => {
+		applyTheme()
+	})
+</script>

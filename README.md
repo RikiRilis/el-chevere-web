@@ -1,48 +1,40 @@
-# Astro Starter Kit: Basics
+# → Photo Studio El Chevere's Web ←
 
-```sh
-npm create astro@latest -- --template basics
-```
+<a href="https://github.com/RikiRilis/rikirilis-web">
+  <img src="https://ynbjmptmmmbaspzfxzdu.supabase.co/storage/v1/object/sign/portfolio/src/embedded-img.avif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwb3J0Zm9saW8vc3JjL2VtYmVkZGVkLWltZy5hdmlmIiwiaWF0IjoxNzIxNDUyMTE1LCJleHAiOjE3NDg5NDUyMTE1fQ.VbJVUYEZOfDbRGpU04vfA20wllxbYkzICFJv_hk_S24&t=2024-07-20T05%3A08%3A28.369Z" alt="Photo Studio El Chevere's web embedded image" />
+</a>
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+[Visit it →](https://fotoestudioelchevere.com)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 📃 Description →
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+This repository have the El Chevere Photo Studio's web, made with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and deployed in [Vercel](https://vercel.com/).
 
-## 🚀 Project Structure
+## 🤝 You can use this repository by following the next steps →
 
-Inside of your Astro project, you'll see the following folders and files:
+1. Clone the repository:
+   `git clone https://github.com/RikiRilis/el-chevere-web.git`
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+2. Go to the folder project:
+   `cd el-chevere-web`
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+3. Install the dependencies:
+   `pnpm install`
 
-## 🧞 Commands
+4. Run the project:
+   `pnpm run dev`
+
+Visit `http://localhost:4321` in your browser to watch the website working.
+
+## 🧞 All commands you can use for the project →
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Command                    | Action                                           |
+| :------------------------- | :----------------------------------------------- |
+| `pnpm install`             | Installs dependencies                            |
+| `pnpm run dev`             | Starts local dev server at `localhost:4321`      |
+| `pnpm run build`           | Build your production site to `./dist/`          |
+| `pnpm run preview`         | Preview your build locally, before deploying     |
+| `pnpm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `pnpm run astro -- --help` | Get help using the Astro CLI                     |

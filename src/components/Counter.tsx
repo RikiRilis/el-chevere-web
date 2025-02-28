@@ -1,0 +1,32 @@
+/* eslint-disable react/react-in-jsx-scope */
+import { useProgressiveNumber } from '@/hooks/useProgressiveNumber'
+import { useEffect } from 'react'
+import { formatNumber } from '@/libs/formatNumbers'
+
+// interface Values {
+// 	decimals?: number 
+// 	duration?: number
+// 	final: number
+// 	initial: number
+// }
+
+// export const Counter = ({ decimals, initial, final, duration }: Values) => {
+// 	const [count, setCount] = useProgressiveNumber(duration, decimals, initial)
+
+// 	useEffect(() => {
+// 		if (typeof window !== 'undefined') {
+// 			setCount(String(final))
+// 		}
+// 	}, [])
+
+// 	return <span>{formatNumber(Number(count))}</span>
+// }
+
+interface Values {
+	value: number
+}
+
+export const Counter = ({ value }: Values) => {
+
+	return <span>{formatNumber(Number(value))}+</span>
+}

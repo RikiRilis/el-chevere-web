@@ -1,0 +1,39 @@
+---
+import ActionButton from '@/components/ActionButton.astro'
+import ActionButtonInverted from '@/components/ActionButtonInverted.astro'
+---
+
+<div
+	class='parallax absolute left-0 top-0 h-screen w-full translate-y-0 bg-parallax-1 bg-cover bg-fixed bg-center'
+>
+</div>
+
+<div
+	class='relative z-10 flex h-[80vh] w-full items-center justify-center bg-black/30 px-4 sm:px-6 lg:px-8'
+>
+	<div class='flex w-full max-w-4xl flex-col gap-4 sm:w-11/12 md:w-8/12'>
+		<h1 class='text-8xl font-bold text-primary sm:text-5xl md:text-6xl'>El Chévere</h1>
+		<h2 class='text-4xl font-bold text-primary'>Foto Estudio</h2>
+		<p class='max-w-3xl text-pretty text-xl font-medium text-slate-400'>
+			Lleva tus fotos al siguiente nivel. <br /> ¡Capturamos momentos únicos con un toque profesional!
+		</p>
+
+		<div class='flex max-w-2xl flex-col gap-4 md:flex-row md:items-center'>
+			<ActionButton> Agendar cita </ActionButton>
+
+			<ActionButtonInverted> Ver catálogo </ActionButtonInverted>
+		</div>
+	</div>
+</div>
+
+<script>
+	import { $ } from '@/libs/dom-selector.ts'
+
+	document.addEventListener('astro:page-load', () => {
+		window.addEventListener('scroll', () => {
+			const parallax = $('.parallax')
+			const offset = window.scrollY
+			if (parallax) parallax.style.transform = `translateY(${offset * 0.5}px)`
+		})
+	})
+</script>

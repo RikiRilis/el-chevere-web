@@ -1,22 +1,47 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "include": [
+    ".astro/types.d.ts",
+    "**/*"
+  ],
+  "exclude": [
+    "dist"
+  ],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
+    "jsxImportSource": "preact",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/components": ["src/components/*"],
-      "@/icons": ["src/icons/*"],
-      "@/services": ["src/services/*"],
-      "@/interfaces": ["src/interfaces/*"],
-      "@/languages": ["src/languages/*"],
-      "@/db": ["src/db/*"],
-      "@/lib": ["src/libs/*"],
-      "@/hooks": ["src/hooks/*"],
-      "@/functions": ["src/functions/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@/components": [
+        "src/components/*"
+      ],
+      "@/icons": [
+        "src/icons/*"
+      ],
+      "@/services": [
+        "src/services/*"
+      ],
+      "@/interfaces": [
+        "src/interfaces/*"
+      ],
+      "@/languages": [
+        "src/languages/*"
+      ],
+      "@/db": [
+        "src/db/*"
+      ],
+      "@/lib": [
+        "src/libs/*"
+      ],
+      "@/hooks": [
+        "src/hooks/*"
+      ],
+      "@/functions": [
+        "src/functions/*"
+      ]
     }
   }
 }

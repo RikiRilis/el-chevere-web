@@ -1,0 +1,45 @@
+---
+import MainTitle from '@/components/MainTitle.astro'
+import PhotoLibrary from '@/icons/PhotoLibrary.astro'
+import { getI18N } from '@/languages/index'
+import { getCategories } from '@/services/categories'
+
+const { currentLocale } = Astro
+const i18n = getI18N({ currentLocale })
+const categories = getCategories(currentLocale)
+---
+
+<div class='flex w-full max-w-4xl flex-col sm:w-11/12 md:w-8/12'>
+	<MainTitle>
+		<PhotoLibrary class='size-8' />
+		{i18n.PORTFOLIO}
+	</MainTitle>
+
+	<div class='mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-2 lg:gap-6'>
+		{
+			categories.map((category) => (
+				<a
+					href={`/portfolio/${category.id}`}
+					class='group relative overflow-hidden rounded-xl bg-primary/5 shadow-lg transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:scale-95 hover:shadow-xl'
+				>
+					<div class='relative'>
+						<h4 class='p-2 text-center text-primary'>{category.name}</h4>
+
+						<img
+							loading='lazy'
+							src={category.image}
+							alt={category.description}
+							class='h-60 w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-60 md:h-52 md:object-top lg:h-80'
+						/>
+
+						<div class='absolute inset-0 flex h-full items-end justify-center bg-black/0 to-transparent p-2 transition-all group-hover:bg-black/50'>
+							<p class='translate-y-full text-pretty text-primary opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100'>
+								{category.description}
+							</p>
+						</div>
+					</div>
+				</a>
+			))
+		}
+	</div>
+</div>

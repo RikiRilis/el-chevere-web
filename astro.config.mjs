@@ -9,9 +9,13 @@ import react from '@astrojs/react';
 import preact from '@astrojs/preact';
 
 
+import vercel from '@astrojs/vercel';
+
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), react(), preact()],
+
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
@@ -19,13 +23,19 @@ export default defineConfig({
       prefixDefaultLocale: false
     },
   },
+
   output: 'server',
+
   build: {
         inlineStylesheets: 'always',
     },
-    compressHTML: true,
-    prefetch: true,
-    devToolbar: {
-        enabled: false,
-    },
+
+  compressHTML: true,
+  prefetch: true,
+
+  devToolbar: {
+      enabled: false,
+  },
+
+  adapter: vercel(),
 });

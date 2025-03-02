@@ -4,6 +4,7 @@ import Header from '@/components/Header.astro'
 import SEO from '@/components/SEO.astro'
 import GoToTop from '@/components/ui/GoToTop.astro'
 import Toast from '@/components/ui/Toast.astro'
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro'
 import type { Preload } from '@/interfaces/preload'
 import '@fontsource-variable/onest'
 import { ClientRouter } from 'astro:transitions'
@@ -34,6 +35,7 @@ const { title, description, preload, canonical, image } = Astro.props
 	</head>
 	<body class='relative overflow-x-hidden bg-sky-950/30'>
 		<GoToTop />
+		<WhatsAppButton />
 		<Toast />
 
 		<Header />
@@ -64,6 +66,14 @@ const { title, description, preload, canonical, image } = Astro.props
 			Bitstream Vera Sans Mono,
 			Courier New,
 			monospace;
+	}
+
+	input[type='date']::-webkit-inner-spin-button,
+	input[type='date']::-webkit-calendar-picker-indicator,
+	input[type='time']::-webkit-inner-spin-button,
+	input[type='time']::-webkit-calendar-picker-indicator {
+		cursor: pointer;
+		filter: invert();
 	}
 
 	::-webkit-scrollbar-thumb {

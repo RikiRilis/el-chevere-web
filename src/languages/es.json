@@ -18,6 +18,9 @@
   "NAME": "Nombre",
   "EMAIL": "Correo",
   "MESSAGE": "Mensaje",
+  "PHONE": "Teléfono",
+  "DATE": "Fecha",
+  "HOUR": "Hora",
   "SEND": "Enviar",
   "SAVE": "Save",
   "MESSAGE_PLACEHOLDER": "Escribe tu mensaje...",
@@ -102,5 +105,14 @@
   "CAT_WEDDINGS_DESCRIPTION": "Una colección de fotos de bodas donde puedes ver el amor y la felicidad de las parejas.",
   "CAT_BIRTHDAYS_DESCRIPTION": "Una colección de fotos de fiestas de cumpleaños y celebraciones.",
   "CAT_OUTDOORS_DESCRIPTION": "Una colección de fotos tomadas al aire libre.",
-  "CAT_PORTRAITS_DESCRIPTION": "Una colección de retratos interesantes de personas."
+  "CAT_PORTRAITS_DESCRIPTION": "Una colección de retratos interesantes de personas.",
+  "HERO_TEXT_1": "Lleva tus fotos al siguiente nivel.",
+  "HERO_TEXT_2": "¡Capturamos momentos únicos con un toque profesional!",
+  "HERO_BUTTON_TEXT_1": "Agendar cita",
+  "HERO_BUTTON_TEXT_2": "Ver catálogo",
+  "SCHEDULE": "Agendar",
+  "DATES": "Citas",
+  "WEB_SCHEDULE": "Cita vía web",
+  "DATES_ADVICE": "Favor de llenar cada espacio para que su cita sea agendada.",
+  "DATES_MESSAGE_EXAMPLE": "Una sesión de fotos para el primer mes de mi bebé..."
 }

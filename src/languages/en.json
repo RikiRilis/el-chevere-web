@@ -18,6 +18,9 @@
   "NAME": "Name",
   "EMAIL": "Email",
   "MESSAGE": "Message",
+  "PHONE": "Phone",
+  "DATE": "Date",
+  "HOUR": "Hour",
   "SEND": "Send",
   "SAVE": "Save",
   "MESSAGE_PLACEHOLDER": "Write your message...",
@@ -98,5 +101,14 @@
   "CAT_WEDDINGS_DESCRIPTION": "A collection of wedding photos where you can see the love and happiness of the couples.",
   "CAT_BIRTHDAYS_DESCRIPTION": "A collection of photos of birthday parties and celebrations.",
   "CAT_OUTDOORS_DESCRIPTION": "A collection of photos taken outdoors in nature.",
-  "CAT_PORTRAITS_DESCRIPTION": "A collection of portraits of people from all walks of life."
+  "CAT_PORTRAITS_DESCRIPTION": "A collection of portraits of people from all walks of life.",
+  "HERO_TEXT_1": "Take your photos to the next level.",
+  "HERO_TEXT_2": "We capture unique moments with a professional touch!",
+  "HERO_BUTTON_TEXT_1": "Schedule appointment",
+  "HERO_BUTTON_TEXT_2": "See catalog",
+  "SCHEDULE": "Schedule",
+  "DATES": "Dates",
+  "WEB_SCHEDULE": "Web schedule",
+  "DATES_ADVICE": "Please, fill all the blank spaces so your date can be scheduled.",
+  "DATES_MESSAGE_EXAMPLE": "A photo session for my baby on his first month..."
 }

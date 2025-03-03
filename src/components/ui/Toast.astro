@@ -149,13 +149,13 @@
 	}
 
 	.butteruptoast.success {
-		background-color: #02222b;
-		color: rgb(8, 145, 178);
+		background-color: #0e1f3b;
+		@apply text-accent;
 		border: none;
 	}
 
 	.butteruptoast.success .icon svg {
-		fill: rgb(8, 145, 178);
+		@apply fill-accent;
 	}
 
 	.butteruptoast.error .icon svg {
@@ -167,7 +167,7 @@
 	}
 
 	.butteruptoast.info .icon svg {
-		fill: hsl(210, 100%, 44%);
+		@apply fill-accent;
 	}
 
 	.butteruptoast.error {
@@ -184,7 +184,7 @@
 
 	.butteruptoast.info {
 		background-color: hsl(210, 100%, 11%);
-		color: hsl(210, 100%, 44%);
+		@apply fill-accent;
 		border: none;
 	}
 

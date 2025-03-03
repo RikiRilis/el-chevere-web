@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect } from 'preact/hooks'
 
 export const useProgressiveNumber = (
 	duration = 1500,

@@ -4,7 +4,7 @@ import Adjustments from '@/icons/Adjustments.astro'
 import Calendar from '@/icons/Calendar.astro'
 import UsersGroup from '@/icons/UsersGroup.astro'
 
-const satisfiedCustomers = 1500
+const satisfiedCustomers = 3500
 const photoStyles = 10
 const years = 12
 ---
@@ -20,10 +20,10 @@ const years = 12
 				<span
 					class='numbers text-center text-4xl font-bold tabular-nums tracking-tighter text-primary drop-shadow-lg'
 				>
-					<Counter value={satisfiedCustomers} />
+					<Counter client:visible initial={0} final={satisfiedCustomers} />
 				</span>
 
-				<span class='text-center text-xl font-bold text-white'>Clientes <br /> Satisfechos</span>
+				<span class='text-center text-xl font-bold text-white'>Clientes <br />satisfechos</span>
 
 				<span class='h-1 w-full rounded-xl bg-white'></span>
 			</div>
@@ -34,27 +34,13 @@ const years = 12
 				<span
 					class='numbers text-center text-4xl font-bold tabular-nums tracking-tighter text-primary drop-shadow-lg'
 				>
-					<Counter value={photoStyles} />
+					<Counter client:visible initial={0} final={photoStyles} />
 				</span>
 
-				<span class='text-center text-xl font-bold text-white'>Estilos de <br /> fotos</span>
+				<span class='text-center text-xl font-bold text-white'>Estilos <br />fotográficos</span>
 
 				<span class='h-1 w-full rounded-xl bg-white'></span>
 			</div>
-
-			<!-- <div class='fade-left-anim flex flex-col items-center justify-center gap-4'>
-			<Calendar class='size-14 text-white sm:size-16' />
-
-			<span
-				class='numbers text-center text-4xl font-bold tabular-nums tracking-tighter text-primary drop-shadow-lg'
-			>
-				<Counter value={years} />
-			</span>
-
-			<span class='text-center text-xl font-bold text-white'>Años sirviendo</span>
-
-			<span class='h-1 w-full rounded-xl bg-white'></span>
-		</div> -->
 
 			<div
 				class='fade-left-anim col-span-2 flex flex-col items-center justify-center gap-4 md:col-span-1'
@@ -64,10 +50,10 @@ const years = 12
 				<span
 					class='numbers text-center text-4xl font-bold tabular-nums tracking-tighter text-primary drop-shadow-lg'
 				>
-					<Counter value={years} />
+					<Counter client:visible initial={0} final={years} />
 				</span>
 
-				<span class='text-center text-xl font-bold text-white'>Años <br /> sirviendo</span>
+				<span class='text-center text-xl font-bold text-white'>Años <br />sirviendo</span>
 
 				<span class='h-1 w-full rounded-xl bg-white'></span>
 			</div>

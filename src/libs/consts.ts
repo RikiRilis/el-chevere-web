@@ -26,3 +26,7 @@ export const navItemsProvider = (currentLocale: string | undefined): NavItem[] =
 		},
 	]
 }
+
+export const businessEmail = 'fotoestudioelchevere@hotmail.com'
+export const businessInstagram = 'https://instagram.com/fotoestudioelchevere/'
+export const businessWhatsApp = 'https://wa.me/18095734173'

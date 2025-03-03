@@ -6,7 +6,8 @@ export default {
 			colors: {
 				primary: '#e2e8f0 ',
 				secondary: '#dfe2e0',
-				accent: '#0284c7',
+				accent: '#3b82f6',
+				main: '#1d4ed8',
 			},
 			fontFamily: {
 				sans: ['var(--font-inter)'],

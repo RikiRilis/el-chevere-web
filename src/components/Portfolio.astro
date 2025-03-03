@@ -23,10 +23,11 @@ const categories = getCategories(currentLocale)
 					class='group relative overflow-hidden rounded-xl bg-primary/5 shadow-lg transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:scale-95 hover:shadow-xl'
 				>
 					<div class='relative'>
-						<h4 class='p-2 text-center text-primary'>{category.name}</h4>
+						<h4 class='p-2 text-center font-medium text-primary'>{category.name}</h4>
 
 						<img
 							loading='lazy'
+							decoding='async'
 							src={category.image}
 							alt={category.description}
 							class='h-60 w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-60 md:h-52 md:object-top lg:h-80'

@@ -1,6 +1,8 @@
 ---
+import Contact from '@/components/Contact.astro'
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
+import SectionContainer from '@/components/SectionContainer.astro'
 import SEO from '@/components/SEO.astro'
 import GoToTop from '@/components/ui/GoToTop.astro'
 import Toast from '@/components/ui/Toast.astro'
@@ -33,7 +35,7 @@ const { title, description, preload, canonical, image } = Astro.props
 
 		<ClientRouter />
 	</head>
-	<body class='relative overflow-x-hidden bg-sky-950/30'>
+	<body class='relative overflow-x-hidden bg-blue-900/30'>
 		<GoToTop />
 		<WhatsAppButton />
 		<Toast />
@@ -43,6 +45,10 @@ const { title, description, preload, canonical, image } = Astro.props
 		<main>
 			<slot />
 		</main>
+
+		<SectionContainer id='contact'>
+			<Contact />
+		</SectionContainer>
 
 		<Footer />
 	</body>
@@ -77,7 +83,7 @@ const { title, description, preload, canonical, image } = Astro.props
 	}
 
 	::-webkit-scrollbar-thumb {
-		background-color: #0284c7;
+		background-color: #3b82f6;
 	}
 
 	::-webkit-scrollbar {

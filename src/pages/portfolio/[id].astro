@@ -3,12 +3,14 @@ import MainTitle from '@/components/MainTitle.astro'
 import SectionContainer from '@/components/SectionContainer.astro'
 import { Loading } from '@/icons/Loading'
 import UpArrow from '@/icons/UpArrow.astro'
+import { getI18N } from '@/languages/index'
 import Layout from '@/layouts/Layout.astro'
 import { getCategories } from '@/services/categories'
 import 'photoswipe/style.css'
 
 const id = Astro.params.id
 const currentLocale = Astro.currentLocale
+const i18N = getI18N({ currentLocale })
 const category = getCategories(currentLocale).find((category) => category.id === id)
 
 const getRowSpan = (index: number) => {
@@ -24,7 +26,7 @@ const getObjectPosition = (index: number) => {
 
 <Layout
 	title={`${category?.name} | Foto Estudio El Chévere | Official Web`}
-	description=''
+	description={i18N.PAGE_DESCRIPTION}
 	canonical={`https://fotoestudioelchevere.com/portfolio/${id}`}
 >
 	<SectionContainer>
@@ -57,6 +59,7 @@ const getObjectPosition = (index: number) => {
 								src={image.src}
 								alt={`Image ${index + 1}`}
 								loading='lazy'
+								decoding='async'
 								class={`h-full w-full rounded-xl object-cover transition group-active:scale-105 md:group-hover:scale-105 md:group-hover:rounded-lg ${getObjectPosition(index)}`}
 							/>
 
@@ -64,6 +67,7 @@ const getObjectPosition = (index: number) => {
 								src={image.src}
 								alt={`Image ${index + 1}`}
 								loading='lazy'
+								decoding='async'
 								class='absolute inset-0 -z-10 h-full w-full object-cover opacity-0 blur-md contrast-150 transition group-active:opacity-100 group-active:blur-lg md:group-hover:opacity-100 md:group-hover:blur-lg'
 							/>
 

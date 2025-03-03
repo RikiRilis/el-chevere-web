@@ -16,7 +16,7 @@ const navItems: NavItem[] = navItemsProvider(currentLocale)
 					<a
 						href={item.url}
 						aria-label={item.label}
-						class='inline-block h-full select-none p-2 transition hover:bg-slate-300/10 hover:text-sky-600'
+						class='inline-block h-full select-none p-2 transition hover:bg-slate-300/10 hover:text-accent'
 					>
 						{item.title}
 					</a>
@@ -51,9 +51,9 @@ const navItems: NavItem[] = navItemsProvider(currentLocale)
 				if (entry.isIntersecting) {
 					navItems.forEach((item) => {
 						if (item.getAttribute('aria-label') == entry.target.id) {
-							item.classList.add('text-sky-600')
+							item.classList.add('text-accent')
 						} else {
-							item.classList.remove('text-sky-600')
+							item.classList.remove('text-accent')
 						}
 					})
 				}

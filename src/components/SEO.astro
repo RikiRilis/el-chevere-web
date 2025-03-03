@@ -1,5 +1,6 @@
 ---
 import type { Preload } from '@/interfaces/preload'
+import { getI18N } from '@/languages/index'
 
 interface Props {
 	title: string
@@ -8,13 +9,14 @@ interface Props {
 	canonical?: string
 	image?: string
 }
-
+const currentLocale = Astro.currentLocale
+const i18n = getI18N({ currentLocale })
 const {
-	title = 'Web | RikiRilis',
-	description = "The RikiRilis' Website. Read stories and comments about all you want to know. I build easy-to-use websites and Android apps, with fast technologies and UX/UI standards to improve user experience.",
+	title = 'Foto Estudio El Chévere | Official Web',
+	description = i18n.PAGE_DESCRIPTION,
 	preload,
-	canonical = 'https://rikirilis.xyz/',
-	image = 'https://ynbjmptmmmbaspzfxzdu.supabase.co/storage/v1/object/sign/portfolio/src/embedded-img.avif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwb3J0Zm9saW8vc3JjL2VtYmVkZGVkLWltZy5hdmlmIiwiaWF0IjoxNzIxNDUyMTE1LCJleHAiOjE3NDg5NDUyMTE1fQ.VbJVUYEZOfDbRGpU04vfA20wllxbYkzICFJv_hk_S24&t=2024-07-20T05%3A08%3A28.369Z',
+	canonical = 'https://fotoestudioelchevere.com/',
+	image = '/public/logo-hero.png',
 } = Astro.props as Props
 ---
 
@@ -37,7 +39,7 @@ const {
 
 <meta
 	name='keywords'
-	content='astro, html, javascript, js, css, rikirilis, portfolio, angular, rikelvi capellan, republica dominicana, dominican republic, developer, desarrollador web, web developer, blog, rikirilis blog, projects, rikirilis projects, rikelvi capellan projects, ts, typescript, components, anciano, corta, fama, historia, joven, leche, moraleja, relato, riquezas, sueños, vaca, short story'
+	content='fotos, bebés, niños, familia, estudio, profesional, estudio fotográfico, estudio de fotografía, estudio de fotos, estudio de fotografía profesional, estudio de fotos profesional, estudio de fotos para bebés, estudio de fotos para niños, estudio de fotos para familias, estudio de fotos para embarazadas, estudio de fotos para recién nacidos, estudio de fotos para bebés recién nacidos, estudio de fotos para niños recién nacidos, estudio de fotos para familias recién nacidas, estudio de fotos para embarazadas recién nacidas, estudio de fotos para recién nacidos recién nacidos, el chevere, el chevere estudio, el chevere estudio fotográfico, el chevere estudio de fotografía, el chevere estudio de fotos, el chevere estudio de fotografía profesional, el chevere estudio de fotos profesional, el chevere estudio de fotos para bebés, el chevere estudio de fotos para niños, el chevere estudio de fotos para familias, el chevere estudio de fotos para embarazadas, el chevere estudio de fotos para recién nacidos, el chevere estudio de fotos para bebés recién nacidos, el chevere estudio de fotos para niños recién nacidos, el chevere estudio de fotos para familias recién nacidas, el chevere estudio de fotos para embarazadas recién nacidas, el chevere estudio de fotos para recién nacidos recién nacidos'
 />
 
 <meta name='twitter:card' content='summary_large_image' />
@@ -51,9 +53,9 @@ const {
 <meta property='og:title' content={title} />
 <meta property='og:description' content={description} />
 <meta property='og:url' content={Astro.url} />
-<meta property='og:site_name' content='Web | RikiRilis' />
+<meta property='og:site_name' content='Foto Estudio El Chevere | Official Web' />
 <meta property='og:type' content='website' />
-<meta name='og:locale' content='en_EN' />
+<meta name='og:locale' content='es_Es' />
 
 <meta name='robots' content='index, follow' />
 <meta name='googlebot' content='index, follow' />

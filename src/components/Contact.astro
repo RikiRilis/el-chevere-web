@@ -1,12 +1,13 @@
 ---
 import MainTitle from '@/components/MainTitle.astro'
-// import { SendForm } from '@/components/SendForm'
+import { SendForm } from '@/components/SendForm'
 import Chat from '@/icons/Chat.astro'
 import Check from '@/icons/Check.astro'
 import Copy from '@/icons/Copy.astro'
 import { getI18N } from '@/languages/index.ts'
+import { businessEmail, businessInstagram, businessWhatsApp } from '@/libs/consts'
 
-const email: string = 'rikelvicapellan15@gmail.com'
+const email: string = businessEmail
 const { currentLocale } = Astro
 const i18n = getI18N({ currentLocale })
 ---
@@ -20,51 +21,52 @@ const i18n = getI18N({ currentLocale })
 	<div class='mt-4 flex w-full flex-col gap-4 sm:flex-row sm:justify-between'>
 		<div class='flex-1'>
 			<p class='mb-6 text-pretty text-slate-400'>
-				<strong class='text-sky-600'>{i18n.CONTACT_TXT_1}</strong>
+				<strong class='text-accent'>{i18n.CONTACT_TXT_1}</strong>
 				{i18n.CONTACT_TXT_2}
 				<a
 					rel='noopener noreferrer'
-					href='https://instagram.com/rikirilis'
+					href={businessInstagram}
 					target='_blank'
-					class='font-bold text-sky-600 transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
+					class='font-bold text-accent transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
 					>Instagram</a
 				>
 				{i18n.OR}
 				<a
 					rel='noopener noreferrer'
-					href='https://twitter.com/rikirilis_'
+					href={businessWhatsApp}
 					target='_blank'
-					class='font-bold text-sky-600 transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
-					>X</a
+					class='font-bold text-accent transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
+					>WhatsApp</a
 				>.
 			</p>
 
 			<p class='mb-6 text-pretty text-slate-400'>
 				{i18n.CONTACT_TXT_3}
-				<strong class='text-sky-600'>{i18n.CONTACT_TXT_4}</strong>
+				<strong class='text-accent'>{i18n.CONTACT_TXT_4}</strong>
 				{i18n.CONTACT_TXT_5}
 			</p>
 
 			<div
-				class='flex h-fit w-fit flex-row items-center justify-center gap-2 rounded-xl bg-sky-800 bg-opacity-20 px-2 text-sky-600'
+				class='flex h-fit w-fit flex-row items-center justify-center gap-2 rounded-xl bg-sky-800 bg-opacity-20 px-2 text-accent'
 			>
-				<h5 id='email' class='font-bold text-sky-600'>{email}</h5>
+				<h5 id='email' class='font-bold text-accent'>{email}</h5>
 
 				<Copy
 					id='copyEmailIcon'
 					class='inline-block h-5 w-5 cursor-pointer transition-transform hover:scale-105 hover:text-slate-400'
 				/>
 
-				<Check id='copiedEmailIcon' class='hidden h-5 w-5 text-sky-600' />
+				<Check id='copiedEmailIcon' class='hidden h-5 w-5 text-accent' />
 			</div>
 		</div>
 
-		<!-- <SendForm client:visible /> -->
+		<SendForm client:visible currentLocale={currentLocale} />
 	</div>
 </div>
 
 <script>
 	import { getI18N } from '@/languages/index'
+	import { businessEmail } from '@/libs/consts'
 	import { $ } from '@/libs/dom-selector.ts'
 
 	document.addEventListener('astro:page-load', () => {
@@ -79,7 +81,7 @@ const i18n = getI18N({ currentLocale })
 			copiedEmailIcon?.classList.add('inline-block')
 			copiedEmailIcon?.classList.remove('hidden')
 
-			navigator.clipboard.writeText('rikelvicapellan15@gmail.com')
+			navigator.clipboard.writeText(businessEmail)
 
 			window.toast({
 				dismissible: true,

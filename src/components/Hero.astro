@@ -11,10 +11,12 @@ const i18n = getI18N({ currentLocale })
 </div>
 
 <div
-	class='relative z-10 flex h-full w-full items-end justify-center bg-black/30 px-4 py-20 sm:px-6 lg:px-8'
+	class='relative z-10 flex h-full w-full items-end justify-center bg-black/50 px-4 py-20 sm:px-6 lg:px-8'
 >
 	<div class='flex w-full max-w-4xl flex-col gap-4 sm:w-11/12 md:w-8/12'>
-		<h1 class='text-5xl font-bold text-primary sm:text-5xl md:text-6xl'>El Chévere</h1>
+		<a href='https://fotoestudioelchevere.com/' class='mb-4 flex max-w-sm items-center md:max-w-md'>
+			<img src='/public/logo-hero.png' loading='lazy' alt='Foto Estudio El Chévere Hero Logo' />
+		</a>
 		<p class='max-w-4xl text-pretty text-lg font-medium text-slate-400 md:text-xl'>
 			{i18n.HERO_TEXT_1}
 			<br />
@@ -24,14 +26,14 @@ const i18n = getI18N({ currentLocale })
 		<div class='flex max-w-2xl flex-col gap-2 md:flex-row md:items-center md:gap-4'>
 			<a
 				href='/schedule'
-				class='mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-xl border border-transparent bg-sky-600 px-3 py-2 text-lg font-bold text-slate-200 transition active:border-sky-600 active:bg-sky-700 active:text-slate-300 sm:hover:border-sky-600 sm:hover:bg-sky-700 sm:hover:text-slate-300'
+				class='bg-main mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-xl border border-transparent px-3 py-2 text-lg font-bold text-slate-200 transition active:border-blue-600 active:bg-sky-700 active:text-slate-300 sm:hover:border-primary sm:hover:bg-accent sm:hover:text-slate-300'
 			>
 				{i18n.HERO_BUTTON_TEXT_1}
 			</a>
 
 			<a
 				href='/#portfolio'
-				class='sm:hover:border-tranparent mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-xl border border-slate-400 bg-transparent px-3 py-2 text-lg font-bold text-slate-200 transition active:border-transparent active:bg-sky-900 active:text-slate-200 sm:hover:bg-slate-800 sm:hover:text-slate-200'
+				class='sm:hover:border-tranparent mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-xl border border-slate-400 bg-transparent px-3 py-2 text-lg font-bold text-slate-200 transition active:border-transparent active:bg-blue-900 active:text-slate-200 sm:hover:bg-slate-800 sm:hover:text-slate-200'
 			>
 				{i18n.HERO_BUTTON_TEXT_2}
 			</a>

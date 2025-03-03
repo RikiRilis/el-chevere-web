@@ -4,6 +4,7 @@ import Instagram from '@/icons/Instagram.astro'
 import WhatsApp from '@/icons/WhatsApp.astro'
 import X from '@/icons/X.astro'
 import { getI18N } from '@/languages/index.ts'
+import { businessInstagram, businessWhatsApp } from '@/libs/consts'
 
 const { currentLocale } = Astro
 const i18n = getI18N({ currentLocale })
@@ -16,14 +17,26 @@ const i18n = getI18N({ currentLocale })
 		/>
 
 		<div
-			class='flex w-full flex-col-reverse items-center gap-4 md:justify-between lg:flex-row lg:items-center'
+			class='flex w-full flex-col-reverse items-center gap-4 md:justify-between md:gap-2 lg:flex-row lg:items-center'
 		>
+			<a
+				href='https://fotoestudioelchevere.com/'
+				class='order-1 flex max-w-16 items-center justify-center lg:order-none'
+			>
+				<img
+					src='/public/logo-no-name.png'
+					alt='Logo Foto Estudio El Chévere'
+					loading='lazy'
+					decoding='async'
+				/>
+			</a>
+
 			<p class='max-w-md text-pretty text-center text-sm text-slate-400 lg:text-start'>
 				&#169; 2025 Foto Estudio El Chévere. {i18n.FOOTER_TXT_1}
 				<a
 					rel='noopener noreferrer'
 					href='https://rikirilis.xyz'
-					class='font-bold text-sky-600 transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
+					class='font-bold text-accent transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
 					>RikiRilis</a
 				>
 				(Rikelvi Capellán García) {i18n.FOOTER_TXT_2}
@@ -31,13 +44,13 @@ const i18n = getI18N({ currentLocale })
 					rel='noopener noreferrer'
 					href='https://astro.build'
 					target='_blank'
-					class='font-bold text-sky-600 transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
+					class='font-bold text-accent transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
 					>Astro</a
 				>, <a
 					rel='noopener noreferrer'
 					href='https://tailwindcss.com'
 					target='_blank'
-					class='font-bold text-sky-600 transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
+					class='font-bold text-accent transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
 					>Tailwind CSS</a
 				>
 				{i18n.FOOTER_TXT_3}
@@ -45,7 +58,7 @@ const i18n = getI18N({ currentLocale })
 					rel='noopener noreferrer'
 					href='https://vercel.com'
 					target='_blank'
-					class='font-bold text-sky-600 transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
+					class='font-bold text-accent transition-colors active:text-slate-300 active:underline sm:hover:text-slate-300 sm:hover:underline'
 					>Vercel</a
 				>.
 			</p>
@@ -60,20 +73,20 @@ const i18n = getI18N({ currentLocale })
 						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
 					>
 						<GitHub
-							class='size-8 text-slate-400 transition-colors active:text-sky-600 motion-reduce:duration-0 sm:hover:text-sky-600'
+							class='size-8 text-slate-400 transition-colors active:text-accent motion-reduce:duration-0 sm:hover:text-accent'
 						/>
 					</a>
 				</li>
 				<li>
 					<a
 						target='_blank'
-						href='https://instagram.com/fotoestudioelchevere/'
+						href={businessInstagram}
 						rel='noopener noreferrer'
 						aria-label="Rikelvi's Instagram brand logo will open in a new window"
 						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
 					>
 						<Instagram
-							class='size-10 text-slate-400 transition-colors active:text-sky-600 motion-reduce:duration-0 sm:hover:text-sky-600'
+							class='size-10 text-slate-400 transition-colors active:text-accent motion-reduce:duration-0 sm:hover:text-accent'
 						/>
 					</a>
 				</li>
@@ -86,20 +99,20 @@ const i18n = getI18N({ currentLocale })
 						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
 					>
 						<X
-							class='size-8 text-slate-400 transition-colors active:text-sky-600 motion-reduce:duration-0 sm:hover:text-sky-600'
+							class='size-8 text-slate-400 transition-colors active:text-accent motion-reduce:duration-0 sm:hover:text-accent'
 						/>
 					</a>
 				</li>
 				<li>
 					<a
 						target='_blank'
-						href='https://wa.me/18095734173'
+						href={businessWhatsApp}
 						rel='noopener noreferrer'
 						aria-label="Rikelvi's WhatsApp channel brand logo will open in a new window"
 						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
 					>
 						<WhatsApp
-							class='size-9 text-slate-400 transition-colors active:text-sky-600 motion-reduce:duration-0 sm:hover:text-sky-600'
+							class='size-9 text-slate-400 transition-colors active:text-accent motion-reduce:duration-0 sm:hover:text-accent'
 						/>
 					</a>
 				</li>

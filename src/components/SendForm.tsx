@@ -42,10 +42,10 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 					<input
 						required
 						autoComplete='name'
-						className='focus:outline-main h-10 rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1'
+						className='h-10 rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main'
 						type='text'
 						name='user_name'
-						placeholder='Rikelvi Capellán'
+						placeholder='Victor Manuel'
 					/>
 				</label>
 
@@ -54,10 +54,10 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 					<input
 						required
 						autoComplete='email'
-						className='focus:outline-main h-10 rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1'
+						className='h-10 rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main'
 						type='email'
 						name='user_email'
-						placeholder='your@email.com'
+						placeholder='email@email.com'
 					/>
 				</label>
 
@@ -65,7 +65,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 					{i18n.MESSAGE}*
 					<textarea
 						required
-						className='focus:outline-main h-28 rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1'
+						className='h-28 rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main'
 						name='message'
 						placeholder={i18n.MESSAGE_PLACEHOLDER}
 					></textarea>
@@ -74,7 +74,8 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 
 			<button
 				type='submit'
-				className={`mt-4 flex w-full flex-row items-center justify-center gap-2 ${!sending ? 'bg-main cursor-pointer text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:text-main sm:hover:border-main sm:hover:text-main active:border-cyan-600 active:bg-transparent sm:hover:bg-transparent'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
+				{...(!sending ? {} : { disabled: true })}
+				className={`mt-4 flex w-full flex-row items-center justify-center gap-2 ${!sending ? 'cursor-pointer bg-main text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-cyan-600 active:bg-transparent active:text-main sm:hover:border-main sm:hover:bg-transparent sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 			>
 				{!sending ? (
 					<svg

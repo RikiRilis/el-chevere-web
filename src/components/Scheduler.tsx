@@ -68,7 +68,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 				</li>
 			</ul>
 
-			<hr className='h-0.5 w-full border-0 bg-gradient-to-r from-transparent via-sky-800 to-transparent md:inline-block' />
+			<hr className='h-0.5 w-full border-0 bg-gradient-to-r from-transparent via-accent to-transparent md:inline-block' />
 
 			<p className='text-sm font-light italic text-slate-600'>*{i18n.DATES_ADVICE}</p>
 
@@ -84,14 +84,14 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								placeholder='Jane Doe'
 								autoCapitalize='words'
 								autoComplete='name'
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 							/>
 						</label>
 
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.MESSAGE}*
 							<textarea
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 								name='date-message'
 								id='date-message'
 								rows={8}
@@ -109,14 +109,14 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								id='date-email'
 								placeholder='email@email.com'
 								autoComplete='email'
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 							/>
 						</label>
 
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.DATE}*
 							<input
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 								type='date'
 								name='date-date'
 								id='date-date'
@@ -127,7 +127,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.HOUR}*
 							<input
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 								type='time'
 								name='date-time'
 								id='date-time'
@@ -142,7 +142,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								id='date-phone'
 								placeholder='(000) 000-0000'
 								autoComplete='tel'
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 							/>
 						</label>
 					</div>
@@ -150,7 +150,8 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 
 				<button
 					type='submit'
-					className={`mt-4 flex h-fit w-fit flex-row items-center justify-center gap-2 ${!sending ? 'bg-main cursor-pointer text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:text-main sm:hover:border-main sm:hover:text-main active:border-cyan-600 active:bg-transparent sm:hover:bg-transparent'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
+					{...(!sending ? {} : { disabled: true })}
+					className={`mt-4 flex h-fit w-fit flex-row items-center justify-center gap-2 ${!sending ? 'cursor-pointer bg-main text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-cyan-600 active:bg-transparent active:text-main sm:hover:border-main sm:hover:bg-transparent sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 				>
 					{!sending ? (
 						<svg

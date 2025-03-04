@@ -1,4 +1,5 @@
 ---
+import Divider from '@/components/ui/Divider.astro'
 import GitHub from '@/icons/GitHub.astro'
 import Instagram from '@/icons/Instagram.astro'
 import WhatsApp from '@/icons/WhatsApp.astro'
@@ -12,9 +13,7 @@ const i18n = getI18N({ currentLocale })
 
 <footer class='flex w-full items-center justify-center'>
 	<div class='flex w-full max-w-4xl flex-col px-4 py-10 sm:w-11/12 sm:px-6 md:w-8/12 lg:px-8'>
-		<hr
-			class='my-6 h-0.5 w-full border-0 bg-gradient-to-r from-transparent via-sky-800 to-transparent md:inline-block'
-		/>
+		<Divider />
 
 		<div
 			class='flex w-full flex-col-reverse items-center gap-4 md:justify-between md:gap-2 lg:flex-row lg:items-center'

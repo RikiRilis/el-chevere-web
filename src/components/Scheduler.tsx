@@ -73,8 +73,8 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 			<p className='text-sm font-light italic text-slate-600'>*{i18n.DATES_ADVICE}</p>
 
 			<form ref={formRef} onSubmit={handleSubmit} className='mt-6 flex w-full flex-col gap-4'>
-				<div className='flex flex-col gap-4 sm:flex-row sm:gap-8'>
-					<div className='flex flex-col gap-4'>
+				<div className='flex w-full flex-col gap-4 sm:flex-row sm:gap-8'>
+					<div className='flex flex-1 flex-col gap-4'>
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.NAME}*
 							<input
@@ -100,7 +100,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 						</label>
 					</div>
 
-					<div className='flex flex-col gap-4'>
+					<div className='flex flex-1 flex-col gap-4'>
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.EMAIL}*
 							<input

@@ -34,7 +34,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 
 	return (
 		<form ref={formRef} onSubmit={handleSubmit} className='flex-1 pt-6 sm:w-full sm:pt-0'>
-			<span className='text-sm italic text-slate-400'>{i18n.CONTACT_TXT_6}</span>
+			<span className='text-sm font-light italic text-slate-600'>{i18n.CONTACT_TXT_6}</span>
 
 			<div className='mt-2 flex flex-col gap-2'>
 				<label className='mb-1 inline-flex flex-col text-slate-400'>

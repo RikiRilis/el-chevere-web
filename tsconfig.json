@@ -33,14 +33,11 @@
       "@/db": [
         "src/db/*"
       ],
-      "@/lib": [
+      "@/libs": [
         "src/libs/*"
       ],
       "@/hooks": [
         "src/hooks/*"
-      ],
-      "@/functions": [
-        "src/functions/*"
       ]
     }
   }

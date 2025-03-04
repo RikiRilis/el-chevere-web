@@ -1,8 +1,10 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable react/react-in-jsx-scope */
 
 import { useRef, useState } from 'preact/hooks'
 import { getI18N } from '@/languages/index'
-import { businessWhatsApp } from '@/libs/consts'
+import { businessWhatsApp, businessEmail } from '@/libs/consts'
+import { Loading } from '@/icons/Loading'
 
 export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 	const [i18n] = useState(getI18N({ currentLocale }))
@@ -13,7 +15,11 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 		event.preventDefault()
 		if (sending) return
 
-		sendEmail(false)
+		alert('Not implemented yet!')
+		sendEmail(true)
+		setTimeout(() => {
+			sendEmail(false)
+		}, 3000)
 	}
 
 	return (
@@ -26,9 +32,9 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 						viewBox='0 0 24 24'
 						fill='none'
 						stroke='currentColor'
-						strokeWidth='2'
-						strokeLinecap='round'
-						strokeLinejoin='round'
+						stroke-width='2'
+						stroke-linecap='round'
+						stroke-linejoin='round'
 					>
 						<path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
 						<path d='M19.5 7a9 9 0 0 0 -7.5 -4a8.991 8.991 0 0 0 -7.484 4'></path>
@@ -47,6 +53,8 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 				<li>
 					<a
 						href={businessWhatsApp}
+						target='_blank'
+						rel='noreferrer noopener'
 						className='group inline-flex items-center justify-center gap-1 rounded-tr-lg border-transparent bg-green-800 p-2 text-slate-200'
 					>
 						<svg
@@ -55,9 +63,9 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 							viewBox='0 0 24 24'
 							fill='none'
 							stroke='currentColor'
-							strokeWidth='2'
-							strokeLinecap='round'
-							strokeLinejoin='round'
+							stroke-width='2'
+							stroke-linecap='round'
+							stroke-linejoin='round'
 						>
 							<path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
 							<path d='M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9'></path>
@@ -107,8 +115,20 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								type='email'
 								name='date-email'
 								id='date-email'
-								placeholder='email@email.com'
+								placeholder={businessEmail}
 								autoComplete='email'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+							/>
+						</label>
+
+						<label className='inline-flex flex-col text-slate-400'>
+							{i18n.PHONE}*
+							<input
+								type='tel'
+								name='date-phone'
+								id='date-phone'
+								placeholder='(809) 573-4173'
+								autoComplete='tel'
 								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 							/>
 						</label>
@@ -126,24 +146,30 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.HOUR}*
-							<input
+							<select
 								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
-								type='time'
 								name='date-time'
 								id='date-time'
-							/>
-						</label>
-
-						<label className='inline-flex flex-col text-slate-400'>
-							{i18n.PHONE}*
-							<input
-								type='tel'
-								name='date-phone'
-								id='date-phone'
-								placeholder='(000) 000-0000'
-								autoComplete='tel'
-								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
-							/>
+							>
+								<option selected value='8:00 AM'>
+									8:00 AM
+								</option>
+								<option value='8:40 AM'>8:40 AM</option>
+								<option value='9:20 AM'>9:20 AM</option>
+								<option value='10:00 AM'>10:00 AM</option>
+								<option value='10:40 AM'>10:40 AM</option>
+								<option value='11:20 AM'>11:20 AM</option>
+								<option value='12:00 PM'>12:00 PM</option>
+								<option value='12:40 PM'>12:40 PM</option>
+								<option value='1:20 PM'>1:20 PM</option>
+								<option value='2:00 PM'>2:00 PM</option>
+								<option value='2:40 PM'>2:40 PM</option>
+								<option value='3:20 PM'>3:20 PM</option>
+								<option value='4:00 PM'>4:00 PM</option>
+								<option value='4:40 PM'>4:40 PM</option>
+								<option value='5:20 PM'>5:20 PM</option>
+								<option value='6:00 PM'>6:00 PM</option>
+							</select>
 						</label>
 					</div>
 				</div>
@@ -151,65 +177,32 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 				<button
 					type='submit'
 					{...(!sending ? {} : { disabled: true })}
-					className={`mt-4 flex h-fit w-fit flex-row items-center justify-center gap-2 ${!sending ? 'cursor-pointer bg-main text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-cyan-600 active:bg-transparent active:text-main sm:hover:border-main sm:hover:bg-transparent sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
+					className={`mt-4 flex h-fit w-fit flex-row items-center justify-center gap-2 ${!sending ? 'cursor-pointer bg-main text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-accent active:bg-transparent active:text-main sm:hover:border-main sm:hover:bg-transparent sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 				>
 					{!sending ? (
 						<svg
-							className='size-5'
-							width='800px'
-							height='800px'
+							width='24'
+							height='24'
 							viewBox='0 0 24 24'
 							fill='none'
 							stroke='currentColor'
-							strokeWidth='2'
-							strokeLinecap='round'
-							strokeLinejoin='round'
+							stroke-width='2'
+							stroke-linecap='round'
+							stroke-linejoin='round'
+							className='size-5'
 						>
-							<path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
-							<path d='M10 14l11 -11'></path>
-							<path d='M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5'></path>
+							<path stroke='none' d='M0 0h24v24H0z' fill='none' />
+							<path d='M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5' />
+							<path d='M16 3v4' />
+							<path d='M8 3v4' />
+							<path d='M4 11h16' />
+							<path d='M16 19h6' />
+							<path d='M19 16v6' />
 						</svg>
 					) : (
-						<svg className='size-5' width='38' height='38' viewBox='0 0 38 38'>
-							<defs>
-								<linearGradient x1='8.042%' y1='0%' x2='65.682%' y2='23.865%' id='a'>
-									<stop stopColor='currentColor' stopOpacity='0' offset='0%' />
-									<stop stopColor='currentColor' stopOpacity='.631' offset='63.146%' />
-									<stop stopColor='currentColor' offset='100%' />
-								</linearGradient>
-							</defs>
-							<g fill='none' fillRule='evenodd'>
-								<g transform='translate(1 1)'>
-									<path
-										d='M36 18c0-9.94-8.06-18-18-18'
-										id='Oval-2'
-										stroke='url(#a)'
-										strokeWidth='2'
-									>
-										<animateTransform
-											attributeName='transform'
-											type='rotate'
-											from='0 18 18'
-											to='360 18 18'
-											dur='0.9s'
-											repeatCount='indefinite'
-										/>
-									</path>
-									<circle fill='currentColor' cx='36' cy='18' r='1'>
-										<animateTransform
-											attributeName='transform'
-											type='rotate'
-											from='0 18 18'
-											to='360 18 18'
-											dur='0.9s'
-											repeatCount='indefinite'
-										/>
-									</circle>
-								</g>
-							</g>
-						</svg>
+						<Loading classes='size-5' />
 					)}
-					{i18n.SEND}
+					{i18n.SCHEDULE}
 				</button>
 			</form>
 		</>

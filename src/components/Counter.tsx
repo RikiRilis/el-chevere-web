@@ -19,5 +19,5 @@ export const Counter = ({ decimals, initial, final, duration }: Values) => {
 		}
 	}, [])
 
-	return <span>{formatNumber(Number(final))}+</span>
+	return <span>{formatNumber(Number(count))}+</span>
 }

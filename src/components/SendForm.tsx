@@ -2,6 +2,7 @@
 import { getI18N } from '@/languages/index'
 import { useEmailjs } from '@/hooks/useEmailjs'
 import { useRef } from 'preact/hooks'
+import { Loading } from '@/icons/Loading'
 
 export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 	const { sending, sendEmail } = useEmailjs()
@@ -75,7 +76,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 			<button
 				type='submit'
 				{...(!sending ? {} : { disabled: true })}
-				className={`mt-4 flex w-full flex-row items-center justify-center gap-2 ${!sending ? 'cursor-pointer bg-main text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-cyan-600 active:bg-transparent active:text-main sm:hover:border-main sm:hover:bg-transparent sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
+				className={`mt-4 flex w-full flex-row items-center justify-center gap-2 ${!sending ? 'cursor-pointer bg-main text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-accent active:bg-transparent active:text-main sm:hover:border-main sm:hover:bg-transparent sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 			>
 				{!sending ? (
 					<svg
@@ -94,39 +95,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 						<path d='M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5'></path>
 					</svg>
 				) : (
-					<svg className='size-5' width='38' height='38' viewBox='0 0 38 38'>
-						<defs>
-							<linearGradient x1='8.042%' y1='0%' x2='65.682%' y2='23.865%' id='a'>
-								<stop stopColor='currentColor' stopOpacity='0' offset='0%' />
-								<stop stopColor='currentColor' stopOpacity='.631' offset='63.146%' />
-								<stop stopColor='currentColor' offset='100%' />
-							</linearGradient>
-						</defs>
-						<g fill='none' fillRule='evenodd'>
-							<g transform='translate(1 1)'>
-								<path d='M36 18c0-9.94-8.06-18-18-18' id='Oval-2' stroke='url(#a)' strokeWidth='2'>
-									<animateTransform
-										attributeName='transform'
-										type='rotate'
-										from='0 18 18'
-										to='360 18 18'
-										dur='0.9s'
-										repeatCount='indefinite'
-									/>
-								</path>
-								<circle fill='currentColor' cx='36' cy='18' r='1'>
-									<animateTransform
-										attributeName='transform'
-										type='rotate'
-										from='0 18 18'
-										to='360 18 18'
-										dur='0.9s'
-										repeatCount='indefinite'
-									/>
-								</circle>
-							</g>
-						</g>
-					</svg>
+					<Loading classes='size-5' />
 				)}
 				{i18n.SEND}
 			</button>

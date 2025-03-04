@@ -13,13 +13,12 @@ interface Window {
 // 	readonly EMAILJS_TEMPLATE_ID: string
 // }
 
-// interface ImportMeta {
-// 	readonly env: ImportMetaEnv
-// }
+interface ImportMeta {
+	readonly env: ImportMetaEnv
+}
 
 declare global {
 	interface Window {
-		getThemePreference: function
 		toast: function
 	}
 }

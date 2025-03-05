@@ -46,7 +46,10 @@ const { title, description, preload, canonical, image } = Astro.props
 			<slot />
 		</main>
 
-		<SectionContainer id='contact'>
+		<SectionContainer
+			id='contact'
+			class='section relative w-full bg-black/50 px-4 py-20 sm:px-6 lg:px-8'
+		>
 			<Contact />
 		</SectionContainer>
 

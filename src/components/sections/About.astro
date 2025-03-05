@@ -19,9 +19,9 @@ const sections = philosophy(currentLocale)
 		{
 			sections.map(({ title, description, icon }, index) => (
 				<div
-					class={`flex transform flex-col items-center rounded-xl bg-blue-950 p-6 text-center shadow-lg transition-transform hover:scale-105 ${index === 0 ? 'fade-right-anim' : ''} ${index === 1 ? 'fade-up-anim' : ''} ${index === 2 ? 'fade-left-anim' : ''}`}
+					class={`group flex transform flex-col items-center rounded-xl bg-blue-950 p-6 text-center shadow-lg transition-transform hover:scale-105 ${index === 0 ? 'fade-right-anim' : ''} ${index === 1 ? 'fade-up-anim' : ''} ${index === 2 ? 'fade-left-anim' : ''}`}
 				>
-					<span class='text-5xl'>{icon}</span>
+					<span class='text-5xl transition-all group-hover:-rotate-12'>{icon}</span>
 					<h3 class='mt-4 text-2xl font-semibold text-primary'>{title}</h3>
 					<p class='mt-2 text-secondary'>{description}</p>
 				</div>

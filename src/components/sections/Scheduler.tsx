@@ -1,15 +1,22 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/react-in-jsx-scope */
 
-import { useRef, useState } from 'preact/hooks'
+import { useRef, useState, useEffect } from 'preact/hooks'
 import { getI18N } from '@/languages/index'
 import { businessWhatsApp, businessEmail } from '@/libs/consts'
 import { Loading } from '@/icons/Loading'
+import { getSchedule } from '@/services/schedule'
 
 export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 	const [i18n] = useState(getI18N({ currentLocale }))
 	const [sending, sendEmail] = useState(false)
+	const [scheduleOptins, setScheduleOptions] = useState(getSchedule())
 	const formRef = useRef<HTMLFormElement | null>(null)
+
+	useEffect(() => {
+		const options = getSchedule().filter((value) => value.available === true)
+		setScheduleOptions(options)
+	}, [])
 
 	const handleSubmit = (event: preact.JSX.TargetedEvent<HTMLFormElement, Event>) => {
 		event.preventDefault()
@@ -99,14 +106,14 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								placeholder='Jane Doe'
 								autoCapitalize='words'
 								autoComplete='name'
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 							/>
 						</label>
 
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.MESSAGE}*
 							<textarea
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 								name='date-message'
 								id='date-message'
 								rows={8}
@@ -124,7 +131,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								id='date-email'
 								placeholder={businessEmail}
 								autoComplete='email'
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 							/>
 						</label>
 
@@ -136,14 +143,14 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								id='date-phone'
 								placeholder='(809) 573-4173'
 								autoComplete='tel'
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 							/>
 						</label>
 
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.DATE}*
 							<input
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 								type='date'
 								name='date-date'
 								id='date-date'
@@ -154,67 +161,40 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.HOUR}*
 							<select
-								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
+								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
 								name='date-time'
 								id='date-time'
 							>
-								<option className='bg-blue-950' selected value='8:00 AM'>
-									8:00 AM
-								</option>
-								<option className='bg-blue-950' value='8:40 AM'>
-									8:40 AM
-								</option>
-								<option className='bg-blue-950' value='9:20 AM'>
-									9:20 AM
-								</option>
-								<option className='bg-blue-950' value='10:00 AM'>
-									10:00 AM
-								</option>
-								<option className='bg-blue-950' value='10:40 AM'>
-									10:40 AM
-								</option>
-								<option className='bg-blue-950' value='11:20 AM'>
-									11:20 AM
-								</option>
-								<option className='bg-blue-950' value='12:00 PM'>
-									12:00 PM
-								</option>
-								<option className='bg-blue-950' value='12:40 PM'>
-									12:40 PM
-								</option>
-								<option className='bg-blue-950' value='1:20 PM'>
-									1:20 PM
-								</option>
-								<option className='bg-blue-950' value='2:00 PM'>
-									2:00 PM
-								</option>
-								<option className='bg-blue-950' value='2:40 PM'>
-									2:40 PM
-								</option>
-								<option className='bg-blue-950' value='3:20 PM'>
-									3:20 PM
-								</option>
-								<option className='bg-blue-950' value='4:00 PM'>
-									4:00 PM
-								</option>
-								<option className='bg-blue-950' value='4:40 PM'>
-									4:40 PM
-								</option>
-								<option className='bg-blue-950' value='5:20 PM'>
-									5:20 PM
-								</option>
-								<option className='bg-blue-950' value='6:00 PM'>
-									6:00 PM
-								</option>
+								{scheduleOptins.map((option) => (
+									<option key={option.id} className='bg-blue-950' value={option.id}>
+										{option.hour}
+									</option>
+								))}
 							</select>
 						</label>
 					</div>
 				</div>
 
+				<div className='flex flex-row gap-4'>
+					<label className='inline-flex flex-col text-slate-400'>
+						{i18n.DATE}*
+						<input
+							id='default-radio-1'
+							type='radio'
+							value=''
+							name='default-radio'
+							class='h-4 w-4 border-gray-600 bg-gray-700 ring-offset-gray-800 focus:ring-2 focus:ring-blue-600'
+						/>
+						<label for='default-radio-1' class='ms-2 text-sm font-medium text-gray-300'>
+							Default radio
+						</label>
+					</label>
+				</div>
+
 				<button
 					type='submit'
 					{...(!sending ? {} : { disabled: true })}
-					className={`mt-4 flex h-fit w-fit flex-row items-center justify-center gap-2 ${!sending ? 'bg-main cursor-pointer text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:text-main sm:hover:border-main sm:hover:text-main active:border-accent active:bg-transparent sm:hover:bg-transparent'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
+					className={`mt-4 flex h-fit w-fit flex-row items-center justify-center gap-2 ${!sending ? 'cursor-pointer bg-main text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-accent active:bg-transparent active:text-main sm:hover:border-main sm:hover:bg-transparent sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 				>
 					{!sending ? (
 						<svg

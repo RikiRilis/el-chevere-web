@@ -1,1 +1,37 @@
-<div class='overflow-hidden rounded-lg bg-primary/20 shadow-lg'></div>
+---
+interface Props {
+	id: string
+	name: string
+	image: string
+	description: string
+}
+
+const { id, name, image, description } = Astro.props
+---
+
+<a
+	href={`/portfolio/${id}`}
+	class='bg-main/10 group relative overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:scale-95 hover:shadow-xl'
+>
+	<div class='relative'>
+		<h4 class='p-2 text-center font-medium text-primary'>{name}</h4>
+
+		<img
+			loading='lazy'
+			decoding='async'
+			src={image}
+			alt={description}
+			class='h-60 w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-60 md:h-52 md:object-top lg:h-80'
+		/>
+
+		<div
+			class='absolute inset-0 flex h-full items-end justify-center bg-black/0 to-transparent p-2 transition-all group-hover:bg-black/50'
+		>
+			<p
+				class='translate-y-full text-pretty text-primary opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100'
+			>
+				{description}
+			</p>
+		</div>
+	</div>
+</a>

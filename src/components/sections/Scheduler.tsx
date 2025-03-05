@@ -15,7 +15,14 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 		event.preventDefault()
 		if (sending) return
 
-		alert('Not implemented yet!')
+		window.toast({
+			dismissible: true,
+			title: 'Service not implemented yet!',
+			location: 'bottom-center',
+			type: 'error',
+			icon: true,
+		})
+
 		sendEmail(true)
 		setTimeout(() => {
 			sendEmail(false)
@@ -92,14 +99,14 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								placeholder='Jane Doe'
 								autoCapitalize='words'
 								autoComplete='name'
-								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
 							/>
 						</label>
 
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.MESSAGE}*
 							<textarea
-								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
 								name='date-message'
 								id='date-message'
 								rows={8}
@@ -117,7 +124,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								id='date-email'
 								placeholder={businessEmail}
 								autoComplete='email'
-								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
 							/>
 						</label>
 
@@ -129,14 +136,14 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								id='date-phone'
 								placeholder='(809) 573-4173'
 								autoComplete='tel'
-								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
 							/>
 						</label>
 
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.DATE}*
 							<input
-								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
 								type='date'
 								name='date-date'
 								id='date-date'
@@ -147,28 +154,58 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.HOUR}*
 							<select
-								className='rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+								className='focus:outline-main rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1 placeholder:focus:invisible'
 								name='date-time'
 								id='date-time'
 							>
-								<option selected value='8:00 AM'>
+								<option className='bg-blue-950' selected value='8:00 AM'>
 									8:00 AM
 								</option>
-								<option value='8:40 AM'>8:40 AM</option>
-								<option value='9:20 AM'>9:20 AM</option>
-								<option value='10:00 AM'>10:00 AM</option>
-								<option value='10:40 AM'>10:40 AM</option>
-								<option value='11:20 AM'>11:20 AM</option>
-								<option value='12:00 PM'>12:00 PM</option>
-								<option value='12:40 PM'>12:40 PM</option>
-								<option value='1:20 PM'>1:20 PM</option>
-								<option value='2:00 PM'>2:00 PM</option>
-								<option value='2:40 PM'>2:40 PM</option>
-								<option value='3:20 PM'>3:20 PM</option>
-								<option value='4:00 PM'>4:00 PM</option>
-								<option value='4:40 PM'>4:40 PM</option>
-								<option value='5:20 PM'>5:20 PM</option>
-								<option value='6:00 PM'>6:00 PM</option>
+								<option className='bg-blue-950' value='8:40 AM'>
+									8:40 AM
+								</option>
+								<option className='bg-blue-950' value='9:20 AM'>
+									9:20 AM
+								</option>
+								<option className='bg-blue-950' value='10:00 AM'>
+									10:00 AM
+								</option>
+								<option className='bg-blue-950' value='10:40 AM'>
+									10:40 AM
+								</option>
+								<option className='bg-blue-950' value='11:20 AM'>
+									11:20 AM
+								</option>
+								<option className='bg-blue-950' value='12:00 PM'>
+									12:00 PM
+								</option>
+								<option className='bg-blue-950' value='12:40 PM'>
+									12:40 PM
+								</option>
+								<option className='bg-blue-950' value='1:20 PM'>
+									1:20 PM
+								</option>
+								<option className='bg-blue-950' value='2:00 PM'>
+									2:00 PM
+								</option>
+								<option className='bg-blue-950' value='2:40 PM'>
+									2:40 PM
+								</option>
+								<option className='bg-blue-950' value='3:20 PM'>
+									3:20 PM
+								</option>
+								<option className='bg-blue-950' value='4:00 PM'>
+									4:00 PM
+								</option>
+								<option className='bg-blue-950' value='4:40 PM'>
+									4:40 PM
+								</option>
+								<option className='bg-blue-950' value='5:20 PM'>
+									5:20 PM
+								</option>
+								<option className='bg-blue-950' value='6:00 PM'>
+									6:00 PM
+								</option>
 							</select>
 						</label>
 					</div>
@@ -177,7 +214,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 				<button
 					type='submit'
 					{...(!sending ? {} : { disabled: true })}
-					className={`mt-4 flex h-fit w-fit flex-row items-center justify-center gap-2 ${!sending ? 'cursor-pointer bg-main text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-accent active:bg-transparent active:text-main sm:hover:border-main sm:hover:bg-transparent sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
+					className={`mt-4 flex h-fit w-fit flex-row items-center justify-center gap-2 ${!sending ? 'bg-main cursor-pointer text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:text-main sm:hover:border-main sm:hover:text-main active:border-accent active:bg-transparent sm:hover:bg-transparent'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 				>
 					{!sending ? (
 						<svg

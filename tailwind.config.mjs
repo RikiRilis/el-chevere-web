@@ -8,6 +8,7 @@ export default {
 				secondary: '#dfe2e0',
 				accent: '#3b82f6',
 				main: '#1d4ed8',
+				back: '#09122a'
 			},
 			fontFamily: {
 				sans: ['var(--font-inter)'],

@@ -1,8 +1,9 @@
 ---
-import Hero from '@/components/Hero.astro'
-import Portfolio from '@/components/Portfolio.astro'
 import SectionContainer from '@/components/SectionContainer.astro'
-import Statistics from '@/components/Statistics.astro'
+import About from '@/components/sections/About.astro'
+import Hero from '@/components/sections/Hero.astro'
+import Portfolio from '@/components/sections/Portfolio.astro'
+import Statistics from '@/components/sections/Statistics.astro'
 import { getI18N } from '@/languages/index'
 import Layout from '../layouts/Layout.astro'
 
@@ -33,5 +34,9 @@ const i18N = getI18N({ currentLocale })
 
 	<SectionContainer id='portfolio'>
 		<Portfolio />
+	</SectionContainer>
+
+	<SectionContainer id='about'>
+		<About />
 	</SectionContainer>
 </Layout>

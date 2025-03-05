@@ -9,8 +9,8 @@
   "FOOTER_TXT_2": "with",
   "FOOTER_TXT_3": "and more tecnologies, deployed using",
   "CONTACT_TXT_1": "Hey there! 🤗 Thanks for getting here!",
-  "CONTACT_TXT_2": "You can contact me by email by writing and sending your message bellow, but if you want you can contact me by",
-  "CONTACT_TXT_3": "I'm always",
+  "CONTACT_TXT_2": "You can send us an email by writing and sending your message bellow, but if you want you can contact us by",
+  "CONTACT_TXT_3": "We're always",
   "CONTACT_TXT_4": "available",
   "CONTACT_TXT_5": "From Monday to Saturday, between 8:00 AM and 7:00 PM.",
   "CONTACT_TXT_6": "*Contact us directly by email if you prefer.",
@@ -111,5 +111,9 @@
   "WEB_SCHEDULE": "Web schedule",
   "DATES_ADVICE": "Please, fill all the blank spaces so your date can be scheduled.",
   "DATES_MESSAGE_EXAMPLE": "A photo session for my baby on his first month...",
-  "PAGE_DESCRIPTION": "The Photo Studio El Chevere's Website. We take photos of babies, weddings, birthdays, outdoors, portraits, and events. We take your photos to the next level."
+  "PAGE_DESCRIPTION": "The Photo Studio El Chevere's Website. We take photos of babies, weddings, birthdays, outdoors, portraits, and events. We take your photos to the next level.",
+  "WHO_WE_ARE": "Who we are?",
+  "OUR_MISSION": "Our mission",
+  "OUR_VISION": "Our vision",
+  "OUR_VALUES": "Our values"
 }

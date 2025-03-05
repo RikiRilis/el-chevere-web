@@ -9,7 +9,7 @@
   "FOOTER_TXT_3": "y más tecnologías, desplegado usando",
   "TECNOLOGIES": "Tecnologías",
   "CONTACT_TXT_1": "¡Ey! ¿Qué tal? 🤗 ¡Gracias por llegar hasta aquí!",
-  "CONTACT_TXT_2": "Puedes contactarnos por correo escribiendo y enviando tu mensaje aquí debajo, pero, si prefieres, puedes contactarnos por",
+  "CONTACT_TXT_2": "Puedes enviarnos un correo escribiendo y enviando tu mensaje aquí debajo, pero, si prefieres, puedes contactarnos por",
   "CONTACT_TXT_3": "Siempre estamos",
   "CONTACT_TXT_4": "disponibles",
   "CONTACT_TXT_5": "de lunes a sábado, desde las 8:00 AM hasta las 7:00 PM.",
@@ -115,5 +115,9 @@
   "WEB_SCHEDULE": "Cita vía web",
   "DATES_ADVICE": "Favor de llenar cada espacio para que su cita sea agendada.",
   "DATES_MESSAGE_EXAMPLE": "Una sesión de fotos para el primer mes de mi bebé...",
-  "PAGE_DESCRIPTION": "Sitio web del Foto Estudio El Chévere. Tomamos fotos a bebés, eventos, bodas, fotos al exterior, cumpleaños, retratos y demás. Llevamos tus fotos al siguiente nivel."
+  "PAGE_DESCRIPTION": "Sitio web del Foto Estudio El Chévere. Tomamos fotos a bebés, eventos, bodas, fotos al exterior, cumpleaños, retratos y demás. Llevamos tus fotos al siguiente nivel.",
+  "WHO_WE_ARE": "¿Quiénes somos?",
+  "OUR_MISSION": "Nuestra misión",
+  "OUR_VISION": "Nuestra visión",
+  "OUR_VALUES": "Nuestros valores"
 }

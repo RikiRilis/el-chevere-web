@@ -1,10 +1,10 @@
 ---
-import Contact from '@/components/Contact.astro'
-import Footer from '@/components/Footer.astro'
-import Header from '@/components/Header.astro'
 import SectionContainer from '@/components/SectionContainer.astro'
+import Contact from '@/components/sections/Contact.astro'
+import Footer from '@/components/sections/Footer.astro'
 import SEO from '@/components/SEO.astro'
 import GoToTop from '@/components/ui/GoToTop.astro'
+import Header from '@/components/ui/Header.astro'
 import Toast from '@/components/ui/Toast.astro'
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro'
 import type { Preload } from '@/interfaces/preload'
@@ -35,7 +35,7 @@ const { title, description, preload, canonical, image } = Astro.props
 
 		<ClientRouter />
 	</head>
-	<body class='relative overflow-x-hidden bg-blue-900/30'>
+	<body class='relative overflow-x-hidden'>
 		<GoToTop />
 		<WhatsAppButton />
 		<Toast />
@@ -57,7 +57,7 @@ const { title, description, preload, canonical, image } = Astro.props
 <style is:global>
 	html {
 		font-family: 'Onest Variable', 'Ubuntu', system-ui, sans-serif;
-		background-color: #000;
+		background-color: #09122a;
 		scroll-behavior: smooth;
 		scrollbar-gutter: stable;
 	}

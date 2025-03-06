@@ -44,7 +44,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 					<input
 						required
 						autoComplete='name'
-						className='focus:outline-main h-10 rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1'
+						className='focus:outline-main h-10 rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1'
 						type='text'
 						name='user_name'
 						placeholder='Jane Doe'
@@ -56,7 +56,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 					<input
 						required
 						autoComplete='email'
-						className='focus:outline-main h-10 rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1'
+						className='focus:outline-main h-10 rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1'
 						type='email'
 						name='user_email'
 						placeholder={businessEmail}
@@ -67,7 +67,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 					{i18n.MESSAGE}*
 					<textarea
 						required
-						className='focus:outline-main h-28 rounded-lg bg-accent/10 p-2 text-slate-200 outline-none transition-all placeholder:text-slate-500 focus:outline-1'
+						className='focus:outline-main h-28 rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1'
 						name='message'
 						placeholder={i18n.MESSAGE_PLACEHOLDER}
 					></textarea>
@@ -77,7 +77,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 			<button
 				type='submit'
 				{...(!sending ? {} : { disabled: true })}
-				className={`mt-4 flex w-full flex-row items-center justify-center gap-2 ${!sending ? 'bg-main cursor-pointer text-slate-200' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:text-main sm:hover:border-main sm:hover:text-main active:border-accent active:bg-transparent sm:hover:bg-transparent'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
+				className={`mt-4 flex w-full flex-row items-center justify-center gap-2 ${!sending ? 'bg-main cursor-pointer text-primary' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:text-main sm:hover:border-main sm:hover:text-main active:border-accent active:bg-transparent sm:hover:bg-transparent'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 			>
 				{!sending ? (
 					<svg

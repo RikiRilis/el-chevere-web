@@ -1,9 +1,9 @@
 {
-	"name": "Web | RikiRilis",
-	"short_name": "Web | RikiRilis",
-	"theme_color": "#020617",
-	"background_color": "#020617",
-	"display": "fullScreen",
+	"name": "Foto Estudio El Chévere | Official Web",
+	"short_name": "El Chévere",
+	"theme_color": "#3b82f6",
+	"background_color": "#09122a",
+	"display": "browser",
 	"icons": [
 		{
 			"src": "/icons/icon-72x72.png",

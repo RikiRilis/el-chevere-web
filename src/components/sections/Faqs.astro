@@ -1,0 +1,74 @@
+---
+import { getFaqs } from '@/services/faqs'
+import MainTitle from '../MainTitle.astro'
+import ChatQuestion from '@/icons/ChatQuestion.astro'
+import { getI18N } from '@/languages/index'
+import SemiArrow from '@/icons/SemiArrow.astro'
+
+const currentLocale = Astro.currentLocale
+const i18n = getI18N({currentLocale})
+const faqs = getFaqs(currentLocale)
+---
+
+<div id='accordion-collapse' data-accordion='collapse' class='flex w-full max-w-4xl flex-col sm:w-11/12 md:w-8/12'>
+    <MainTitle>
+		<ChatQuestion class='size-8' />
+		{i18n.QUESTIONS}
+	</MainTitle>
+    
+    <div  class="overflow-hidden rounded-xl w-full">
+        {
+            faqs.slice(0, 6).map((faq, index) => (
+                <h2 class="font-bold" id={'accordion-collapse-heading-' + (index + 1)}>
+                    <button
+                        type='button'
+                        class='accordion-btn flex w-full items-center transition-colors justify-between gap-3 p-5 font-medium md:hover:bg-blue-950/20 text-primary rtl:text-right'
+                        data-accordion-target={'#accordion-collapse-body-' + (index + 1)}
+                        aria-expanded='false'
+                        aria-controls={'accordion-collapse-body-' + (index + 1)}
+                    >
+                        <span class="text-left text-base md:text-lg">{faq.question}</span>
+                        <SemiArrow data-accordion-icon class='h-3 w-3 shrink-0 rotate-90 transition-transform' aria-hidden='true' />
+                    </button>
+                </h2>
+        
+                <div id={'accordion-collapse-body-' + (index + 1)} class='h-0 overflow-hidden transition-all' aria-labelledby={'accordion-collapse-heading-' + (index + 1)}>
+                    <div class='p-5 bg-blue-950/10'>
+                        {
+                            faq.answers.map((answer) => (
+                                <p class='mb-2 text-secondary/60'>
+                                    {answer}
+                                </p>
+                            ))
+                        }
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</div>
+
+<script>
+	import { $, $$ } from '@/libs/dom-selector'
+
+	document.addEventListener('astro:page-load', () => {
+		const accordionBtns = $$('.accordion-btn') as NodeListOf<HTMLButtonElement>
+			
+		accordionBtns.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const icon = btn.querySelector('[data-accordion-icon]')
+				const ariaControls = btn.getAttribute('aria-controls')
+				const collapsedBody = $(`#${ariaControls}`)
+
+				if (icon) icon.classList.toggle('rotate-90')
+				if (icon) icon.classList.toggle('rotate-180')
+				if (collapsedBody) {
+                    collapsedBody.classList.toggle('h-0')
+					btn.classList.toggle('text-accent')
+					btn.classList.toggle('text-primary')
+					btn.classList.toggle('bg-blue-950/20')
+				}
+			})
+		})
+	})
+</script>

@@ -1,6 +1,7 @@
 ---
 import SectionContainer from '@/components/SectionContainer.astro'
 import Contact from '@/components/sections/Contact.astro'
+import Faqs from '@/components/sections/Faqs.astro'
 import Footer from '@/components/sections/Footer.astro'
 import SEO from '@/components/SEO.astro'
 import GoToTop from '@/components/ui/GoToTop.astro'
@@ -45,6 +46,10 @@ const { title, description, preload, canonical, image } = Astro.props
 		<main>
 			<slot />
 		</main>
+
+		<SectionContainer id='faqs'>
+			<Faqs />
+		</SectionContainer>
 
 		<SectionContainer
 			id='contact'

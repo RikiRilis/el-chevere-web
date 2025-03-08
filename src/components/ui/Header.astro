@@ -9,14 +9,14 @@ const navItems: NavItem[] = navItemsProvider(currentLocale)
 ---
 
 <header class='fixed z-50 flex w-full justify-center'>
-	<div id='header' class='my-4 flex h-auto w-fit items-center gap-x-2 overflow-hidden rounded-2xl'>
-		<nav class='flex flex-row items-center justify-center text-center font-semibold text-slate-400'>
+	<div id='header' class='my-4 flex h-auto w-fit items-center gap-x-2 overflow-hidden rounded-xl'>
+		<nav class='flex flex-row items-center justify-center text-center font-semibold text-secondary'>
 			{
 				navItems.map((item) => (
 					<a
 						href={item.url}
 						aria-label={item.label}
-						class='inline-block h-full select-none p-2 transition hover:bg-slate-300/10 hover:text-accent'
+						class='inline-block h-full select-none p-2 transition hover:bg-secondary/10'
 					>
 						{item.title}
 					</a>
@@ -35,49 +35,7 @@ const navItems: NavItem[] = navItemsProvider(currentLocale)
 
 	@keyframes bgBlur {
 		to {
-			background-color: rgb(148 163 184 / 0.1);
-			@apply shadow-md backdrop-blur-3xl;
+			@apply bg-main/50 shadow-md backdrop-blur-3xl;
 		}
 	}
 </style>
-
-<script>
-	document.addEventListener('astro:page-load', () => {
-		const sections = document.querySelectorAll('section')
-		const navItems = document.querySelectorAll('header nav a')
-
-		const callback = (entries: any[]) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					navItems.forEach((item) => {
-						if (item.getAttribute('aria-label') == entry.target.id) {
-							item.classList.add('text-accent')
-						} else {
-							item.classList.remove('text-accent')
-						}
-					})
-				}
-			})
-		}
-
-		const observer = new IntersectionObserver(callback, {
-			root: null,
-			rootMargin: '0px',
-			threshold: 0.2,
-		})
-
-		sections.forEach((section) => {
-			observer.observe(section)
-		})
-
-		document.onvisibilitychange = () => {
-			if (document.visibilityState === 'hidden') {
-				observer.disconnect()
-			} else {
-				sections.forEach((section) => {
-					observer.observe(section)
-				})
-			}
-		}
-	})
-</script>

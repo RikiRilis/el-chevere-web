@@ -39,19 +39,19 @@ export const philosophy = (currentLocale: string | undefined): Philosophy[] => {
 		{
 			title: i18n.OUR_MISSION,
 			description:
-				'Empowering individuals and businesses with innovative solutions that drive growth, efficiency, and success.',
+				'Capturar la esencia y la conexión única de cada familia a través de imágenes auténticas y llenas de emoción.',
 			icon: '🚀',
 		},
 		{
 			title: i18n.OUR_VISION,
 			description:
-				'To be the leading force in technological advancements, shaping a better future for the global community.',
+				'Ser el estudio fotográfico de referencia donde las familias crean y preservan sus recuerdos más valiosos.',
 			icon: '🌍',
 		},
 		{
 			title: i18n.OUR_VALUES,
 			description:
-				'Integrity, Innovation, and Excellence—these principles guide our every decision and action.',
+				'Integridad, Innovación, Respeto, Transparencia, Amabilidad, Compañerismo, Calidad, Responsabilidad',
 			icon: '💡',
 		},
 	]

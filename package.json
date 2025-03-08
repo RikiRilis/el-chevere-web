@@ -12,6 +12,7 @@
     "@astrojs/preact": "^4.0.5",
     "@emailjs/browser": "^4.4.1",
     "@fontsource-variable/onest": "^5.1.1",
+    "@supabase/supabase-js": "^2.49.1",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "astro": "^5.1.6",

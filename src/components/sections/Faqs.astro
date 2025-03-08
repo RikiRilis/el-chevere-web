@@ -22,17 +22,17 @@ const faqs = getFaqs(currentLocale)
                 <h2 class="font-bold" id={'accordion-collapse-heading-' + (index + 1)}>
                     <button
                         type='button'
-                        class='accordion-btn flex w-full items-center transition-colors justify-between gap-3 p-5 font-medium md:hover:bg-blue-950/20 text-primary rtl:text-right'
+                        class='accordion-btn flex w-full items-center transition-colors justify-between gap-3 p-5 font-medium md:hover:bg-blue-950/40 text-primary rtl:text-right'
                         data-accordion-target={'#accordion-collapse-body-' + (index + 1)}
                         aria-expanded='false'
                         aria-controls={'accordion-collapse-body-' + (index + 1)}
                     >
                         <span class="text-left text-base md:text-lg">{faq.question}</span>
-                        <SemiArrow data-accordion-icon class='h-3 w-3 shrink-0 rotate-90 transition-transform' aria-hidden='true' />
+                        <SemiArrow data-accordion-icon class='accordion-icon h-3 w-3 shrink-0 rotate-90 transition-transform' aria-hidden='true' />
                     </button>
                 </h2>
         
-                <div id={'accordion-collapse-body-' + (index + 1)} class='h-0 overflow-hidden transition-all' aria-labelledby={'accordion-collapse-heading-' + (index + 1)}>
+                <div id={'accordion-collapse-body-' + (index + 1)} class='accordion-question h-0 overflow-hidden transition-all' aria-labelledby={'accordion-collapse-heading-' + (index + 1)}>
                     <div class='p-5 bg-blue-950/10'>
                         {
                             faq.answers.map((answer) => (
@@ -53,6 +53,7 @@ const faqs = getFaqs(currentLocale)
 
 	document.addEventListener('astro:page-load', () => {
 		const accordionBtns = $$('.accordion-btn') as NodeListOf<HTMLButtonElement>
+		const accordionQuestion = $$('.accordion-question') as NodeListOf<HTMLDivElement>
 			
 		accordionBtns.forEach((btn) => {
 			btn.addEventListener('click', () => {
@@ -60,14 +61,25 @@ const faqs = getFaqs(currentLocale)
 				const ariaControls = btn.getAttribute('aria-controls')
 				const collapsedBody = $(`#${ariaControls}`)
 
-				if (icon) icon.classList.toggle('rotate-90')
-				if (icon) icon.classList.toggle('rotate-180')
-				if (collapsedBody) {
-                    collapsedBody.classList.toggle('h-0')
+                accordionQuestion.forEach((q) => {
+                    if (!q.classList.contains('h-0')) q.classList.add('h-0')
+                })
+
+                accordionBtns.forEach((aBtn) => {
+                    const aBtnIcon = aBtn.querySelector('.accordion-icon')
+
+                    if (aBtn.classList.contains('text-accent')) aBtn.classList.replace('text-accent', 'text-primary')
+                    if (aBtn.classList.contains('bg-blue-950/40')) aBtn.classList.remove('bg-blue-950/40')
+                    if (aBtnIcon?.classList.contains('rotate-180')) aBtnIcon.classList.replace('rotate-180', 'rotate-90')
+                })
+
+                    icon?.classList.toggle('rotate-90')
+                    icon?.classList.toggle('rotate-180')
+
+                    collapsedBody?.classList.toggle('h-0')
 					btn.classList.toggle('text-accent')
 					btn.classList.toggle('text-primary')
-					btn.classList.toggle('bg-blue-950/20')
-				}
+					btn.classList.toggle('bg-blue-950/40')	
 			})
 		})
 	})

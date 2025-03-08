@@ -1,51 +1,61 @@
 ---
+import ChatQuestion from '@/icons/ChatQuestion.astro'
+import SemiArrow from '@/icons/SemiArrow.astro'
+import { getI18N } from '@/languages/index'
 import { getFaqs } from '@/services/faqs'
 import MainTitle from '../MainTitle.astro'
-import ChatQuestion from '@/icons/ChatQuestion.astro'
-import { getI18N } from '@/languages/index'
-import SemiArrow from '@/icons/SemiArrow.astro'
 
 const currentLocale = Astro.currentLocale
-const i18n = getI18N({currentLocale})
+const i18n = getI18N({ currentLocale })
 const faqs = getFaqs(currentLocale)
 ---
 
-<div id='accordion-collapse' data-accordion='collapse' class='flex w-full max-w-4xl flex-col sm:w-11/12 md:w-8/12'>
-    <MainTitle>
+<div
+	id='accordion-collapse'
+	data-accordion='collapse'
+	class='flex w-full max-w-4xl flex-col sm:w-11/12 md:w-8/12'
+>
+	<MainTitle>
 		<ChatQuestion class='size-8' />
 		{i18n.QUESTIONS}
 	</MainTitle>
-    
-    <div  class="overflow-hidden rounded-xl w-full">
-        {
-            faqs.slice(0, 6).map((faq, index) => (
-                <h2 class="font-bold" id={'accordion-collapse-heading-' + (index + 1)}>
-                    <button
-                        type='button'
-                        class='accordion-btn flex w-full items-center transition-colors justify-between gap-3 p-5 font-medium md:hover:bg-blue-950/40 text-primary rtl:text-right'
-                        data-accordion-target={'#accordion-collapse-body-' + (index + 1)}
-                        aria-expanded='false'
-                        aria-controls={'accordion-collapse-body-' + (index + 1)}
-                    >
-                        <span class="text-left text-base md:text-lg">{faq.question}</span>
-                        <SemiArrow data-accordion-icon class='accordion-icon h-3 w-3 shrink-0 rotate-90 transition-transform' aria-hidden='true' />
-                    </button>
-                </h2>
-        
-                <div id={'accordion-collapse-body-' + (index + 1)} class='accordion-question h-0 overflow-hidden transition-all' aria-labelledby={'accordion-collapse-heading-' + (index + 1)}>
-                    <div class='p-5 bg-blue-950/10'>
-                        {
-                            faq.answers.map((answer) => (
-                                <p class='mb-2 text-secondary/60'>
-                                    {answer}
-                                </p>
-                            ))
-                        }
-                    </div>
-                </div>
-            ))
-        }
-    </div>
+
+	<div class='flex w-full flex-col gap-4 overflow-hidden'>
+		{
+			faqs.slice(0, 6).map((faq, index) => (
+				<div class='overflow-hidden rounded-lg'>
+					<h2 class='font-bold' id={`accordion-collapse-heading-${index + 1}`}>
+						<button
+							type='button'
+							class='accordion-btn flex w-full items-center justify-between gap-3 bg-blue-950/50 p-5 font-medium text-primary transition-colors rtl:text-right'
+							data-accordion-target={`#accordion-collapse-body-${index + 1}`}
+							aria-expanded='false'
+							aria-controls={`accordion-collapse-body-${index + 1}`}
+						>
+							<span class='text-left text-base md:text-lg'>{faq.question}</span>
+							<SemiArrow
+								data-accordion-icon
+								class='accordion-icon h-3 w-3 shrink-0 rotate-90 transition-transform'
+								aria-hidden='true'
+							/>
+						</button>
+					</h2>
+
+					<div
+						id={`accordion-collapse-body-${index + 1}`}
+						class='accordion-question h-0 overflow-hidden transition-all'
+						aria-labelledby={`accordion-collapse-heading-${index + 1}`}
+					>
+						<div class='bg-blue-950/20 p-5'>
+							{faq.answers.map((answer) => (
+								<p class='mb-2 text-secondary/60'>{answer}</p>
+							))}
+						</div>
+					</div>
+				</div>
+			))
+		}
+	</div>
 </div>
 
 <script>
@@ -54,32 +64,32 @@ const faqs = getFaqs(currentLocale)
 	document.addEventListener('astro:page-load', () => {
 		const accordionBtns = $$('.accordion-btn') as NodeListOf<HTMLButtonElement>
 		const accordionQuestion = $$('.accordion-question') as NodeListOf<HTMLDivElement>
-			
+
 		accordionBtns.forEach((btn) => {
 			btn.addEventListener('click', () => {
 				const icon = btn.querySelector('[data-accordion-icon]')
 				const ariaControls = btn.getAttribute('aria-controls')
 				const collapsedBody = $(`#${ariaControls}`)
 
-                accordionQuestion.forEach((q) => {
-                    if (!q.classList.contains('h-0')) q.classList.add('h-0')
-                })
+				accordionQuestion.forEach((q) => {
+					if (!q.classList.contains('h-0')) q.classList.add('h-0')
+				})
 
-                accordionBtns.forEach((aBtn) => {
-                    const aBtnIcon = aBtn.querySelector('.accordion-icon')
+				accordionBtns.forEach((aBtn) => {
+					const aBtnIcon = aBtn.querySelector('.accordion-icon')
 
-                    if (aBtn.classList.contains('text-accent')) aBtn.classList.replace('text-accent', 'text-primary')
-                    if (aBtn.classList.contains('bg-blue-950/40')) aBtn.classList.remove('bg-blue-950/40')
-                    if (aBtnIcon?.classList.contains('rotate-180')) aBtnIcon.classList.replace('rotate-180', 'rotate-90')
-                })
+					if (aBtn.classList.contains('text-accent'))
+						aBtn.classList.replace('text-accent', 'text-primary')
+					if (aBtnIcon?.classList.contains('rotate-180'))
+						aBtnIcon.classList.replace('rotate-180', 'rotate-90')
+				})
 
-                    icon?.classList.toggle('rotate-90')
-                    icon?.classList.toggle('rotate-180')
+				icon?.classList.toggle('rotate-90')
+				icon?.classList.toggle('rotate-180')
 
-                    collapsedBody?.classList.toggle('h-0')
-					btn.classList.toggle('text-accent')
-					btn.classList.toggle('text-primary')
-					btn.classList.toggle('bg-blue-950/40')	
+				collapsedBody?.classList.toggle('h-0')
+				btn.classList.toggle('text-accent')
+				btn.classList.toggle('text-primary')
 			})
 		})
 	})

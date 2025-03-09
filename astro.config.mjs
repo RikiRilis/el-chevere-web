@@ -46,7 +46,7 @@ export default defineConfig({
       }),
       EMAILJS_TEMPLATE_ID: envField.string({
         context: 'server',
-        access: 'public'
+        access: 'secret'
       })
     }
   }

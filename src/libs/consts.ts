@@ -1,6 +1,10 @@
 import type { NavItem } from '@/interfaces/navItems'
 import { getI18N } from '@/languages/index.ts'
 import type { Philosophy } from '../interfaces/philosophy'
+import Home from '@/icons/Home.astro'
+import Date from '@/icons/Date.astro'
+import PhotoLibrary from '@/icons/PhotoLibrary.astro'
+import Chat from '@/icons/Chat.astro'
 
 export const navItemsProvider = (currentLocale: string | undefined): NavItem[] => {
 	const i18n = getI18N({ currentLocale })
@@ -9,21 +13,25 @@ export const navItemsProvider = (currentLocale: string | undefined): NavItem[] =
 			title: i18n.HOME,
 			label: 'home',
 			url: '/',
+			icon: Home,
 		},
 		{
 			title: i18n.DATES,
 			label: 'dates',
 			url: '/schedule',
+			icon: Date,
 		},
 		{
 			title: i18n.PORTFOLIO,
 			label: 'portfolio',
 			url: '/#portfolio',
+			icon: PhotoLibrary,
 		},
 		{
 			title: i18n.CONTACT,
 			label: 'contact',
 			url: '#contact',
+			icon: Chat,
 		},
 	]
 }

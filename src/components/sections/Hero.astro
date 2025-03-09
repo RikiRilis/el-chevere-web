@@ -11,13 +11,13 @@ const i18n = getI18N({ currentLocale })
 </div>
 
 <div
-	class='relative z-10 flex h-full w-full items-end justify-center bg-black/50 px-4 py-20 sm:px-6 lg:px-8'
+	class='relative z-10 flex h-full w-full items-end justify-center bg-black/50 px-4 py-20 pt-28 sm:px-6 lg:px-8'
 >
-	<div class='flex w-full max-w-4xl flex-col gap-4 sm:w-11/12 md:w-8/12'>
+	<div class='flex w-full max-w-4xl flex-col gap-4 md:w-11/12 lg:w-8/12'>
 		<a href='https://fotoestudioelchevere.com/' class='mb-4 flex max-w-sm items-center md:max-w-md'>
 			<img src='/logo-hero.png' loading='lazy' alt='Foto Estudio El Chévere Hero Logo' />
 		</a>
-		<p class='max-w-4xl text-pretty text-lg font-medium text-slate-400 md:text-xl'>
+		<p class='max-w-4xl text-pretty text-lg font-medium text-secondary md:text-xl'>
 			{i18n.HERO_TEXT_1}
 			<br />
 			{i18n.HERO_TEXT_2}
@@ -26,14 +26,14 @@ const i18n = getI18N({ currentLocale })
 		<div class='flex max-w-2xl flex-col gap-2 md:flex-row md:items-center md:gap-4'>
 			<a
 				href='/schedule'
-				class='bg-main mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-xl border border-transparent px-3 py-2 text-lg font-bold text-primary transition active:border-blue-600 active:bg-sky-700 active:text-secondary sm:hover:border-primary sm:hover:bg-accent sm:hover:text-secondary'
+				class='mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-xl border border-transparent bg-main px-3 py-2 text-lg font-bold text-primary transition active:border-blue-600 active:bg-sky-700 active:text-secondary sm:hover:border-primary sm:hover:bg-accent sm:hover:text-secondary'
 			>
 				{i18n.HERO_BUTTON_TEXT_1}
 			</a>
 
 			<a
 				href='/#portfolio'
-				class='sm:hover:border-tranparent mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-xl border border-slate-400 bg-transparent px-3 py-2 text-lg font-bold text-primary transition active:border-transparent active:bg-blue-900 active:text-primary sm:hover:bg-blue-950 sm:hover:text-primary'
+				class='sm:hover:border-tranparent mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 rounded-xl border border-secondary bg-transparent px-3 py-2 text-lg font-bold text-primary transition active:border-transparent active:bg-blue-900 active:text-primary sm:hover:bg-blue-950 sm:hover:text-primary'
 			>
 				{i18n.HERO_BUTTON_TEXT_2}
 			</a>

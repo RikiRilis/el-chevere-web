@@ -30,11 +30,13 @@ const getObjectPosition = (index: number) => {
 	canonical={`https://fotoestudioelchevere.com/portfolio/${id}`}
 >
 	<SectionContainer>
-		<div class='flex w-full max-w-5xl flex-col sm:w-11/12 md:w-8/12'>
+		<div class='flex w-full max-w-5xl flex-col md:w-11/12 lg:w-8/12'>
 			<MainTitle>
-				<UpArrow
-					class='back-button size-12 -rotate-90 cursor-pointer rounded-full p-2 transition md:hover:bg-primary/10'
-				/>
+				<div>
+					<UpArrow
+						class='back-button size-12 -rotate-90 cursor-pointer rounded-full border border-transparent p-2 transition hover:border-secondary/10 hover:bg-secondary/5'
+					/>
+				</div>
 
 				{category?.name}
 			</MainTitle>

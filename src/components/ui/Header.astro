@@ -9,15 +9,21 @@ const navItems: NavItem[] = navItemsProvider(currentLocale)
 ---
 
 <header class='fixed z-50 flex w-full justify-center'>
-	<div id='header' class='my-4 flex h-auto w-fit items-center gap-x-2 overflow-hidden rounded-xl'>
-		<nav class='flex flex-row items-center justify-center text-center font-semibold text-secondary'>
+	<div
+		id='header'
+		class='flex h-auto w-full items-center justify-center overflow-hidden border border-transparent py-6 transition-transform'
+	>
+		<nav
+			class='flex flex-row items-center justify-center gap-2 text-center font-semibold text-secondary md:gap-4'
+		>
 			{
 				navItems.map((item) => (
 					<a
 						href={item.url}
 						aria-label={item.label}
-						class='inline-block h-full select-none p-2 transition hover:bg-secondary/10'
+						class='inline-flex h-full select-none items-center justify-center gap-2 rounded-3xl border border-transparent p-2 text-center transition-colors hover:bg-secondary/5 md:p-4 md:hover:border-secondary/10'
 					>
+						<item.icon class='hidden size-6 md:block' />
 						{item.title}
 					</a>
 				))
@@ -35,7 +41,7 @@ const navItems: NavItem[] = navItemsProvider(currentLocale)
 
 	@keyframes bgBlur {
 		to {
-			@apply bg-main/50 shadow-md backdrop-blur-3xl;
+			@apply border-b-main/30 bg-black/30 py-4 shadow-xl shadow-main/5 backdrop-blur-lg;
 		}
 	}
 </style>

@@ -10,13 +10,13 @@ const i18n = getI18N({ currentLocale })
 const categories = getCategories(currentLocale)
 ---
 
-<div class='flex w-full max-w-4xl flex-col sm:w-11/12 md:w-8/12'>
+<div class='flex w-full max-w-4xl flex-col md:w-11/12 lg:w-8/12'>
 	<MainTitle>
 		<PhotoLibrary class='size-8' />
 		{i18n.PORTFOLIO}
 	</MainTitle>
 
-	<div class='mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-2 lg:gap-6'>
+	<div class='mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-2 lg:gap-4'>
 		{
 			categories.map((category) => (
 				<CatCard

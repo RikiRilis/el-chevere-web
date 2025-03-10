@@ -12,7 +12,7 @@ interface Props {
 const currentLocale = Astro.currentLocale
 const i18n = getI18N({ currentLocale })
 const {
-	title = 'Foto Estudio El Chévere | Official Web',
+	title = 'Foto Estudio El Chévere - Official Web',
 	description = i18n.PAGE_DESCRIPTION,
 	preload,
 	canonical = 'https://fotoestudioelchevere.com/',
@@ -53,7 +53,7 @@ const {
 <meta property='og:title' content={title} />
 <meta property='og:description' content={description} />
 <meta property='og:url' content={Astro.url} />
-<meta property='og:site_name' content='Foto Estudio El Chevere | Official Web' />
+<meta property='og:site_name' content='Foto Estudio El Chevere - Official Web' />
 <meta property='og:type' content='website' />
 <meta name='og:locale' content='es_Es' />
 

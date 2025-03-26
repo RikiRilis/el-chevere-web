@@ -5,6 +5,10 @@ import Home from '@/icons/Home.astro'
 import Date from '@/icons/Date.astro'
 import PhotoLibrary from '@/icons/PhotoLibrary.astro'
 import Chat from '@/icons/Chat.astro'
+import type { FooterLink } from '../interfaces/footerLink'
+import GitHub from '@/icons/GitHub.astro'
+import Instagram from '@/icons/Instagram.astro'
+import WhatsApp from '@/icons/WhatsApp.astro'
 
 export const navItemsProvider = (currentLocale: string | undefined): NavItem[] => {
 	const i18n = getI18N({ currentLocale })
@@ -61,6 +65,27 @@ export const philosophy = (currentLocale: string | undefined): Philosophy[] => {
 			description:
 				'Integridad, Innovación, Respeto, Transparencia, Amabilidad, Compañerismo, Calidad, Responsabilidad',
 			icon: '💡',
+		},
+	]
+}
+
+export const footerLinks = (): FooterLink[] => {
+	return [
+		{
+			description: "Foto Estudio El Chévere's GitHub brand logo will open in a new window",
+			href: 'https://github.com/RikiRilis/el-chevere-web',
+			icon: GitHub,
+		},
+		{
+			description: "Foto Estudio El Chévere's Instagram brand logo will open in a new window",
+			href: businessInstagram,
+			icon: Instagram,
+		},
+		{
+			description:
+				"Foto Estudio El Chévere's WhatsApp channel brand logo will open in a new window",
+			href: businessWhatsApp,
+			icon: WhatsApp,
 		},
 	]
 }

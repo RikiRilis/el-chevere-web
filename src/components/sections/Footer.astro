@@ -1,14 +1,12 @@
 ---
 import Divider from '@/components/ui/Divider.astro'
-import GitHub from '@/icons/GitHub.astro'
-import Instagram from '@/icons/Instagram.astro'
-import WhatsApp from '@/icons/WhatsApp.astro'
-import X from '@/icons/X.astro'
+import type { FooterLink } from '@/interfaces/footerLink'
 import { getI18N } from '@/languages/index.ts'
-import { businessInstagram, businessWhatsApp } from '@/libs/consts'
+import { footerLinks } from '@/libs/consts'
 
 const { currentLocale } = Astro
 const i18n = getI18N({ currentLocale })
+const links: FooterLink[] = footerLinks()
 ---
 
 <footer class='flex w-full items-center justify-center bg-black'>
@@ -64,57 +62,45 @@ const i18n = getI18N({ currentLocale })
 			</p>
 
 			<ul class='flex flex-row items-center gap-x-6'>
+				{
+					links.map((link) => (
+						<li>
+							<a
+								target='_blank'
+								href={link.href}
+								rel='noopener noreferrer'
+								aria-label={link.description}
+								class='inline-block size-8 text-secondary transition-colors hover:scale-125 active:text-accent motion-safe:transition motion-reduce:hover:scale-100 sm:hover:text-accent'
+							>
+								<link.icon class='size-full motion-reduce:duration-0' />
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+
+		<Divider />
+
+		<div class='w-full'>
+			<ul class='flex w-full flex-row items-center justify-center gap-x-2'>
 				<li>
 					<a
-						target='_blank'
-						href='https://github.com/RikiRilis/el-chevere-web'
+						href='https://fotoestudioelchevere.com/privacy/'
 						rel='noopener noreferrer'
-						aria-label="Rikelvi's GitHub brand logo will open in a new window"
-						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
+						target='_blank'
+						class='text-sm text-secondary/50 transition-colors hover:text-secondary'
+						>{i18n.PRIVACY}</a
 					>
-						<GitHub
-							class='size-8 text-slate-400 transition-colors active:text-accent motion-reduce:duration-0 sm:hover:text-accent'
-						/>
-					</a>
 				</li>
+				<li class='text-sm text-secondary/50'>|</li>
 				<li>
 					<a
-						target='_blank'
-						href={businessInstagram}
+						href='https://fotoestudioelchevere.com/terms/'
 						rel='noopener noreferrer'
-						aria-label="Rikelvi's Instagram brand logo will open in a new window"
-						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
-					>
-						<Instagram
-							class='size-10 text-slate-400 transition-colors active:text-accent motion-reduce:duration-0 sm:hover:text-accent'
-						/>
-					</a>
-				</li>
-				<li>
-					<a
 						target='_blank'
-						href='https://twitter.com/rikirilis_'
-						rel='noopener noreferrer'
-						aria-label="Rikelvi's X brand logo will open in a new window"
-						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
+						class='text-sm text-secondary/50 transition-colors hover:text-secondary'>{i18n.TERMS}</a
 					>
-						<X
-							class='size-8 text-slate-400 transition-colors active:text-accent motion-reduce:duration-0 sm:hover:text-accent'
-						/>
-					</a>
-				</li>
-				<li>
-					<a
-						target='_blank'
-						href={businessWhatsApp}
-						rel='noopener noreferrer'
-						aria-label="Rikelvi's WhatsApp channel brand logo will open in a new window"
-						class='inline-block hover:scale-125 motion-safe:transition motion-reduce:hover:scale-100'
-					>
-						<WhatsApp
-							class='size-9 text-slate-400 transition-colors active:text-accent motion-reduce:duration-0 sm:hover:text-accent'
-						/>
-					</a>
 				</li>
 			</ul>
 		</div>

@@ -14,7 +14,7 @@ export default {
 				sans: ['var(--font-inter)'],
 			},
 			backgroundImage: {
-				'parallax-1': "url('/statics/parallax-1.avif')",
+				'parallax-1': "url('/statics/parallax-1.webp')",
 			},
 		},
 	},

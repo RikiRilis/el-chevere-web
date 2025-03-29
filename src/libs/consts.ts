@@ -72,9 +72,10 @@ export const philosophy = (currentLocale: string | undefined): Philosophy[] => {
 export const footerLinks = (): FooterLink[] => {
 	return [
 		{
-			description: "Foto Estudio El Chévere's GitHub brand logo will open in a new window",
-			href: 'https://github.com/RikiRilis/el-chevere-web',
-			icon: GitHub,
+			description:
+				"Foto Estudio El Chévere's WhatsApp channel brand logo will open in a new window",
+			href: businessWhatsApp,
+			icon: WhatsApp,
 		},
 		{
 			description: "Foto Estudio El Chévere's Instagram brand logo will open in a new window",
@@ -82,10 +83,9 @@ export const footerLinks = (): FooterLink[] => {
 			icon: Instagram,
 		},
 		{
-			description:
-				"Foto Estudio El Chévere's WhatsApp channel brand logo will open in a new window",
-			href: businessWhatsApp,
-			icon: WhatsApp,
+			description: "Foto Estudio El Chévere's GitHub brand logo will open in a new window",
+			href: 'https://github.com/RikiRilis/el-chevere-web',
+			icon: GitHub,
 		},
 	]
 }

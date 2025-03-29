@@ -199,8 +199,8 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 							<select
 								required
 								className='rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
-								name='schedule-type'
-								id='schedule-type'
+								name='date-mode'
+								id='date-mode'
 							>
 								<option className='bg-blue-950' value='time'>
 									{i18n.SHEDULE_TYPE_TIME}
@@ -219,13 +219,13 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 				<div className='mt-4 flex items-center gap-2'>
 					<input
 						required
-						id='schedule-agree'
-						name='schedule-agree'
+						id='date-agree'
+						name='date-agree'
 						type='checkbox'
 						value=''
 						className='h-4 w-4 cursor-pointer rounded-md border-gray-600 bg-gray-700 ring-offset-gray-800'
 					/>
-					<label for='schedule-agree' className='text-sm font-medium text-primary'>
+					<label for='date-agree' className='text-sm font-medium text-primary'>
 						*{i18n.SCHEDULE_AGREE_TEXT_1}{' '}
 						<a
 							href='/terms'
@@ -248,32 +248,35 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 				<button
 					type='submit'
 					{...(!sending ? {} : { disabled: true })}
-					className={`flex h-fit w-fit flex-row items-center justify-center gap-2 ${!sending ? 'cursor-pointer bg-main text-primary' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-accent active:bg-transparent active:text-main sm:hover:border-main sm:hover:bg-transparent sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
+					className={`group relative flex h-fit w-fit flex-row items-center justify-center gap-2 overflow-hidden ${!sending ? 'cursor-pointer text-primary' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-accent active:text-main sm:hover:border-main sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 				>
-					{!sending ? (
-						<svg
-							width='24'
-							height='24'
-							viewBox='0 0 24 24'
-							fill='none'
-							stroke='currentColor'
-							stroke-width='2'
-							stroke-linecap='round'
-							stroke-linejoin='round'
-							className='size-5'
-						>
-							<path stroke='none' d='M0 0h24v24H0z' fill='none' />
-							<path d='M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5' />
-							<path d='M16 3v4' />
-							<path d='M8 3v4' />
-							<path d='M4 11h16' />
-							<path d='M16 19h6' />
-							<path d='M19 16v6' />
-						</svg>
-					) : (
-						<Loading classes='size-5' />
-					)}
-					{i18n.SCHEDULE}
+					<span className='absolute left-0 h-full w-full -skew-x-3 bg-main transition-all duration-300 ease-in-out group-active:w-0 sm:group-hover:w-0'></span>
+					<span className='relative'>
+						{!sending ? (
+							<svg
+								width='24'
+								height='24'
+								viewBox='0 0 24 24'
+								fill='none'
+								stroke='currentColor'
+								stroke-width='2'
+								stroke-linecap='round'
+								stroke-linejoin='round'
+								className='size-5'
+							>
+								<path stroke='none' d='M0 0h24v24H0z' fill='none' />
+								<path d='M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5' />
+								<path d='M16 3v4' />
+								<path d='M8 3v4' />
+								<path d='M4 11h16' />
+								<path d='M16 19h6' />
+								<path d='M19 16v6' />
+							</svg>
+						) : (
+							<Loading classes='size-5' />
+						)}
+					</span>
+					<span className='relative'>{i18n.SCHEDULE}</span>
 				</button>
 			</form>
 		</>

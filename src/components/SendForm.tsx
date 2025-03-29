@@ -44,7 +44,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 					<input
 						required
 						autoComplete='name'
-						className='focus:outline-main h-10 rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1'
+						className='h-10 rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main'
 						type='text'
 						name='user_name'
 						placeholder='Jane Doe'
@@ -56,7 +56,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 					<input
 						required
 						autoComplete='email'
-						className='focus:outline-main h-10 rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1'
+						className='h-10 rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main'
 						type='email'
 						name='user_email'
 						placeholder={businessEmail}
@@ -67,7 +67,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 					{i18n.MESSAGE}*
 					<textarea
 						required
-						className='focus:outline-main h-28 rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1'
+						className='h-28 rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main'
 						name='message'
 						placeholder={i18n.MESSAGE_PLACEHOLDER}
 					></textarea>
@@ -77,28 +77,32 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 			<button
 				type='submit'
 				{...(!sending ? {} : { disabled: true })}
-				className={`mt-4 flex w-full flex-row items-center justify-center gap-2 ${!sending ? 'bg-main cursor-pointer text-primary' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:text-main sm:hover:border-main sm:hover:text-main active:border-accent active:bg-transparent sm:hover:bg-transparent'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
+				className={`group relative mt-4 flex w-full flex-row items-center justify-center gap-2 overflow-hidden ${!sending ? 'cursor-pointer text-primary' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-accent active:bg-transparent active:text-main sm:hover:border-main sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 			>
-				{!sending ? (
-					<svg
-						className='size-5'
-						width='800px'
-						height='800px'
-						viewBox='0 0 24 24'
-						fill='none'
-						stroke='currentColor'
-						strokeWidth='2'
-						strokeLinecap='round'
-						strokeLinejoin='round'
-					>
-						<path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
-						<path d='M10 14l11 -11'></path>
-						<path d='M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5'></path>
-					</svg>
-				) : (
-					<Loading classes='size-5' />
-				)}
-				{i18n.SEND}
+				<span className='absolute left-0 h-full w-full -skew-x-3 bg-main transition-all duration-300 ease-in-out group-active:w-0 sm:group-hover:w-0'></span>
+
+				<span className='relative'>
+					{!sending ? (
+						<svg
+							className='size-5'
+							width='800px'
+							height='800px'
+							viewBox='0 0 24 24'
+							fill='none'
+							stroke='currentColor'
+							strokeWidth='2'
+							strokeLinecap='round'
+							strokeLinejoin='round'
+						>
+							<path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
+							<path d='M10 14l11 -11'></path>
+							<path d='M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5'></path>
+						</svg>
+					) : (
+						<Loading classes='size-5' />
+					)}
+				</span>
+				<span className='relative'>{i18n.SEND}</span>
 			</button>
 		</form>
 	)

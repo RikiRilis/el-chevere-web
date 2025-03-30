@@ -3,10 +3,9 @@ import { Counter } from '@/components/Counter'
 import Adjustments from '@/icons/Adjustments.astro'
 import Calendar from '@/icons/Calendar.astro'
 import UsersGroup from '@/icons/UsersGroup.astro'
+import { currentYear, photoStyles, satisfiedCustomers, yearsSince } from '@/libs/consts'
 
-const satisfiedCustomers = 3500
-const photoStyles = 10
-const years = 12
+const years = currentYear - yearsSince
 ---
 
 <div class='flex w-full max-w-4xl flex-col md:w-11/12 lg:w-8/12'>

@@ -2,7 +2,7 @@ import type { NavItem } from '@/interfaces/navItems'
 import { getI18N } from '@/languages/index.ts'
 import type { Philosophy } from '../interfaces/philosophy'
 import Home from '@/icons/Home.astro'
-import Date from '@/icons/Date.astro'
+import DateIcon from '@/icons/Date.astro'
 import PhotoLibrary from '@/icons/PhotoLibrary.astro'
 import Chat from '@/icons/Chat.astro'
 import type { FooterLink } from '../interfaces/footerLink'
@@ -23,7 +23,7 @@ export const navItemsProvider = (currentLocale: string | undefined): NavItem[] =
 			title: i18n.DATES,
 			label: 'dates',
 			url: '/schedule',
-			icon: Date,
+			icon: DateIcon,
 		},
 		{
 			title: i18n.PORTFOLIO,
@@ -89,3 +89,8 @@ export const footerLinks = (): FooterLink[] => {
 		},
 	]
 }
+
+export const currentYear = new Date().getFullYear()
+export const yearsSince = 1978
+export const satisfiedCustomers = 3500
+export const photoStyles = 10

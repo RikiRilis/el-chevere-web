@@ -6,10 +6,11 @@ import { getI18N } from '@/languages/index'
 import { businessWhatsApp, businessEmail } from '@/libs/consts'
 import { Loading } from '@/icons/Loading'
 import { getSchedule } from '@/services/schedule'
+import { useScheduler } from '@/hooks/useScheduler'
 
 export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 	const [i18n] = useState(getI18N({ currentLocale }))
-	const [sending, sendEmail] = useState(false)
+	const { sending, sendSchedule } = useScheduler()
 	const [scheduleOptins, setScheduleOptions] = useState(getSchedule())
 	const formRef = useRef<HTMLFormElement | null>(null)
 
@@ -22,7 +23,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 		event.preventDefault()
 
 		const { elements } = event.currentTarget
-		const termsCheckbox = elements.namedItem('schedule-agree') as HTMLInputElement
+		const termsCheckbox = elements.namedItem('date-agree') as HTMLInputElement
 		if (!termsCheckbox.checked) {
 			window.toast({
 				dismissible: true,
@@ -37,18 +38,31 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 
 		if (sending) return
 
-		window.toast({
-			dismissible: true,
-			title: 'Service not implemented yet!',
-			location: 'bottom-center',
-			type: 'error',
-			icon: true,
-		})
+		const dateName = elements.namedItem('date-name') as HTMLInputElement
+		const dateEmail = elements.namedItem('date-email') as HTMLInputElement
+		const dateMessage = elements.namedItem('date-message') as HTMLInputElement
+		const datePhone = elements.namedItem('date-phone') as HTMLInputElement
+		const dateDate = elements.namedItem('date-date') as HTMLInputElement
+		const dateTime = elements.namedItem('date-time') as HTMLInputElement
+		const dateMode = elements.namedItem('date-mode') as HTMLInputElement
 
-		sendEmail(true)
-		setTimeout(() => {
-			sendEmail(false)
-		}, 3000)
+		sendSchedule(
+			{
+				name: dateName.value,
+				phone: datePhone.value,
+				email: dateEmail.value,
+				date: dateDate.value,
+				time: dateTime.value,
+				message: dateMessage.value,
+				mode: dateMode.value,
+			},
+			currentLocale,
+			() => {
+				if (formRef.current) {
+					formRef.current.reset()
+				}
+			}
+		)
 	}
 
 	return (
@@ -250,7 +264,10 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 					{...(!sending ? {} : { disabled: true })}
 					className={`group relative flex h-fit w-fit flex-row items-center justify-center gap-2 overflow-hidden ${!sending ? 'cursor-pointer text-primary' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-accent active:text-main sm:hover:border-main sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 				>
-					<span className='absolute left-0 h-full w-full -skew-x-3 bg-main transition-all duration-300 ease-in-out group-active:w-0 sm:group-hover:w-0'></span>
+					<span
+						className={`absolute left-0 h-full w-full -skew-x-3 bg-main transition-all duration-300 ease-in-out group-active:w-0 sm:group-hover:w-0 ${sending ? 'hidden' : ''}`}
+					></span>
+
 					<span className='relative'>
 						{!sending ? (
 							<svg
@@ -276,7 +293,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 							<Loading classes='size-5' />
 						)}
 					</span>
-					<span className='relative'>{i18n.SCHEDULE}</span>
+					<span className='relative'>{`${!sending ? i18n.SCHEDULE : i18n.SENDING}`}</span>
 				</button>
 			</form>
 		</>

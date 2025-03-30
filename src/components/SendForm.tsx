@@ -79,7 +79,9 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 				{...(!sending ? {} : { disabled: true })}
 				className={`group relative mt-4 flex w-full flex-row items-center justify-center gap-2 overflow-hidden ${!sending ? 'cursor-pointer text-primary' : 'cursor-not-allowed bg-blue-900 text-slate-400'} ${sending ? '' : 'active:border-accent active:bg-transparent active:text-main sm:hover:border-main sm:hover:text-main'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
 			>
-				<span className='absolute left-0 h-full w-full -skew-x-3 bg-main transition-all duration-300 ease-in-out group-active:w-0 sm:group-hover:w-0'></span>
+				<span
+					className={`absolute left-0 h-full w-full -skew-x-3 bg-main transition-all duration-300 ease-in-out group-active:w-0 sm:group-hover:w-0 ${sending ? 'hidden' : ''}`}
+				></span>
 
 				<span className='relative'>
 					{!sending ? (
@@ -102,7 +104,7 @@ export const SendForm = ({ currentLocale }: { currentLocale?: string }) => {
 						<Loading classes='size-5' />
 					)}
 				</span>
-				<span className='relative'>{i18n.SEND}</span>
+				<span className='relative'>{`${!sending ? i18n.SEND : i18n.SENDING}`}</span>
 			</button>
 		</form>
 	)

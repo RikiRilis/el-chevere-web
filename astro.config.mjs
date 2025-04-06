@@ -3,7 +3,9 @@ import { defineConfig, envField } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import preact from '@astrojs/preact';
 import vercel from '@astrojs/vercel';
+import * as dotenv from 'dotenv'
 
+dotenv.config()
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,28 +28,13 @@ export default defineConfig({
       enabled: false,
   },
   adapter: vercel(),
-  env: {
-    schema: {
-      SUPABASE_URL: envField.string({
-        context: 'server',
-        access: 'secret'
-      }),
-      SUPABASE_ANON_KEY: envField.string({
-        context: 'server',
-        access: 'secret'
-      }),
-      EMAILJS_KEY: envField.string({
-        context: 'server',
-        access: 'secret'
-      }),
-      EMAILJS_SERVICE_ID: envField.string({
-        context: 'server',
-        access: 'secret'
-      }),
-      EMAILJS_TEMPLATE_ID: envField.string({
-        context: 'server',
-        access: 'secret'
-      })
-    }
-  }
+  vite: {
+		define: {
+			'import.meta.env.EMAILJS_KEY': JSON.stringify(process.env.EMAILJS_KEY),
+			'import.meta.env.EMAILJS_SERVICE_ID': JSON.stringify(process.env.EMAILJS_SERVICE_ID),
+			'import.meta.env.EMAILJS_TEMPLATE_ID': JSON.stringify(process.env.EMAILJS_TEMPLATE_ID),
+			'import.meta.env.SUPABASE_URL': JSON.stringify(process.env.SUPABASE_URL),
+			'import.meta.env.SUPABASE_ANON_KEY': JSON.stringify(process.env.SUPABASE_ANON_KEY),
+		},
+	},
 });

@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from 'preact/hooks'
 import { getI18N } from '@/languages/index'
 import { businessWhatsApp, businessEmail } from '@/libs/consts'
 import { Loading } from '@/icons/Loading'
-import { getSchedule } from '@/services/schedule'
+import { getSchedule } from '@/services/schedules'
 import { useScheduler } from '@/hooks/useScheduler'
 
 export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
@@ -48,6 +48,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 
 		sendSchedule(
 			{
+				uuid: `${dateDate.value}-${dateTime.value}`,
 				name: dateName.value,
 				phone: datePhone.value,
 				email: dateEmail.value,

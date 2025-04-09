@@ -4,17 +4,57 @@ import About from '@/components/sections/About.astro'
 import Hero from '@/components/sections/Hero.astro'
 import Portfolio from '@/components/sections/Portfolio.astro'
 import Statistics from '@/components/sections/Statistics.astro'
+import type { Preload } from '@/interfaces/preload'
 import { getI18N } from '@/languages/index'
 import Layout from '../layouts/Layout.astro'
 
 const currentLocale = Astro.currentLocale
 const i18N = getI18N({ currentLocale })
+
+const preload: Preload[] = [
+	{
+		href: 'https://www.fotoestudioelchevere.com/logo-hero.png',
+		as: 'image',
+		type: 'image/png',
+	},
+	{
+		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-babies.avif',
+		as: 'image',
+		type: 'image/avif',
+	},
+	{
+		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-weddings.avif',
+		as: 'image',
+		type: 'image/avif',
+	},
+	{
+		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-portraits.avif',
+		as: 'image',
+		type: 'image/avif',
+	},
+	{
+		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-events.avif',
+		as: 'image',
+		type: 'image/avif',
+	},
+	{
+		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-birthdays.avif',
+		as: 'image',
+		type: 'image/avif',
+	},
+	{
+		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-outdoors.avif',
+		as: 'image',
+		type: 'image/avif',
+	},
+]
 ---
 
 <Layout
 	title='Foto Estudio El Chévere - Official Web'
 	description={i18N.PAGE_DESCRIPTION}
 	canonical='https://fotoestudioelchevere.com/'
+	preload={preload}
 >
 	<section id='home' class='section relative h-full w-full overflow-hidden'>
 		<div class='flex h-full w-full flex-col items-center justify-center'>

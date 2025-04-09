@@ -19,7 +19,8 @@ const { id, name, image, description } = Astro.props
 		<img
 			loading='lazy'
 			decoding='async'
-			src={image}
+			src={`https://www.fotoestudioelchevere.com${image}`}
+			srcset={`https://www.fotoestudioelchevere.com${image}`}
 			alt={description}
 			class='h-60 w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-64 md:object-top lg:h-80'
 		/>

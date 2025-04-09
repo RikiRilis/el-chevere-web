@@ -1,0 +1,15 @@
+---
+import SectionContainer from '@/components/SectionContainer.astro'
+import { DashboardDataTable } from '@/components/sections/DashboardDataTable'
+import Layout from '@/layouts/Layout.astro'
+---
+
+<Layout
+	title='Admin Dashboard - Foto Estudio El Chévere - Official Web'
+	description='Admin Dashboard'
+	canonical='https://fotoestudioelchevere.com/admin/dashboard'
+>
+	<SectionContainer>
+		<DashboardDataTable client:visible />
+	</SectionContainer>
+</Layout>

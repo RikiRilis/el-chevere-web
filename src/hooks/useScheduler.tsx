@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Date } from '@/interfaces/date'
 import { getI18N } from '@/languages/index'
 import { useState } from 'preact/hooks'
 
@@ -26,7 +27,7 @@ export function useScheduler() {
 	const [error, setError] = useState(false)
 
 	const sendSchedule = async (
-		scheduleData: any,
+		scheduleData: Date,
 		currentLocale: string | undefined = 'es',
 		callback: () => void
 	) => {
@@ -41,12 +42,42 @@ export function useScheduler() {
 			}
 
 			const scheduleTime: string = scheduleData.time
+			const scheduleDate: string = scheduleData.date
 			const date: string | undefined = posibleDatesTime.find((time) => time === scheduleTime)
 
 			if (scheduleTime !== date || !date) {
 				throw new Error('Invalid time')
 			}
 
+			// Check if the date is already taken
+			const res = await fetch('/api/get-dates', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					column: 'time',
+					value: scheduleTime,
+					column2: 'date',
+					value2: scheduleDate,
+				}),
+			})
+
+			const { data, error }: { data: Date[]; error: any } = await res.json()
+			console.log(data)
+			if (error) {
+				console.error('Error fetching dates:', error)
+			}
+
+			if (data && data.length >= 2) {
+				data.forEach((item: Date) => {
+					if (!item.done && item.time === scheduleTime && item.date === scheduleDate) {
+						throw new Error('Time already taken')
+					}
+				})
+			}
+
+			// Insert the date into the database
 			const response = await fetch('/api/insert-dates', {
 				method: 'POST',
 				headers: {

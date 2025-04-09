@@ -1,5 +1,6 @@
 export interface Date {
 	id?: string
+	uuid: string
 	name: string
 	phone: string
 	email: string
@@ -7,4 +8,5 @@ export interface Date {
 	time: string
 	message: string
 	mode: string
+	done?: boolean
 }

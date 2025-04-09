@@ -46,12 +46,14 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 		const dateTime = elements.namedItem('date-time') as HTMLInputElement
 		const dateMode = elements.namedItem('date-mode') as HTMLInputElement
 
+		const uid = `${dateDate.value.toLowerCase()}-${dateTime.value.toLowerCase()}-${dateEmail.value.toLowerCase()}`
+
 		sendSchedule(
 			{
-				uuid: `${dateDate.value}-${dateTime.value}`,
+				uuid: uid,
 				name: dateName.value,
 				phone: datePhone.value,
-				email: dateEmail.value,
+				email: dateEmail.value.toLowerCase(),
 				date: dateDate.value,
 				time: dateTime.value,
 				message: dateMessage.value,

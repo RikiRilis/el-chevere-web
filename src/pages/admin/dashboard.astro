@@ -2,6 +2,8 @@
 import SectionContainer from '@/components/SectionContainer.astro'
 import { DashboardDataTable } from '@/components/sections/DashboardDataTable'
 import Layout from '@/layouts/Layout.astro'
+
+const { currentLocale } = Astro
 ---
 
 <Layout
@@ -10,6 +12,6 @@ import Layout from '@/layouts/Layout.astro'
 	canonical='https://fotoestudioelchevere.com/admin/dashboard'
 >
 	<SectionContainer>
-		<DashboardDataTable client:visible />
+		<DashboardDataTable client:visible currentLocale={currentLocale} />
 	</SectionContainer>
 </Layout>

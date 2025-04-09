@@ -7,8 +7,18 @@ import { useCallback, useState } from 'preact/hooks'
 import debounce from 'just-debounce-it'
 import { useDashboardTableDates } from '@/hooks/useDashboardTableDates'
 import { useSearch } from '@/hooks/useSearch'
+import { DashboardDataRows } from '@/components/DashboardDataRows'
+import { getI18N } from '@/languages/index'
+import { SortAscending } from '@/icons/SortAscending'
 
-export const DashboardDataTable = ({ numberOfDates }: { numberOfDates: number }) => {
+export const DashboardDataTable = ({
+	numberOfDates,
+	currentLocale,
+}: {
+	numberOfDates: number
+	currentLocale?: string
+}) => {
+	const i18n = getI18N({ currentLocale })
 	const [isOpen, setIsOpen] = useState(false)
 	const [isViewOpen, setIsViewOpen] = useState(false)
 	const [nameSort, setNameSort] = useState(false)
@@ -16,15 +26,23 @@ export const DashboardDataTable = ({ numberOfDates }: { numberOfDates: number })
 	const [timeSort, setTimeSort] = useState(false)
 	const [statusSort, setStatusSort] = useState(false)
 	const { search, setSearch } = useSearch()
-	const { dates, datesShowing, setDatesShowing, loading, searching, setSearching, length } =
-		useDashboardTableDates({
-			numberOfDates,
-			nameSort,
-			dateSort,
-			timeSort,
-			statusSort,
-			search,
-		})
+	const {
+		dates,
+		datesShowing,
+		setDatesShowing,
+		loading,
+		searching,
+		setSearching,
+		length,
+		convertMode,
+	} = useDashboardTableDates({
+		numberOfDates,
+		nameSort,
+		dateSort,
+		timeSort,
+		statusSort,
+		search,
+	})
 
 	const debouncedGetDates = useCallback(
 		debounce((newSarch: string | null) => {
@@ -68,12 +86,6 @@ export const DashboardDataTable = ({ numberOfDates }: { numberOfDates: number })
 		setStatusSort((prev) => !prev)
 	}
 
-	const handleActionToggle = () => {
-		setIsOpen((prev) => !prev)
-
-		if (isViewOpen) setIsViewOpen(false)
-	}
-
 	const handleViewToggle = () => {
 		setIsViewOpen((prev) => !prev)
 
@@ -84,71 +96,31 @@ export const DashboardDataTable = ({ numberOfDates }: { numberOfDates: number })
 		<div className='flex w-full max-w-4xl flex-col md:w-11/12 lg:w-8/12'>
 			<h2 className='mb-8 flex items-center gap-x-3 text-3xl font-semibold text-primary sm:text-4xl'>
 				<Dashboard classes='size-8' />
-				Dashboard
+				{i18n.DASHBOARD}
 			</h2>
 
 			<div className='mb-4 flex w-full items-center justify-between'>
 				<div>
 					<button
-						onClick={handleActionToggle}
-						className='inline-flex items-center rounded-lg border border-gray-600 bg-blue-950/20 px-3 py-1.5 text-sm font-medium text-secondary transition-colors hover:border-gray-600 hover:bg-secondary/20 focus:outline-none'
-						type='button'
-					>
-						Sort by
-						<SemiArrow classes='ms-2.5 rotate-180 size-2.5' />
-					</button>
-
-					<button
 						onClick={handleViewToggle}
-						className='relative ms-2.5 inline-flex items-center rounded-lg border border-gray-600 bg-blue-950/20 px-3 py-1.5 text-sm font-medium text-secondary transition-colors hover:border-gray-600 hover:bg-secondary/20 focus:outline-none'
+						className='relative inline-flex items-center rounded-lg border border-gray-600 bg-blue-950/20 px-3 py-1.5 text-sm font-medium text-secondary transition-colors hover:border-gray-600 hover:bg-secondary/20 focus:outline-none'
 						type='button'
 					>
-						View
+						{i18n.VIEW}
 						<SemiArrow classes='ms-2.5 rotate-180 size-2.5' />
 					</button>
-
-					<div
-						className={`absolute ${isOpen ? '' : 'hidden'} z-10 mt-2 w-44 overflow-hidden rounded-lg bg-accent/10 shadow-sm backdrop-blur-xl`}
-					>
-						<ul className='text-sm text-gray-200'>
-							<li
-								onClick={handleNameSort}
-								className='block cursor-pointer px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'
-							>
-								Name
-							</li>
-							<li
-								onClick={handleDateSort}
-								className='block cursor-pointer px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'
-							>
-								Date
-							</li>
-							<li
-								onClick={handleTimeSort}
-								className='block cursor-pointer px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'
-							>
-								Time
-							</li>
-							<li
-								onClick={handleStatusSort}
-								className='block cursor-pointer px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'
-							>
-								Status
-							</li>
-						</ul>
-					</div>
 
 					<div
 						className={`absolute ${isViewOpen ? '' : 'hidden'} z-10 mt-2 w-44 overflow-hidden rounded-lg bg-accent/10 shadow-sm backdrop-blur-xl`}
 					>
 						<ul className='text-sm text-gray-200'>
-							<li className='block cursor-pointer px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'>
+							<li className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'>
 								All dates
 							</li>
-							<li className='block cursor-pointer px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'>
+							<li className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'>
 								Today&apos;s dates
 							</li>
-							<li className='block cursor-pointer px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'>
+							<li className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'>
 								Tomorrow&apos;s dates
 							</li>
 						</ul>
@@ -170,57 +142,85 @@ export const DashboardDataTable = ({ numberOfDates }: { numberOfDates: number })
 				</label>
 			</div>
 
-			<table className='w-full overflow-hidden rounded-lg text-left text-sm text-primary'>
-				<thead className='bg-blue-950/60 text-xs uppercase text-primary'>
-					<tr>
-						<th scope='col' className='p-4'>
-							#
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							Name
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							Phone
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							Date
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							Time
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							Status
-						</th>
-					</tr>
-				</thead>
-				<tbody className='bg-blue-950/20'>
-					{dates.map((row, idx) => (
-						<tr
-							key={idx}
-							className={`cursor-pointer transition-colors sm:hover:bg-blue-950/30 ${idx % 2 === 0 ? '' : 'bg-blue-950/10'}`}
-						>
-							<td className='px-6 py-4'>{idx + 1}</td>
-							<td className='px-6 py-4'>{row.name}</td>
-							<td className='px-6 py-4'>{row.phone}</td>
-							<td className='px-6 py-4'>{row.date}</td>
-							<td className='px-6 py-4'>{row.time}</td>
-							<td className='px-6 py-4'>
-								{row.done ? (
-									<div className='flex flex-row items-center gap-2'>
-										<span className='h-2.5 w-2.5 rounded-full bg-green-500'></span>
-										<span>Done</span>
-									</div>
-								) : (
-									<div className='flex flex-row items-center gap-2'>
-										<span className='h-2.5 w-2.5 rounded-full bg-orange-500'></span>
-										<span>Pending</span>
-									</div>
-								)}
-							</td>
+			{dates.length > 0 ? (
+				<table className='w-full overflow-hidden rounded-lg text-left text-sm text-primary'>
+					<thead className='bg-blue-950/60 text-xs uppercase text-primary'>
+						<tr>
+							<th scope='col' className='select-none p-4'>
+								#
+							</th>
+							<th
+								scope='col'
+								className={`select-none items-center px-6 py-4 transition-colors ${nameSort ? 'text-accent' : ''}`}
+							>
+								<span onClick={handleNameSort} className='inline-flex cursor-pointer gap-1'>
+									{i18n.NAME}
+									<SortAscending
+										classes={`size-4 transition ${nameSort ? 'opacity-100' : 'opacity-0'}`}
+									/>
+								</span>
+							</th>
+							<th scope='col' className='select-none px-6 py-4'>
+								{i18n.PHONE}
+							</th>
+							<th
+								scope='col'
+								className={`select-none items-center px-6 py-4 transition-colors ${dateSort ? 'text-accent' : ''}`}
+							>
+								<span onClick={handleDateSort} className='inline-flex cursor-pointer gap-1'>
+									{i18n.DATE}
+									<SortAscending
+										classes={`size-4 transition ${dateSort ? 'opacity-100' : 'opacity-0'}`}
+									/>
+								</span>
+							</th>
+							<th
+								scope='col'
+								className={`select-none items-center px-6 py-4 transition-colors ${timeSort ? 'text-accent' : ''}`}
+							>
+								<span onClick={handleTimeSort} className='inline-flex cursor-pointer gap-1'>
+									{i18n.TIME}
+									<SortAscending
+										classes={`size-4 transition ${timeSort ? 'opacity-100' : 'opacity-0'}`}
+									/>
+								</span>
+							</th>
+							<th scope='col' className='select-none px-6 py-4'>
+								{i18n.MODE}
+							</th>
+							<th
+								scope='col'
+								className={`select-none items-center px-6 py-4 transition-colors ${statusSort ? 'text-accent' : ''}`}
+							>
+								<span onClick={handleStatusSort} className='inline-flex cursor-pointer gap-1'>
+									{i18n.STATUS}
+									<SortAscending
+										classes={`size-4 transition ${statusSort ? 'opacity-100' : 'opacity-0'}`}
+									/>
+								</span>
+							</th>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody className='bg-blue-950/20'>
+						{dates.map((row, idx) => (
+							<DashboardDataRows
+								key={idx}
+								idx={idx}
+								name={row.name}
+								date={row.date}
+								time={`${row.time.split('-')[0]}:${row.time.split('-')[1]} ${row.time.split('-')[2].toUpperCase()}`}
+								done={row.done}
+								mode={convertMode(row.mode)}
+								phone={row.phone}
+							/>
+						))}
+					</tbody>
+				</table>
+			) : (
+				<span className='pointer-events-none w-full select-none px-6 py-4 text-center text-slate-600'>
+					{i18n.NO_DATES_TO_SHOW}
+				</span>
+			)}
 		</div>
 	)
 }

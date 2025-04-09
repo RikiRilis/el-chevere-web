@@ -2,6 +2,7 @@
 import type { Date } from '@/interfaces/date'
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { getI18N } from '@/languages/index'
 
 interface DashboardTableDatesProps {
 	numberOfDates: number
@@ -60,14 +61,30 @@ export function useDashboardTableDates({
 		const { setValue } = useLocalStorage('date_order_sort')
 		setValue(statusSort)
 
-		if (statusSort) datesCopy.sort((a, b) => a.name.localeCompare(b.name))
-		else datesCopy.sort((a, b) => b.name.localeCompare(a.name))
+		if (nameSort) datesCopy.sort((a, b) => a.name.localeCompare(b.name))
 
-		if (nameSort) datesCopy.sort((a, b) => b.name.localeCompare(a.name))
-		if (timeSort) datesCopy.sort((a, b) => b.time.localeCompare(b.time))
+		// if (timeSort) datesCopy.sort((a, b) => a.time.localeCompare(b.time))
+
+		// if (statusSort) datesCopy.sort((a, b) => a.done?.localeCompare(b.done))
+		// else datesCopy.sort((a, b) => b.name.localeCompare(a.name))
 
 		return datesCopy
 	}, [nameSort, dateSort, timeSort, dates, search])
+
+	const convertMode = (mode: string, currentLocale: string = 'es') => {
+		const i18n = getI18N({ currentLocale })
+
+		switch (mode) {
+			case 'time':
+				return i18n.SHEDULE_TYPE_TIME
+			case 'digital':
+				return i18n.SHEDULE_TYPE_DIGITAL
+			case 'both':
+				return i18n.SHEDULE_TYPE_BOTH
+			default:
+				return mode
+		}
+	}
 
 	return {
 		dates: sortOrderDates,
@@ -77,5 +94,6 @@ export function useDashboardTableDates({
 		searching,
 		setSearching,
 		length,
+		convertMode,
 	}
 }

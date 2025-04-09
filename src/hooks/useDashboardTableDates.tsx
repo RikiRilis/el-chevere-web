@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Date } from '@/interfaces/date'
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
@@ -10,75 +11,6 @@ interface DashboardTableDatesProps {
 	statusSort: boolean
 	search?: string | null
 }
-
-const initialData: Date[] = [
-	{
-		name: 'John Doe',
-		phone: '123-456-7890',
-		email: 'john@example.com',
-		date: '2025-04-08',
-		time: '10:00 AM',
-		message: 'Hello!',
-		done: false,
-		uuid: '',
-		mode: '',
-	},
-	{
-		name: 'Jane Smith',
-		phone: '987-654-3210',
-		email: 'jane@example.com',
-		date: '2025-04-08',
-		time: '11:00 AM',
-		message: 'Hi there!',
-		done: true,
-		uuid: '',
-		mode: '',
-	},
-	{
-		name: 'John Doe',
-		phone: '123-456-7890',
-		email: 'john@example.com',
-		date: '2025-04-08',
-		time: '10:00 AM',
-		message: 'Hello!',
-		done: false,
-		uuid: '',
-		mode: '',
-	},
-	{
-		name: 'Jane Smith',
-		phone: '987-654-3210',
-		email: 'jane@example.com',
-		date: '2025-04-08',
-		time: '11:00 AM',
-		message: 'Hi there!',
-		done: true,
-		uuid: '',
-		mode: '',
-	},
-	{
-		name: 'John Doe',
-		phone: '123-456-7890',
-		email: 'john@example.com',
-		date: '2025-04-08',
-		time: '10:00 AM',
-		message: 'Hello!',
-		done: false,
-		uuid: '',
-		mode: '',
-	},
-	{
-		name: 'Jane Smith',
-		phone: '987-654-3210',
-		email: 'jane@example.com',
-		date: '2025-04-08',
-		time: '11:00 AM',
-		message: 'Hi there!',
-		done: true,
-		uuid: '',
-		mode: '',
-	},
-]
 
 export function useDashboardTableDates({
 	numberOfDates,
@@ -95,25 +27,31 @@ export function useDashboardTableDates({
 	const [searching, setSearching] = useState(false)
 
 	useEffect(() => {
-		// getTableLength('dates').then((res) => {
-		// 	if (res) setLength(res)
-		// })
+		setLoading(true)
 
-		setLength(initialData.length)
+		const fetchData = async () => {
+			const res = await fetch('/api/get-all-dates', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
 
-		// getRooms(datesShowing, search).then((res) => {
-		// 	if (res && res.length > 0) {
-		// 		setDates(res)
-		// 	} else {
-		// 		setDates([])
-		// 	}
+			const { data, error }: { data: Date[]; error: any } = await res.json()
 
-		// 	setLoading(false)
-		// })
+			if (error) {
+				console.error('Error fetching dates:', error)
+			}
 
-		if (search)
-			setDates(initialData.filter((date) => date.name.toLowerCase().includes(search.toLowerCase())))
-		else setDates(initialData)
+			setLength(data.length)
+			if (search) {
+				setDates(data.filter((date) => date.name.toLowerCase().includes(search.toLowerCase())))
+			} else {
+				setDates(data)
+			}
+		}
+
+		fetchData()
 		setLoading(false)
 	}, [datesShowing, search])
 

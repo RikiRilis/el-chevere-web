@@ -12,6 +12,6 @@ const { currentLocale } = Astro
 	canonical='https://fotoestudioelchevere.com/admin/dashboard'
 >
 	<SectionContainer>
-		<DashboardDataTable client:visible currentLocale={currentLocale} />
+		<DashboardDataTable client:visible numberOfDates={8} currentLocale={currentLocale} />
 	</SectionContainer>
 </Layout>

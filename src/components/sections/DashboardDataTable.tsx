@@ -10,6 +10,7 @@ import { useSearch } from '@/hooks/useSearch'
 import { DashboardDataRows } from '@/components/DashboardDataRows'
 import { getI18N } from '@/languages/index'
 import { SortAscending } from '@/icons/SortAscending'
+import { Loading } from '@/icons/Loading'
 
 export const DashboardDataTable = ({
 	numberOfDates,
@@ -26,16 +27,7 @@ export const DashboardDataTable = ({
 	const [timeSort, setTimeSort] = useState(false)
 	const [statusSort, setStatusSort] = useState(false)
 	const { search, setSearch } = useSearch()
-	const {
-		dates,
-		datesShowing,
-		setDatesShowing,
-		loading,
-		searching,
-		setSearching,
-		length,
-		convertMode,
-	} = useDashboardTableDates({
+	const { dates, loading, setSearching, convertMode, page, setPage } = useDashboardTableDates({
 		numberOfDates,
 		nameSort,
 		dateSort,
@@ -52,14 +44,6 @@ export const DashboardDataTable = ({
 		[setSearch]
 	)
 
-	const handleLoad = () => {
-		if (!loading) {
-			const newValue = datesShowing + numberOfDates
-
-			if (length && length > datesShowing) setDatesShowing(newValue)
-		}
-	}
-
 	const handleChange = (event: preact.JSX.TargetedEvent<HTMLInputElement, Event>) => {
 		event.preventDefault()
 
@@ -70,22 +54,13 @@ export const DashboardDataTable = ({
 		debouncedGetDates(newSearch)
 	}
 
-	const handleNameSort = () => {
-		setNameSort((prev) => !prev)
-	}
-
-	const handleDateSort = () => {
-		setDateSort((prev) => !prev)
-	}
-
-	const handleTimeSort = () => {
-		setTimeSort((prev) => !prev)
-	}
-
-	const handleStatusSort = () => {
-		setStatusSort((prev) => !prev)
-	}
-
+	const handleNextPage = () => setPage((p) => p + 1)
+	const handlePrevPage = () => setPage((p) => Math.max(p - 1, 1))
+	const handlePageOne = () => setPage(1)
+	const handleNameSort = () => setNameSort((prev) => !prev)
+	const handleDateSort = () => setDateSort((prev) => !prev)
+	const handleTimeSort = () => setTimeSort((prev) => !prev)
+	const handleStatusSort = () => setStatusSort((prev) => !prev)
 	const handleViewToggle = () => {
 		setIsViewOpen((prev) => !prev)
 
@@ -142,84 +117,111 @@ export const DashboardDataTable = ({
 				</label>
 			</div>
 
-			{dates.length > 0 ? (
-				<table className='w-full overflow-hidden rounded-lg text-left text-sm text-primary'>
-					<thead className='bg-blue-950/60 text-xs uppercase text-primary'>
-						<tr>
-							<th scope='col' className='select-none p-4'>
-								#
-							</th>
-							<th
-								scope='col'
-								className={`select-none items-center px-6 py-4 transition-colors ${nameSort ? 'text-accent' : ''}`}
-							>
-								<span onClick={handleNameSort} className='inline-flex cursor-pointer gap-1'>
-									{i18n.NAME}
-									<SortAscending
-										classes={`size-4 transition ${nameSort ? 'opacity-100' : 'opacity-0'}`}
-									/>
-								</span>
-							</th>
-							<th scope='col' className='select-none px-6 py-4'>
-								{i18n.PHONE}
-							</th>
-							<th
-								scope='col'
-								className={`select-none items-center px-6 py-4 transition-colors ${dateSort ? 'text-accent' : ''}`}
-							>
-								<span onClick={handleDateSort} className='inline-flex cursor-pointer gap-1'>
-									{i18n.DATE}
-									<SortAscending
-										classes={`size-4 transition ${dateSort ? 'opacity-100' : 'opacity-0'}`}
-									/>
-								</span>
-							</th>
-							<th
-								scope='col'
-								className={`select-none items-center px-6 py-4 transition-colors ${timeSort ? 'text-accent' : ''}`}
-							>
-								<span onClick={handleTimeSort} className='inline-flex cursor-pointer gap-1'>
-									{i18n.TIME}
-									<SortAscending
-										classes={`size-4 transition ${timeSort ? 'opacity-100' : 'opacity-0'}`}
-									/>
-								</span>
-							</th>
-							<th scope='col' className='select-none px-6 py-4'>
-								{i18n.MODE}
-							</th>
-							<th
-								scope='col'
-								className={`select-none items-center px-6 py-4 transition-colors ${statusSort ? 'text-accent' : ''}`}
-							>
-								<span onClick={handleStatusSort} className='inline-flex cursor-pointer gap-1'>
-									{i18n.STATUS}
-									<SortAscending
-										classes={`size-4 transition ${statusSort ? 'opacity-100' : 'opacity-0'}`}
-									/>
-								</span>
-							</th>
-						</tr>
-					</thead>
-					<tbody className='bg-blue-950/20'>
-						{dates.map((row, idx) => (
-							<DashboardDataRows
-								key={idx}
-								idx={idx}
-								name={row.name}
-								date={row.date}
-								time={`${row.time.split('-')[0]}:${row.time.split('-')[1]} ${row.time.split('-')[2].toUpperCase()}`}
-								done={row.done}
-								mode={convertMode(row.mode)}
-								phone={row.phone}
-							/>
-						))}
-					</tbody>
-				</table>
-			) : (
-				<span className='pointer-events-none w-full select-none px-6 py-4 text-center text-slate-600'>
-					{i18n.NO_DATES_TO_SHOW}
-				</span>
+			<table className='w-full overflow-hidden rounded-lg text-left text-sm text-primary'>
+				<thead className='bg-blue-950/60 text-xs uppercase text-primary'>
+					<tr>
+						<th scope='col' className='select-none p-3'>
+							#
+						</th>
+						<th
+							scope='col'
+							className={`select-none items-center px-6 py-4 transition-colors ${nameSort ? 'text-accent' : ''}`}
+						>
+							<span onClick={handleNameSort} className='inline-flex cursor-pointer gap-1'>
+								{i18n.NAME}
+								<SortAscending
+									classes={`size-4 transition ${nameSort ? 'opacity-100' : 'opacity-0'}`}
+								/>
+							</span>
+						</th>
+						<th scope='col' className='select-none px-6 py-4'>
+							{i18n.PHONE}
+						</th>
+						<th
+							scope='col'
+							className={`select-none items-center px-6 py-4 transition-colors ${dateSort ? 'text-accent' : ''}`}
+						>
+							<span onClick={handleDateSort} className='inline-flex cursor-pointer gap-1'>
+								{i18n.DATE}
+								<SortAscending
+									classes={`size-4 transition ${dateSort ? 'opacity-100' : 'opacity-0'}`}
+								/>
+							</span>
+						</th>
+						<th
+							scope='col'
+							className={`select-none items-center px-6 py-4 transition-colors ${timeSort ? 'text-accent' : ''}`}
+						>
+							<span onClick={handleTimeSort} className='inline-flex cursor-pointer gap-1'>
+								{i18n.TIME}
+								<SortAscending
+									classes={`size-4 transition ${timeSort ? 'opacity-100' : 'opacity-0'}`}
+								/>
+							</span>
+						</th>
+						<th scope='col' className='select-none px-6 py-4'>
+							{i18n.MODE}
+						</th>
+						<th
+							scope='col'
+							className={`select-none items-center px-6 py-4 transition-colors ${statusSort ? 'text-accent' : ''}`}
+						>
+							<span onClick={handleStatusSort} className='inline-flex cursor-pointer gap-1'>
+								{i18n.STATUS}
+								<SortAscending
+									classes={`size-4 transition ${statusSort ? 'opacity-100' : 'opacity-0'}`}
+								/>
+							</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody className='bg-blue-950/20'>
+					{dates.length > 0 &&
+						!loading &&
+						dates
+							.slice(0, 7)
+							.map((row, idx) => (
+								<DashboardDataRows
+									key={idx}
+									idx={idx}
+									name={row.name}
+									date={row.date}
+									time={`${row.time.split('-')[0]}:${row.time.split('-')[1]} ${row.time.split('-')[2].toUpperCase()}`}
+									done={row.done}
+									mode={convertMode(row.mode)}
+									phone={row.phone}
+								/>
+							))}
+				</tbody>
+			</table>
+
+			<div
+				className={`inline-flex w-full items-center justify-center py-4 ${!loading ? 'hidden' : ''}`}
+			>
+				<Loading classes='size-8 text-slate-400' />
+			</div>
+
+			<span
+				className={`pointer-events-none w-full select-none px-6 py-4 text-center text-slate-600 ${dates.length === 0 && !loading ? '' : 'hidden'}`}
+			>
+				{i18n.NO_DATES_TO_SHOW}
+			</span>
+
+			{!loading && (
+				<div className='flex justify-end gap-2 py-4 text-slate-400'>
+					<button onClick={handlePrevPage} type='button'>
+						<SemiArrow classes='size-4 -rotate-90' />
+					</button>
+					{page > 2 && (
+						<button className='cursor-pointer' onClick={handlePageOne} type='button'>
+							1 ...
+						</button>
+					)}
+					<span className=''>{page}</span>
+					<button onClick={handleNextPage} type='button'>
+						<SemiArrow classes='size-4 rotate-90' />
+					</button>
+				</div>
 			)}
 		</div>
 	)

@@ -21,21 +21,29 @@ export function useDashboardTableDates({
 	statusSort,
 	search = null,
 }: DashboardTableDatesProps) {
-	const [length, setLength] = useState<number | null>(null)
 	const [loading, setLoading] = useState(true)
 	const [dates, setDates] = useState<Date[]>([])
 	const [datesShowing, setDatesShowing] = useState(numberOfDates)
 	const [searching, setSearching] = useState(false)
+	const [page, setPage] = useState(1)
 
 	useEffect(() => {
 		setLoading(true)
 
 		const fetchData = async () => {
+			const from = (page - 1) * datesShowing
+			const to = from + datesShowing - 1
+
 			const res = await fetch('/api/get-all-dates', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				body: JSON.stringify({
+					limit: datesShowing,
+					from: from,
+					to: to,
+				}),
 			})
 
 			const { data, error }: { data: Date[]; error: any } = await res.json()
@@ -44,17 +52,17 @@ export function useDashboardTableDates({
 				console.error('Error fetching dates:', error)
 			}
 
-			setLength(data.length)
 			if (search) {
 				setDates(data.filter((date) => date.name.toLowerCase().includes(search.toLowerCase())))
 			} else {
 				setDates(data)
 			}
+
+			setLoading(false)
 		}
 
 		fetchData()
-		setLoading(false)
-	}, [datesShowing, search])
+	}, [datesShowing, search, page])
 
 	const sortOrderDates = useMemo(() => {
 		const datesCopy = [...dates]
@@ -88,12 +96,12 @@ export function useDashboardTableDates({
 
 	return {
 		dates: sortOrderDates,
-		datesShowing,
-		setDatesShowing,
 		loading,
+		page,
 		searching,
 		setSearching,
-		length,
 		convertMode,
+		setPage,
+		setDatesShowing,
 	}
 }

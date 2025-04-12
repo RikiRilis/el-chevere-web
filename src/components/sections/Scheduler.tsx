@@ -7,6 +7,7 @@ import { businessWhatsApp, businessEmail } from '@/libs/consts'
 import { Loading } from '@/icons/Loading'
 import { getSchedule } from '@/services/schedules'
 import { useScheduler } from '@/hooks/useScheduler'
+import { DateStatus } from '@/interfaces/dateStatus'
 
 export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 	const [i18n] = useState(getI18N({ currentLocale }))
@@ -45,8 +46,10 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 		const dateDate = elements.namedItem('date-date') as HTMLInputElement
 		const dateTime = elements.namedItem('date-time') as HTMLInputElement
 		const dateMode = elements.namedItem('date-mode') as HTMLInputElement
+		const dateStatus = elements.namedItem('date-status') as HTMLInputElement
 
 		const uid = `${dateDate.value.toLowerCase()}-${dateTime.value.toLowerCase()}-${dateEmail.value.toLowerCase()}`
+		const status = dateStatus.checked ? DateStatus.CONFIRMED : DateStatus.PENDING
 
 		sendSchedule(
 			{
@@ -58,6 +61,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 				time: dateTime.value,
 				message: dateMessage.value,
 				mode: dateMode.value,
+				status,
 			},
 			currentLocale,
 			() => {
@@ -233,33 +237,48 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 					</div>
 				</div>
 
-				<div className='mt-4 flex items-center gap-2'>
-					<input
-						required
-						id='date-agree'
-						name='date-agree'
-						type='checkbox'
-						value=''
-						className='h-4 w-4 cursor-pointer rounded-md border-gray-600 bg-gray-700 ring-offset-gray-800'
-					/>
-					<label for='date-agree' className='text-sm font-medium text-primary'>
-						*{i18n.SCHEDULE_AGREE_TEXT_1}{' '}
-						<a
-							href='/terms'
-							className='text-accent transition-colors hover:text-secondary hover:underline active:text-secondary active:underline'
-						>
-							{' '}
-							{i18n.TERMS}
-						</a>{' '}
-						{i18n.SCHEDULE_AGREE_TEXT_2}{' '}
-						<a
-							href='/privacy'
-							className='text-accent transition-colors hover:text-secondary hover:underline active:text-secondary active:underline'
-						>
-							{i18n.PRIVACY}
-						</a>{' '}
-						{i18n.SCHEDULE_AGREE_TEXT_3}.
-					</label>
+				<div className='mt-2 flex flex-col justify-center gap-2'>
+					<div className='flex items-center gap-2'>
+						<input
+							id='date-status'
+							name='date-status'
+							type='checkbox'
+							value=''
+							className='h-4 w-4 cursor-pointer rounded-md border-gray-600 bg-gray-700 ring-offset-gray-800'
+						/>
+						<label for='date-status' className='text-sm font-medium text-primary'>
+							{i18n.DATE_STATUS}
+						</label>
+					</div>
+
+					<div className='flex items-center gap-2'>
+						<input
+							required
+							id='date-agree'
+							name='date-agree'
+							type='checkbox'
+							value=''
+							className='h-4 w-4 cursor-pointer rounded-md border-gray-600 bg-gray-700 ring-offset-gray-800'
+						/>
+						<label for='date-agree' className='text-sm font-medium text-primary'>
+							*{i18n.SCHEDULE_AGREE_TEXT_1}{' '}
+							<a
+								href='/terms'
+								className='text-accent transition-colors hover:text-secondary hover:underline active:text-secondary active:underline'
+							>
+								{' '}
+								{i18n.TERMS}
+							</a>{' '}
+							{i18n.SCHEDULE_AGREE_TEXT_2}{' '}
+							<a
+								href='/privacy'
+								className='text-accent transition-colors hover:text-secondary hover:underline active:text-secondary active:underline'
+							>
+								{i18n.PRIVACY}
+							</a>{' '}
+							{i18n.SCHEDULE_AGREE_TEXT_3}.
+						</label>
+					</div>
 				</div>
 
 				<button

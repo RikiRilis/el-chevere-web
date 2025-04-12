@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'preact/hooks'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { getI18N } from '@/languages/index'
 import { currentDate, tomorrowDate } from '@/libs/consts'
+import { DateStatus } from '@/interfaces/dateStatus'
 
 interface DashboardTableDatesProps {
 	numberOfDates: number
@@ -83,10 +84,21 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 	const sortOrderDates = useMemo(() => {
 		const datesCopy = [...dates]
 
+		// Sort by name
 		if (nameSort) datesCopy.sort((a, b) => a.name.localeCompare(b.name))
+
+		// Sort by time
 		if (timeSort)
 			datesCopy.sort((a, b) => Number(a.time.split('-')[0]) - Number(b.time.split('-')[0]))
-		if (statusSort) datesCopy.sort((a, b) => (a.done === b.done ? 0 : b.done ? -1 : 1))
+
+		// Sort by status
+		if (statusSort) {
+			datesCopy.sort((a, b) => {
+				if (a.status === DateStatus.PENDING && b.status !== DateStatus.PENDING) return -1
+				if (a.status !== DateStatus.PENDING && b.status === DateStatus.PENDING) return 1
+				return 0
+			})
+		}
 
 		return datesCopy
 	}, [nameSort, timeSort, statusSort, dates, search])

@@ -1,0 +1,6 @@
+export enum DateStatus {
+	DONE = 'DONE',
+	PENDING = 'PENDING',
+	CONFIRMED = 'CONFIRMED',
+	CANCELLED = 'CANCELLED',
+}

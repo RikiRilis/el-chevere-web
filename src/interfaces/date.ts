@@ -8,5 +8,5 @@ export interface Date {
 	time: string
 	message: string
 	mode: string
-	done?: boolean
+	status: string
 }

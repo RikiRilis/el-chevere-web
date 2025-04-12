@@ -2,6 +2,7 @@
 import type { Date } from '@/interfaces/date'
 import { getI18N } from '@/languages/index'
 import { useState } from 'preact/hooks'
+import { DateStatus } from '@/interfaces/dateStatus'
 
 const posibleDatesTime = [
 	'8-00',
@@ -71,7 +72,11 @@ export function useScheduler() {
 
 			if (data && data.length >= 2) {
 				data.forEach((item: Date) => {
-					if (!item.done && item.time === scheduleTime && item.date === scheduleDate) {
+					if (
+						item.status !== DateStatus.DONE &&
+						item.time === scheduleTime &&
+						item.date === scheduleDate
+					) {
 						throw new Error('Time already taken')
 					}
 				})

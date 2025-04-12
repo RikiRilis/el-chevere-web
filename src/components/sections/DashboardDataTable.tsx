@@ -183,15 +183,12 @@ export const DashboardDataTable = ({
 						<th scope='col' className='select-none px-6 py-4'>
 							{i18n.MODE}
 						</th>
-						<th
-							scope='col'
-							className={`select-none items-center px-6 py-4 transition-colors ${statusSort ? 'text-accent' : ''}`}
-						>
+						<th scope='col' className={`select-none items-center px-6 py-4`}>
 							<span onClick={handleStatusSort} className='inline-flex cursor-pointer gap-1'>
 								{i18n.STATUS}
-								<SortAscending
-									classes={`size-4 transition ${statusSort ? 'opacity-100' : 'opacity-0'}`}
-								/>
+								<span
+									className={`size-3.5 rounded-full bg-gray-500 transition ${statusSort ? 'opacity-100' : 'opacity-0'}`}
+								></span>
 							</span>
 						</th>
 					</tr>
@@ -206,7 +203,7 @@ export const DashboardDataTable = ({
 								name={row.name}
 								date={row.date}
 								time={`${row.time.replace('-', ':')}`}
-								done={row.done}
+								status={row.status}
 								mode={convertMode(row.mode)}
 								phone={row.phone}
 							/>

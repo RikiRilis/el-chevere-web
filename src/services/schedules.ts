@@ -60,7 +60,7 @@ export const getSchedule = (): Schedule[] => {
 		{
 			id: '15-20',
 			available: true,
-			hour: '3:20',
+			hour: '15:20',
 		},
 		{
 			id: '16-00',
@@ -68,9 +68,9 @@ export const getSchedule = (): Schedule[] => {
 			hour: '16:00',
 		},
 		{
-			id: '4-40-pm',
+			id: '16-40',
 			available: true,
-			hour: '4:40 PM',
+			hour: '16:40',
 		},
 		{
 			id: '17-20',

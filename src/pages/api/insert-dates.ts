@@ -1,7 +1,7 @@
 import { supabase } from '@/db/supabase'
 
 export async function POST({ request }: { request: Request }) {
-	const { uuid, name, email, message, phone, date, time, mode } = await request.json()
+	const { uuid, name, email, message, phone, date, time, status, mode } = await request.json()
 
 	const { error } = await supabase.from('dates').insert([
 		{
@@ -13,6 +13,7 @@ export async function POST({ request }: { request: Request }) {
 			time,
 			message,
 			mode,
+			status,
 		},
 	])
 

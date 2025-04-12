@@ -1,29 +1,38 @@
 export function useLocalStorage(key: string) {
-	const setValue = (item: unknown) => {
+	const setValue = (keySet: string = key, item: unknown) => {
 		try {
-			window.localStorage.setItem(key, JSON.stringify(item))
+			window.localStorage.setItem(keySet, JSON.stringify(item))
 		} catch (error) {
 			console.log(error)
 		}
 	}
 
-	const getValue = () => {
+	const getValue = (keyGet: string = key) => {
 		try {
-			const value = window.localStorage.getItem(key)
-			console.log(value)
+			const value = window.localStorage.getItem(keyGet)
 			return value ? JSON.parse(value) : null
 		} catch (error) {
 			console.log(error)
 		}
 	}
 
-	const removeValue = () => {
+	const removeValue = (keyRemove: string = key) => {
 		try {
-			window.localStorage.removeItem(key)
+			window.localStorage.removeItem(keyRemove)
 		} catch (error) {
 			console.log(error)
 		}
 	}
 
-	return { setValue, getValue, removeValue }
+	const checkKey = (keyCheck: string = key) => {
+		try {
+			return window.localStorage.getItem(keyCheck) !== null
+		} catch (error) {
+			console.log(error)
+		}
+
+		return false
+	}
+
+	return { setValue, getValue, removeValue, checkKey }
 }

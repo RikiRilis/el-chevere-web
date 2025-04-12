@@ -90,7 +90,10 @@ export const footerLinks = (): FooterLink[] => {
 	]
 }
 
-export const currentYear = new Date().getFullYear()
+const date = new Date()
+export const currentYear = date.getFullYear()
 export const yearsSince = 1978
 export const satisfiedCustomers = 3500
 export const photoStyles = 10
+export const currentDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+export const tomorrowDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate() + 1).padStart(2, '0')}`

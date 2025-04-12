@@ -3,29 +3,42 @@ import type { Date } from '@/interfaces/date'
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { getI18N } from '@/languages/index'
+import { currentDate, tomorrowDate } from '@/libs/consts'
 
 interface DashboardTableDatesProps {
 	numberOfDates: number
-	nameSort: boolean
-	dateSort: boolean
-	timeSort: boolean
-	statusSort: boolean
 	search?: string | null
 }
 
-export function useDashboardTableDates({
-	numberOfDates,
-	nameSort,
-	dateSort,
-	timeSort,
-	statusSort,
-	search = null,
-}: DashboardTableDatesProps) {
+export function useDashboardTableDates({ numberOfDates, search = null }: DashboardTableDatesProps) {
 	const [loading, setLoading] = useState(true)
 	const [dates, setDates] = useState<Date[]>([])
 	const [datesShowing, setDatesShowing] = useState(numberOfDates)
 	const [searching, setSearching] = useState(false)
 	const [page, setPage] = useState(1)
+	const [nameSort, setNameSort] = useState(false)
+	const [timeSort, setTimeSort] = useState(false)
+	const [statusSort, setStatusSort] = useState(false)
+	const [todaysSort, setTodaysSort] = useState(false)
+	const [tomorrowsSort, setTomorrowsSort] = useState(false)
+	const [totalCount, setTotalCount] = useState(0)
+	const { setValue, getValue, checkKey } = useLocalStorage('status_sort')
+
+	useEffect(() => {
+		if (checkKey('name_sort')) setNameSort(getValue('name_sort'))
+		if (checkKey('time_sort')) setTimeSort(getValue('time_sort'))
+		if (checkKey('status_sort')) setStatusSort(getValue('status_sort'))
+		if (checkKey('todays_sort')) setTodaysSort(getValue('todays_sort'))
+		if (checkKey('tomorrows_sort')) setTomorrowsSort(getValue('tomorrows_sort'))
+	}, [])
+
+	useEffect(() => {
+		setValue('name_sort', nameSort)
+		setValue('time_sort', timeSort)
+		setValue('status_sort', statusSort)
+		setValue('todays_sort', todaysSort)
+		setValue('tomorrows_sort', tomorrowsSort)
+	}, [nameSort, timeSort, statusSort, todaysSort, tomorrowsSort])
 
 	useEffect(() => {
 		setLoading(true)
@@ -33,20 +46,21 @@ export function useDashboardTableDates({
 		const fetchData = async () => {
 			const from = (page - 1) * datesShowing
 			const to = from + datesShowing - 1
+			const fetchBody = todaysSort
+				? { from, to, column: 'date', value: currentDate }
+				: tomorrowsSort
+					? { from, to, column: 'date', value: tomorrowDate }
+					: { from, to }
 
-			const res = await fetch('/api/get-all-dates', {
+			const res = await fetch('/api/get-dates', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({
-					limit: datesShowing,
-					from: from,
-					to: to,
-				}),
+				body: JSON.stringify(fetchBody),
 			})
 
-			const { data, error }: { data: Date[]; error: any } = await res.json()
+			const { data, count, error }: { data: Date[]; count: number; error: any } = await res.json()
 
 			if (error) {
 				console.error('Error fetching dates:', error)
@@ -54,30 +68,28 @@ export function useDashboardTableDates({
 
 			if (search) {
 				setDates(data.filter((date) => date.name.toLowerCase().includes(search.toLowerCase())))
+				setTotalCount(count)
 			} else {
 				setDates(data)
+				setTotalCount(count)
 			}
 
 			setLoading(false)
 		}
 
 		fetchData()
-	}, [datesShowing, search, page])
+	}, [todaysSort, tomorrowsSort, datesShowing, search, page])
 
 	const sortOrderDates = useMemo(() => {
 		const datesCopy = [...dates]
-		const { setValue } = useLocalStorage('date_order_sort')
-		setValue(statusSort)
 
 		if (nameSort) datesCopy.sort((a, b) => a.name.localeCompare(b.name))
-
-		// if (timeSort) datesCopy.sort((a, b) => a.time.localeCompare(b.time))
-
-		// if (statusSort) datesCopy.sort((a, b) => a.done?.localeCompare(b.done))
-		// else datesCopy.sort((a, b) => b.name.localeCompare(a.name))
+		if (timeSort)
+			datesCopy.sort((a, b) => Number(a.time.split('-')[0]) - Number(b.time.split('-')[0]))
+		if (statusSort) datesCopy.sort((a, b) => (a.done === b.done ? 0 : b.done ? -1 : 1))
 
 		return datesCopy
-	}, [nameSort, dateSort, timeSort, dates, search])
+	}, [nameSort, timeSort, statusSort, dates, search])
 
 	const convertMode = (mode: string, currentLocale: string = 'es') => {
 		const i18n = getI18N({ currentLocale })
@@ -99,6 +111,17 @@ export function useDashboardTableDates({
 		loading,
 		page,
 		searching,
+		nameSort,
+		timeSort,
+		statusSort,
+		todaysSort,
+		tomorrowsSort,
+		totalCount,
+		setNameSort,
+		setTimeSort,
+		setStatusSort,
+		setTodaysSort,
+		setTomorrowsSort,
 		setSearching,
 		convertMode,
 		setPage,

@@ -20,19 +20,28 @@ export const DashboardDataTable = ({
 	currentLocale?: string
 }) => {
 	const i18n = getI18N({ currentLocale })
-	const [isOpen, setIsOpen] = useState(false)
 	const [isViewOpen, setIsViewOpen] = useState(false)
-	const [nameSort, setNameSort] = useState(false)
-	const [dateSort, setDateSort] = useState(false)
-	const [timeSort, setTimeSort] = useState(false)
-	const [statusSort, setStatusSort] = useState(false)
 	const { search, setSearch } = useSearch()
-	const { dates, loading, setSearching, convertMode, page, setPage } = useDashboardTableDates({
-		numberOfDates,
+	const {
+		dates,
+		loading,
 		nameSort,
-		dateSort,
 		timeSort,
 		statusSort,
+		page,
+		todaysSort,
+		tomorrowsSort,
+		totalCount,
+		setNameSort,
+		setTimeSort,
+		setStatusSort,
+		setTodaysSort,
+		setTomorrowsSort,
+		setSearching,
+		convertMode,
+		setPage,
+	} = useDashboardTableDates({
+		numberOfDates,
 		search,
 	})
 
@@ -54,17 +63,27 @@ export const DashboardDataTable = ({
 		debouncedGetDates(newSearch)
 	}
 
+	const handleViewToggle = () => setIsViewOpen((prev) => !prev)
 	const handleNextPage = () => setPage((p) => p + 1)
 	const handlePrevPage = () => setPage((p) => Math.max(p - 1, 1))
 	const handlePageOne = () => setPage(1)
 	const handleNameSort = () => setNameSort((prev) => !prev)
-	const handleDateSort = () => setDateSort((prev) => !prev)
 	const handleTimeSort = () => setTimeSort((prev) => !prev)
 	const handleStatusSort = () => setStatusSort((prev) => !prev)
-	const handleViewToggle = () => {
-		setIsViewOpen((prev) => !prev)
-
-		if (isOpen) setIsOpen(false)
+	const handleAllDatesSort = () => {
+		setTodaysSort(false)
+		setTomorrowsSort(false)
+		handleViewToggle()
+	}
+	const handleTodaysSort = () => {
+		setTodaysSort((prev) => !prev)
+		setTomorrowsSort(false)
+		handleViewToggle()
+	}
+	const handleTomorrowsSort = () => {
+		setTomorrowsSort((prev) => !prev)
+		setTodaysSort(false)
+		handleViewToggle()
 	}
 
 	return (
@@ -81,7 +100,7 @@ export const DashboardDataTable = ({
 						className='relative inline-flex items-center rounded-lg border border-gray-600 bg-blue-950/20 px-3 py-1.5 text-sm font-medium text-secondary transition-colors hover:border-gray-600 hover:bg-secondary/20 focus:outline-none'
 						type='button'
 					>
-						{i18n.VIEW}
+						{todaysSort ? i18n.TODAYs_DATES : tomorrowsSort ? i18n.TOMORROWs_DATES : i18n.ALL_DATES}
 						<SemiArrow classes='ms-2.5 rotate-180 size-2.5' />
 					</button>
 
@@ -89,18 +108,28 @@ export const DashboardDataTable = ({
 						className={`absolute ${isViewOpen ? '' : 'hidden'} z-10 mt-2 w-44 overflow-hidden rounded-lg bg-accent/10 shadow-sm backdrop-blur-xl`}
 					>
 						<ul className='text-sm text-gray-200'>
-							<li className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'>
-								All dates
+							<li
+								onClick={handleAllDatesSort}
+								className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'
+							>
+								{i18n.ALL_DATES}
 							</li>
-							<li className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'>
-								Today&apos;s dates
+							<li
+								onClick={handleTodaysSort}
+								className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'
+							>
+								{i18n.TODAYs_DATES}
 							</li>
-							<li className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'>
-								Tomorrow&apos;s dates
+							<li
+								onClick={handleTomorrowsSort}
+								className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'
+							>
+								{i18n.TOMORROWs_DATES}
 							</li>
 						</ul>
 					</div>
 				</div>
+
 				<label>
 					<div className='relative'>
 						<div className='pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3'>
@@ -137,16 +166,8 @@ export const DashboardDataTable = ({
 						<th scope='col' className='select-none px-6 py-4'>
 							{i18n.PHONE}
 						</th>
-						<th
-							scope='col'
-							className={`select-none items-center px-6 py-4 transition-colors ${dateSort ? 'text-accent' : ''}`}
-						>
-							<span onClick={handleDateSort} className='inline-flex cursor-pointer gap-1'>
-								{i18n.DATE}
-								<SortAscending
-									classes={`size-4 transition ${dateSort ? 'opacity-100' : 'opacity-0'}`}
-								/>
-							</span>
+						<th scope='col' className='select-none px-6 py-4'>
+							{i18n.DATE}
 						</th>
 						<th
 							scope='col'
@@ -178,37 +199,23 @@ export const DashboardDataTable = ({
 				<tbody className='bg-blue-950/20'>
 					{dates.length > 0 &&
 						!loading &&
-						dates
-							.slice(0, 7)
-							.map((row, idx) => (
-								<DashboardDataRows
-									key={idx}
-									idx={idx}
-									name={row.name}
-									date={row.date}
-									time={`${row.time.split('-')[0]}:${row.time.split('-')[1]} ${row.time.split('-')[2].toUpperCase()}`}
-									done={row.done}
-									mode={convertMode(row.mode)}
-									phone={row.phone}
-								/>
-							))}
+						dates.map((row, idx) => (
+							<DashboardDataRows
+								key={idx}
+								idx={idx}
+								name={row.name}
+								date={row.date}
+								time={`${row.time.replace('-', ':')}`}
+								done={row.done}
+								mode={convertMode(row.mode)}
+								phone={row.phone}
+							/>
+						))}
 				</tbody>
 			</table>
 
-			<div
-				className={`inline-flex w-full items-center justify-center py-4 ${!loading ? 'hidden' : ''}`}
-			>
-				<Loading classes='size-8 text-slate-400' />
-			</div>
-
-			<span
-				className={`pointer-events-none w-full select-none px-6 py-4 text-center text-slate-600 ${dates.length === 0 && !loading ? '' : 'hidden'}`}
-			>
-				{i18n.NO_DATES_TO_SHOW}
-			</span>
-
-			{!loading && (
-				<div className='flex justify-end gap-2 py-4 text-slate-400'>
+			{!loading && totalCount > dates.length && (
+				<div className='mt-2 flex justify-end gap-2 text-slate-400'>
 					<button onClick={handlePrevPage} type='button'>
 						<SemiArrow classes='size-4 -rotate-90' />
 					</button>
@@ -223,6 +230,18 @@ export const DashboardDataTable = ({
 					</button>
 				</div>
 			)}
+
+			<div
+				className={`inline-flex w-full items-center justify-center py-4 ${!loading ? 'hidden' : ''}`}
+			>
+				<Loading classes='size-8 text-slate-400' />
+			</div>
+
+			<span
+				className={`pointer-events-none w-full select-none px-6 py-4 text-center text-slate-600 ${dates.length === 0 && !loading ? '' : 'hidden'}`}
+			>
+				{i18n.NO_DATES_TO_SHOW}
+			</span>
 		</div>
 	)
 }

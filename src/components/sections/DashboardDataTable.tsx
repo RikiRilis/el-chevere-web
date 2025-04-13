@@ -32,6 +32,7 @@ export const DashboardDataTable = ({
 		todaysSort,
 		tomorrowsSort,
 		totalCount,
+		totalPages,
 		setNameSort,
 		setTimeSort,
 		setStatusSort,
@@ -183,11 +184,14 @@ export const DashboardDataTable = ({
 						<th scope='col' className='select-none px-6 py-4'>
 							{i18n.MODE}
 						</th>
-						<th scope='col' className={`select-none items-center px-6 py-4`}>
+						<th
+							scope='col'
+							className={`select-none items-center px-6 py-4 ${statusSort ? 'text-accent' : ''}`}
+						>
 							<span onClick={handleStatusSort} className='inline-flex cursor-pointer gap-1'>
 								{i18n.STATUS}
 								<span
-									className={`size-3.5 rounded-full bg-gray-500 transition ${statusSort ? 'opacity-100' : 'opacity-0'}`}
+									className={`size-3.5 rounded-full bg-orange-500 transition ${statusSort ? 'opacity-100' : 'opacity-0'}`}
 								></span>
 							</span>
 						</th>
@@ -199,7 +203,7 @@ export const DashboardDataTable = ({
 						dates.map((row, idx) => (
 							<DashboardDataRows
 								key={idx}
-								idx={idx}
+								idx={(page - 1) * numberOfDates + idx + 1}
 								name={row.name}
 								date={row.date}
 								time={`${row.time.replace('-', ':')}`}
@@ -213,18 +217,25 @@ export const DashboardDataTable = ({
 
 			{!loading && totalCount > dates.length && (
 				<div className='mt-2 flex justify-end gap-2 text-slate-400'>
-					<button onClick={handlePrevPage} type='button'>
-						<SemiArrow classes='size-4 -rotate-90' />
-					</button>
+					{page > 1 && (
+						<button onClick={handlePrevPage} type='button'>
+							<SemiArrow classes='size-4 -rotate-90' />
+						</button>
+					)}
+
 					{page > 2 && (
-						<button className='cursor-pointer' onClick={handlePageOne} type='button'>
+						<button className='cursor-pointer select-none' onClick={handlePageOne} type='button'>
 							1 ...
 						</button>
 					)}
-					<span className=''>{page}</span>
-					<button onClick={handleNextPage} type='button'>
-						<SemiArrow classes='size-4 rotate-90' />
-					</button>
+
+					<span className='select-none'>{page}</span>
+
+					{page < totalPages && (
+						<button onClick={handleNextPage} type='button'>
+							<SemiArrow classes='size-4 rotate-90' />
+						</button>
+					)}
 				</div>
 			)}
 

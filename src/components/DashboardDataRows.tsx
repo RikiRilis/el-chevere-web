@@ -29,7 +29,7 @@ export const DashboardDataRows = ({
 		<tr
 			className={`cursor-pointer transition-colors sm:hover:bg-blue-950/30 ${idx % 2 === 0 ? '' : 'bg-blue-950/10'}`}
 		>
-			<td className='p-3'>{idx + 1}</td>
+			<td className='p-3'>{idx}</td>
 			<td className='px-6 py-4'>{name}</td>
 			<td className='px-6 py-4'>{phone}</td>
 			<td className='px-6 py-4'>{date}</td>

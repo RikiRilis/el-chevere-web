@@ -51,7 +51,7 @@ export function useScheduler() {
 			}
 
 			// Check if the date is already taken
-			const res = await fetch('/api/get-dates', {
+			const res = await fetch('/api/db/get-dates', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export function useScheduler() {
 			}
 
 			// Insert the date into the database
-			const response = await fetch('/api/insert-dates', {
+			const response = await fetch('/api/db/insert-dates', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

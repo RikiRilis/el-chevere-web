@@ -24,7 +24,10 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 	const [tomorrowsSort, setTomorrowsSort] = useState(false)
 	const [totalCount, setTotalCount] = useState(0)
 	const { setValue, getValue, checkKey } = useLocalStorage('status_sort')
+	const totalPages = Math.ceil(totalCount / datesShowing)
 
+	// Set the initial state of the sorting options based on local storage values
+	// This will run only once when the component mounts
 	useEffect(() => {
 		if (checkKey('name_sort')) setNameSort(getValue('name_sort'))
 		if (checkKey('time_sort')) setTimeSort(getValue('time_sort'))
@@ -33,6 +36,8 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		if (checkKey('tomorrows_sort')) setTomorrowsSort(getValue('tomorrows_sort'))
 	}, [])
 
+	// Set the local storage values when the sorting options change
+	// This will run every time the sorting options change
 	useEffect(() => {
 		setValue('name_sort', nameSort)
 		setValue('time_sort', timeSort)
@@ -53,7 +58,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 					? { from, to, column: 'date', value: tomorrowDate }
 					: { from, to }
 
-			const res = await fetch('/api/get-dates', {
+			const res = await fetch('/api/db/get-dates', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -81,6 +86,8 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		fetchData()
 	}, [todaysSort, tomorrowsSort, datesShowing, search, page])
 
+	// Sort the dates based on the selected sorting options
+	// This will run every time the sorting options or dates change
 	const sortOrderDates = useMemo(() => {
 		const datesCopy = [...dates]
 
@@ -94,8 +101,12 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		// Sort by status
 		if (statusSort) {
 			datesCopy.sort((a, b) => {
+				if (a.status === DateStatus.CONFIRMED && b.status !== DateStatus.CONFIRMED) return -1
+				if (a.status !== DateStatus.CONFIRMED && b.status === DateStatus.CONFIRMED) return 1
 				if (a.status === DateStatus.PENDING && b.status !== DateStatus.PENDING) return -1
 				if (a.status !== DateStatus.PENDING && b.status === DateStatus.PENDING) return 1
+				if (a.status === DateStatus.DONE && b.status !== DateStatus.DONE) return -1
+				if (a.status !== DateStatus.DONE && b.status === DateStatus.DONE) return 1
 				return 0
 			})
 		}
@@ -129,6 +140,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		todaysSort,
 		tomorrowsSort,
 		totalCount,
+		totalPages,
 		setNameSort,
 		setTimeSort,
 		setStatusSort,

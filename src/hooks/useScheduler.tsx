@@ -23,6 +23,8 @@ const posibleDatesTime = [
 	'18-00',
 ]
 
+const noDoubleDatesTime = ['8-00', '8-40', '9-20']
+
 export function useScheduler() {
 	const [sending, setSending] = useState(false)
 	const [error, setError] = useState(false)

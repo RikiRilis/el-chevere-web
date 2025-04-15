@@ -6,7 +6,14 @@ export interface Date {
 	email: string
 	date: string
 	time: string
-	message: string
+	questions: Questions
 	mode: string
 	status: string
+}
+
+interface Questions {
+	reason: string
+	accessories: string
+	people: number
+	outfits: number
 }

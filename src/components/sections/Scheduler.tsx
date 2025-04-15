@@ -8,6 +8,7 @@ import { Loading } from '@/icons/Loading'
 import { getSchedule } from '@/services/schedules'
 import { useScheduler } from '@/hooks/useScheduler'
 import { DateStatus } from '@/interfaces/dateStatus'
+import { getReasons } from '@/services/reasons'
 
 export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 	const [i18n] = useState(getI18N({ currentLocale }))
@@ -41,7 +42,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 
 		const dateName = elements.namedItem('date-name') as HTMLInputElement
 		const dateEmail = elements.namedItem('date-email') as HTMLInputElement
-		const dateMessage = elements.namedItem('date-message') as HTMLInputElement
+		const dateReason = elements.namedItem('date-reason') as HTMLInputElement
 		const datePhone = elements.namedItem('date-phone') as HTMLInputElement
 		const dateDate = elements.namedItem('date-date') as HTMLInputElement
 		const dateTime = elements.namedItem('date-time') as HTMLInputElement
@@ -59,7 +60,12 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 				email: dateEmail.value.toLowerCase(),
 				date: dateDate.value,
 				time: dateTime.value,
-				message: dateMessage.value,
+				questions: {
+					reason: dateReason.value,
+					accessories: '',
+					people: 0,
+					outfits: 0,
+				},
 				mode: dateMode.value,
 				status,
 			},
@@ -162,14 +168,18 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 
 						<label className='inline-flex flex-col text-slate-400'>
 							{i18n.MESSAGE}*
-							<textarea
+							<select
 								required
 								className='rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
-								name='date-message'
-								id='date-message'
-								rows={4}
-								placeholder={i18n.DATES_MESSAGE_EXAMPLE}
-							></textarea>
+								name='date-reason'
+								id='date-reason'
+							>
+								{getReasons(currentLocale).map((reason) => (
+									<option key={reason.id} className='bg-blue-950' value={reason.id}>
+										{reason.option}
+									</option>
+								))}
+							</select>
 						</label>
 					</div>
 

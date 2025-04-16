@@ -24,6 +24,8 @@ const posibleDatesTime = [
 	'18-00',
 ]
 
+const posibleModes = ['digital', 'time', 'both']
+const posibleReasons = ['birthday', 'month', 'event', 'familiar']
 const noDoubleDatesTime = ['8-00', '8-40', '9-20']
 
 export function useScheduler() {
@@ -48,11 +50,56 @@ export function useScheduler() {
 			const scheduleTime: string = scheduleData.time
 			const scheduleDate: string = scheduleData.date
 			const date: string | undefined = posibleDatesTime.find((time) => time === scheduleTime)
+			const mode: string | undefined = posibleModes.find((mode) => mode === scheduleData.mode)
+			const reason: string | undefined = posibleReasons.find(
+				(reason) => reason === scheduleData.reason
+			)
 			const isDoubleDate: boolean =
 				noDoubleDatesTime.includes(scheduleTime) && scheduleData.date === currentDate
 
+			// Check if the time is valid
 			if (scheduleTime !== date || !date) {
 				throw new Error('Invalid time')
+			}
+
+			// Check if mode is valid
+			if (scheduleData.mode !== mode || !mode) {
+				throw new Error('Invalid mode')
+			}
+
+			// Check if people is valid
+			if (scheduleData.people < 1 || scheduleData.people > 10) {
+				throw new Error('Invalid people amount')
+			}
+
+			// Check if outfits is valid
+			if (scheduleData.outfits < 1) {
+				throw new Error('Invalid outfits amount')
+			}
+
+			// Check if reason is valid
+			if (scheduleData.reason !== reason || !reason) {
+				throw new Error('Invalid reason')
+			}
+
+			// Check if the date is in the past
+			const selectedDate = new Date(scheduleData.date)
+			if (selectedDate < new Date(currentDate)) {
+				throw new Error('Date is in the past')
+			}
+
+			// Check if current date and current time are valid
+			// and aren't in the past
+			const currentDateTime = new Date(currentDate)
+			const currentTime = new Date()
+			currentTime.setHours(
+				parseInt(scheduleTime.split('-')[0]),
+				parseInt(scheduleTime.split('-')[1])
+			)
+			if (currentDateTime.getTime() === selectedDate.getTime()) {
+				if (currentTime.getTime() < new Date().getTime()) {
+					throw new Error('Current date and time are in the past')
+				}
 			}
 
 			// Check if the date is already taken

@@ -96,7 +96,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 
 		// Sort by time
 		if (timeSort)
-			datesCopy.sort((a, b) => Number(a.time.split('-')[0]) - Number(b.time.split('-')[0]))
+			datesCopy.sort((a, b) => Number(a.time.replace('-', '')) - Number(b.time.replace('-', '')))
 
 		// Sort by status
 		if (statusSort) {

@@ -11,7 +11,7 @@ const { id, name, image, description } = Astro.props
 
 <a
 	href={`/portfolio/${id}`}
-	class='group relative overflow-hidden rounded-xl border border-transparent bg-main/10 shadow-lg transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:scale-95 hover:border-main/10 hover:shadow-xl'
+	class='group relative overflow-hidden rounded-xl border border-transparent bg-main/10 transition-colors hover:border-main/10'
 >
 	<div class='relative'>
 		<h4 class='p-2 text-center font-medium text-primary'>{name}</h4>
@@ -21,11 +21,11 @@ const { id, name, image, description } = Astro.props
 			src={`https://www.fotoestudioelchevere.com${image}.webp`}
 			srcset={`https://www.fotoestudioelchevere.com${image}.webp`}
 			alt={description}
-			class='h-60 w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-64 md:object-top lg:h-80'
+			class='h-60 w-full object-cover transition-transform group-hover:scale-105 sm:h-64 md:object-top lg:h-80'
 		/>
 
 		<div
-			class='absolute inset-0 flex h-full items-end justify-center transition-all md:group-hover:bg-black/20'
+			class='absolute inset-0 flex h-full items-end justify-center transition-colors md:group-hover:bg-black/20'
 		>
 			<p
 				class='w-full text-pretty bg-gradient-to-t from-back/80 to-transparent px-2 py-4 text-primary transition-all group-hover:translate-y-0 group-hover:opacity-100 md:translate-y-full md:opacity-0'

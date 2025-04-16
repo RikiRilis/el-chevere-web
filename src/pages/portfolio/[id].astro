@@ -12,16 +12,6 @@ const id = Astro.params.id
 const currentLocale = Astro.currentLocale
 const i18N = getI18N({ currentLocale })
 const category = getCategories(currentLocale).find((category) => category.id === id)
-
-const getRowSpan = (index: number) => {
-	const sizes = ['row-span-2', 'row-span-3', 'row-span-2', 'row-span-3']
-	return sizes[index % sizes.length]
-}
-
-const getObjectPosition = (index: number) => {
-	const positions = ['object-top', 'object-center']
-	return positions[index % positions.length]
-}
 ---
 
 <Layout
@@ -44,25 +34,25 @@ const getObjectPosition = (index: number) => {
 			<p class='mb-6 text-pretty text-slate-400'>{category?.description}</p>
 
 			<!-- Masonry with Grid -->
-			<div
-				id='gallery'
-				class='grid auto-rows-[160px] grid-cols-2 gap-4 md:auto-rows-[200px] md:grid-cols-3'
-			>
+			<div id='gallery' style='column-gap: 1rem; column-width: 250px;'>
 				{
 					category?.images?.map((image, index) => (
 						<a
-							href={image.src}
+							href={`${image.src}.webp`}
 							data-pswp-width={image.width}
 							data-pswp-height={image.height}
 							target='_blank'
-							class={`hoverZoomLink fade-up-anim group relative cursor-zoom-in ${getRowSpan(index)}`}
+							class={`hoverZoomLink group relative mb-4 block cursor-zoom-in break-inside-avoid`}
 						>
 							<img
 								src={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
 								srcset={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
 								alt={`Image ${index + 1}`}
 								loading='lazy'
-								class={`h-full w-full rounded-xl object-cover transition group-active:scale-105 md:group-hover:scale-105 md:group-hover:rounded-lg ${getObjectPosition(index)}`}
+								decoding='async'
+								width={image.width}
+								height={image.height}
+								class={`w-full rounded-xl transition group-active:scale-105 md:group-hover:scale-105 md:group-hover:rounded-lg`}
 							/>
 
 							<img
@@ -71,7 +61,9 @@ const getObjectPosition = (index: number) => {
 								alt={`Image ${index + 1}`}
 								loading='lazy'
 								decoding='async'
-								class='absolute inset-0 -z-10 h-full w-full object-cover opacity-0 blur-md contrast-150 transition group-active:opacity-100 group-active:blur-lg md:group-hover:opacity-100 md:group-hover:blur-lg'
+								width={image.width}
+								height={image.height}
+								class='absolute inset-0 -z-10 w-full opacity-0 blur-md contrast-150 transition group-active:opacity-100 group-active:blur-lg md:group-hover:opacity-100 md:group-hover:blur-lg'
 							/>
 
 							<Loading client:visible classes='-z-20 inset-0 absolute m-auto size-5 text-primary' />
@@ -91,6 +83,10 @@ const getObjectPosition = (index: number) => {
 		const lightbox = new PhotoSwipeLightbox({
 			gallery: '#gallery',
 			children: 'a',
+			showAnimationDuration: 200,
+			hideAnimationDuration: 200,
+			zoomAnimationDuration: 200,
+			showHideAnimationType: 'zoom',
 			pswpModule: () => import('photoswipe'),
 		})
 		lightbox.init()

@@ -58,16 +58,16 @@ const getObjectPosition = (index: number) => {
 							class={`hoverZoomLink fade-up-anim group relative cursor-zoom-in ${getRowSpan(index)}`}
 						>
 							<img
-								src={`https://www.fotoestudioelchevere.com/${image.src}`}
-								srcset={`https://www.fotoestudioelchevere.com/${image.src}`}
+								src={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
+								srcset={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
 								alt={`Image ${index + 1}`}
 								loading='lazy'
 								class={`h-full w-full rounded-xl object-cover transition group-active:scale-105 md:group-hover:scale-105 md:group-hover:rounded-lg ${getObjectPosition(index)}`}
 							/>
 
 							<img
-								src={`https://www.fotoestudioelchevere.com/${image.src}`}
-								srcset={`https://www.fotoestudioelchevere.com/${image.src}`}
+								src={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
+								srcset={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
 								alt={`Image ${index + 1}`}
 								loading='lazy'
 								decoding='async'

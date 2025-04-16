@@ -3,6 +3,7 @@ import type { Date } from '@/interfaces/date'
 import { getI18N } from '@/languages/index'
 import { useState } from 'preact/hooks'
 import { DateStatus } from '@/interfaces/dateStatus'
+import { currentDate } from '@/libs/consts'
 
 const posibleDatesTime = [
 	'8-00',
@@ -47,6 +48,8 @@ export function useScheduler() {
 			const scheduleTime: string = scheduleData.time
 			const scheduleDate: string = scheduleData.date
 			const date: string | undefined = posibleDatesTime.find((time) => time === scheduleTime)
+			const isDoubleDate: boolean =
+				noDoubleDatesTime.includes(scheduleTime) && scheduleData.date === currentDate
 
 			if (scheduleTime !== date || !date) {
 				throw new Error('Invalid time')
@@ -78,6 +81,19 @@ export function useScheduler() {
 						item.status !== DateStatus.DONE &&
 						item.time === scheduleTime &&
 						item.date === scheduleDate
+					) {
+						throw new Error('Time already taken')
+					}
+				})
+			}
+
+			if (data && data.length === 1) {
+				data.forEach((item) => {
+					if (
+						item.status !== DateStatus.DONE &&
+						item.time === scheduleTime &&
+						item.date === scheduleDate &&
+						isDoubleDate
 					) {
 						throw new Error('Time already taken')
 					}

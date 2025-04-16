@@ -43,6 +43,9 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 		const dateName = elements.namedItem('date-name') as HTMLInputElement
 		const dateEmail = elements.namedItem('date-email') as HTMLInputElement
 		const dateReason = elements.namedItem('date-reason') as HTMLInputElement
+		const dateAccessories = elements.namedItem('date-accessories') as HTMLInputElement
+		const datePeople = elements.namedItem('date-people') as HTMLInputElement
+		const dateOutfits = elements.namedItem('date-outfits') as HTMLInputElement
 		const datePhone = elements.namedItem('date-phone') as HTMLInputElement
 		const dateDate = elements.namedItem('date-date') as HTMLInputElement
 		const dateTime = elements.namedItem('date-time') as HTMLInputElement
@@ -60,12 +63,10 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 				email: dateEmail.value.toLowerCase(),
 				date: dateDate.value,
 				time: dateTime.value,
-				questions: {
-					reason: dateReason.value,
-					accessories: '',
-					people: 0,
-					outfits: 0,
-				},
+				reason: dateReason.value,
+				accessories: dateAccessories.value,
+				people: datePeople.value ? parseInt(datePeople.value) : 1,
+				outfits: dateOutfits.value ? parseInt(dateOutfits.value) : 1,
 				mode: dateMode.value,
 				status,
 			},
@@ -167,7 +168,19 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 						</label>
 
 						<label className='inline-flex flex-col text-slate-400'>
-							{i18n.MESSAGE}*
+							{i18n.ACCESSORIES}
+							<input
+								type='text'
+								name='date-accessories'
+								id='date-accessories'
+								placeholder={i18n.ACCESSORIES_PLACEHOLDER}
+								autoCapitalize='words'
+								className='rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+							/>
+						</label>
+
+						<label className='inline-flex flex-col text-slate-400'>
+							{i18n.REASON}*
 							<select
 								required
 								className='rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
@@ -180,6 +193,20 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 									</option>
 								))}
 							</select>
+						</label>
+
+						<label className='inline-flex flex-col text-slate-400'>
+							{i18n.PEOPLE}*
+							<input
+								required
+								type='number'
+								name='date-people'
+								id='date-people'
+								placeholder='1-10'
+								min={1}
+								max={10}
+								className='rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+							/>
 						</label>
 					</div>
 
@@ -243,6 +270,19 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 									{i18n.SHEDULE_TYPE_BOTH}
 								</option>
 							</select>
+						</label>
+
+						<label className='inline-flex flex-col text-slate-400'>
+							{i18n.OUTFITS}*
+							<input
+								required
+								type='number'
+								name='date-outfits'
+								id='date-outfits'
+								placeholder='1'
+								min={1}
+								className='rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+							/>
 						</label>
 					</div>
 				</div>

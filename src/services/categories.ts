@@ -83,7 +83,7 @@ export const getCategories = (currentLocale?: string): Category[] => {
 				{ src: '/statics/categories/events/07', width: 1200, height: 1800 },
 				{ src: '/statics/categories/events/08', width: 1200, height: 1800 },
 				{ src: '/statics/categories/events/09', width: 1200, height: 1800 },
-				{ src: '/statics/categories/events/10', width: 1200, height: 1800 },
+				{ src: '/statics/categories/events/10', width: 1800, height: 1200 },
 				{ src: '/statics/categories/events/11', width: 1200, height: 1800 },
 				{ src: '/statics/categories/events/12', width: 1200, height: 1800 },
 				{ src: '/statics/categories/events/13', width: 1200, height: 1800 },

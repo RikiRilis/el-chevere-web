@@ -9,6 +9,7 @@ import { useDashboardTableDates } from '@/hooks/useDashboardTableDates'
 import { useSearch } from '@/hooks/useSearch'
 import { DashboardDataRows } from '@/components/DashboardDataRows'
 import { getI18N } from '@/languages/index'
+import { SortAscendingNumbers } from '@/icons/SortAscendingNumbers'
 import { SortAscending } from '@/icons/SortAscending'
 import { Loading } from '@/icons/Loading'
 
@@ -176,7 +177,7 @@ export const DashboardDataTable = ({
 						>
 							<span onClick={handleTimeSort} className='inline-flex cursor-pointer gap-1'>
 								{i18n.TIME}
-								<SortAscending
+								<SortAscendingNumbers
 									classes={`size-4 transition ${timeSort ? 'opacity-100' : 'opacity-0'}`}
 								/>
 							</span>

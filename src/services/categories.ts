@@ -1,12 +1,5 @@
 import type { Category } from '@/interfaces/category'
 import { getI18N } from '@/languages/index'
-import { getImageDimensions } from '@/libs/getDimensions'
-
-interface Image {
-	src: string
-	width: number
-	height: number
-}
 
 export const getCategories = (currentLocale?: string): Category[] => {
 	const i18n = getI18N({ currentLocale })
@@ -139,23 +132,3 @@ export const getCategories = (currentLocale?: string): Category[] => {
 		},
 	]
 }
-
-const getImages = (amount: number, category: string): Image[] => {
-	const images: Image[] = []
-
-	for (let i = 1; i <= amount; i++) {
-		getImageDimensions(`/statics/categories/${category}/${String(i).padStart(2, '0')}.webp`).then(
-			({ width, height }) => {
-				images.push({
-					src: `/statics/categories/${category}/${String(i).padStart(2, '0')}.webp`,
-					width: width,
-					height: height,
-				})
-			}
-		)
-	}
-
-	return images
-}
-
-console.log(getImages(14, 'birthdays'))

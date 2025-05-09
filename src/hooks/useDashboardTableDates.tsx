@@ -5,7 +5,6 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { getI18N } from '@/languages/index'
 import { currentDate, tomorrowDate } from '@/libs/consts'
 import { DateStatus } from '@/interfaces/dateStatus'
-import { getImageDimensions } from '@/libs/getDimensions'
 
 interface DashboardTableDatesProps {
 	numberOfDates: number
@@ -80,11 +79,6 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 				setDates(data)
 				setTotalCount(count)
 			}
-			getImageDimensions('https://fotoestudioelchevere.com/statics/categories/babies/05.webp')
-				.then(({ width, height }) => {
-					console.log(`Width: ${width}, Height: ${height}`)
-				})
-				.catch(console.error)
 
 			setLoading(false)
 		}

@@ -11,6 +11,8 @@ interface Props {
 	phone: string
 	mode: string
 	currentLocale?: string
+	data_row: string
+	onClick: (event: preact.JSX.TargetedEvent<HTMLTableRowElement, Event>) => void
 }
 
 export const DashboardDataRows = ({
@@ -22,20 +24,24 @@ export const DashboardDataRows = ({
 	phone,
 	mode,
 	currentLocale,
+	data_row,
+	onClick,
 }: Props) => {
 	const i18n = getI18N({ currentLocale })
 
 	return (
 		<tr
+			data-row={data_row}
+			onClick={onClick}
 			className={`cursor-pointer transition-colors sm:hover:bg-blue-950/30 ${idx % 2 === 0 ? '' : 'bg-blue-950/10'}`}
 		>
 			<td className='p-3'>{idx}</td>
-			<td className='px-6 py-4'>{name}</td>
-			<td className='px-6 py-4'>{phone}</td>
-			<td className='px-6 py-4'>{date}</td>
-			<td className='px-6 py-4'>{time}</td>
-			<td className='px-6 py-4'>{mode}</td>
-			<td className='px-6 py-4'>
+			<td className='px-2 py-4'>{name}</td>
+			<td className='px-2 py-4'>{phone}</td>
+			<td className='px-2 py-4'>{date}</td>
+			<td className='px-2 py-4'>{time}</td>
+			<td className='px-2 py-4'>{mode}</td>
+			<td className='px-2 py-4'>
 				{status === DateStatus.DONE ? (
 					<div className='flex flex-row items-center gap-2'>
 						<span className='size-3 rounded-full bg-green-500'></span>

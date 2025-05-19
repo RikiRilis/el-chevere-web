@@ -13,8 +13,8 @@ interface DashboardTableDatesProps {
 
 export function useDashboardTableDates({ numberOfDates, search = null }: DashboardTableDatesProps) {
 	const [loading, setLoading] = useState(true)
-	const [dates, setDates] = useState<Date[]>([])
-	const [datesShowing, setDatesShowing] = useState(numberOfDates)
+	const [allDates, setAllDates] = useState<Date[]>([])
+	const [datesShowing, setDatesShowing] = useState(8)
 	const [searching, setSearching] = useState(false)
 	const [page, setPage] = useState(1)
 	const [nameSort, setNameSort] = useState(false)
@@ -23,11 +23,10 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 	const [todaysSort, setTodaysSort] = useState(false)
 	const [tomorrowsSort, setTomorrowsSort] = useState(false)
 	const [totalCount, setTotalCount] = useState(0)
+	const [saving, setSaving] = useState(false)
 	const { setValue, getValue, checkKey } = useLocalStorage('status_sort')
 	const totalPages = Math.ceil(totalCount / datesShowing)
 
-	// Set the initial state of the sorting options based on local storage values
-	// This will run only once when the component mounts
 	useEffect(() => {
 		if (checkKey('name_sort')) setNameSort(getValue('name_sort'))
 		if (checkKey('time_sort')) setTimeSort(getValue('time_sort'))
@@ -36,8 +35,6 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		if (checkKey('tomorrows_sort')) setTomorrowsSort(getValue('tomorrows_sort'))
 	}, [])
 
-	// Set the local storage values when the sorting options change
-	// This will run every time the sorting options change
 	useEffect(() => {
 		setValue('name_sort', nameSort)
 		setValue('time_sort', timeSort)
@@ -47,11 +44,11 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 	}, [nameSort, timeSort, statusSort, todaysSort, tomorrowsSort])
 
 	useEffect(() => {
-		setLoading(true)
-
 		const fetchData = async () => {
-			const from = (page - 1) * datesShowing
-			const to = from + datesShowing - 1
+			setLoading(true)
+
+			const from = 0
+			const to = numberOfDates - 1
 			const fetchBody = todaysSort
 				? { from, to, column: 'date', value: currentDate }
 				: tomorrowsSort
@@ -60,9 +57,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 
 			const res = await fetch('/api/db/get-dates', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(fetchBody),
 			})
 
@@ -72,51 +67,53 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 				console.error('Error fetching dates:', error)
 			}
 
+			setTotalCount(count)
+
+			let filtered = data
 			if (search) {
-				setDates(data.filter((date) => date.name.toLowerCase().includes(search.toLowerCase())))
-				setTotalCount(count)
-			} else {
-				setDates(data)
-				setTotalCount(count)
+				filtered = filtered.filter((date) => date.name.toLowerCase().includes(search.toLowerCase()))
 			}
 
+			setAllDates(filtered)
+			setTotalCount(filtered.length)
 			setLoading(false)
 		}
 
 		fetchData()
-	}, [todaysSort, tomorrowsSort, datesShowing, search, page])
+	}, [todaysSort, tomorrowsSort, numberOfDates, search])
 
-	// Sort the dates based on the selected sorting options
-	// This will run every time the sorting options or dates change
-	const sortOrderDates = useMemo(() => {
-		const datesCopy = [...dates]
+	const sortedDates = useMemo(() => {
+		const datesCopy = [...allDates]
 
-		// Sort by name
 		if (nameSort) datesCopy.sort((a, b) => a.name.localeCompare(b.name))
 
-		// Sort by time
-		if (timeSort)
+		if (timeSort) {
 			datesCopy.sort((a, b) => Number(a.time.replace('-', '')) - Number(b.time.replace('-', '')))
+		}
 
-		// Sort by status
 		if (statusSort) {
 			datesCopy.sort((a, b) => {
-				if (a.status === DateStatus.CONFIRMED && b.status !== DateStatus.CONFIRMED) return -1
-				if (a.status !== DateStatus.CONFIRMED && b.status === DateStatus.CONFIRMED) return 1
-				if (a.status === DateStatus.PENDING && b.status !== DateStatus.PENDING) return -1
-				if (a.status !== DateStatus.PENDING && b.status === DateStatus.PENDING) return 1
-				if (a.status === DateStatus.DONE && b.status !== DateStatus.DONE) return -1
-				if (a.status !== DateStatus.DONE && b.status === DateStatus.DONE) return 1
-				return 0
+				const priority: Record<string, number> = {
+					[DateStatus.CONFIRMED]: 1,
+					[DateStatus.PENDING]: 2,
+					[DateStatus.DONE]: 3,
+					[DateStatus.CANCELLED]: 4,
+				}
+				return priority[a.status] - priority[b.status]
 			})
 		}
 
 		return datesCopy
-	}, [nameSort, timeSort, statusSort, dates, search])
+	}, [allDates, nameSort, timeSort, statusSort])
+
+	const paginatedDates = useMemo(() => {
+		const from = (page - 1) * datesShowing
+		const to = from + datesShowing
+		return sortedDates.slice(from, to)
+	}, [sortedDates, page, datesShowing])
 
 	const convertMode = (mode: string, currentLocale: string = 'es') => {
 		const i18n = getI18N({ currentLocale })
-
 		switch (mode) {
 			case 'time':
 				return i18n.SHEDULE_TYPE_TIME
@@ -130,7 +127,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 	}
 
 	return {
-		dates: sortOrderDates,
+		dates: paginatedDates,
 		loading,
 		page,
 		searching,
@@ -141,6 +138,9 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		tomorrowsSort,
 		totalCount,
 		totalPages,
+		saving,
+		datesShowing,
+		setSaving,
 		setNameSort,
 		setTimeSort,
 		setStatusSort,

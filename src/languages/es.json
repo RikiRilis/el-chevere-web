@@ -23,7 +23,9 @@
   "HOUR": "Hora",
   "SEND": "Enviar",
   "SENDING": "Enviando",
-  "SAVE": "Save",
+  "SAVE": "Guardar",
+
+  "SAVING": "Guardando",
   "MESSAGE_PLACEHOLDER": "Escribe tu mensaje...",
   "ARTICLES": "Artículos",
   "STORIES": "Relatos",
@@ -69,6 +71,7 @@
   "ACCESSORIES": "Accesorios",
   "PEOPLE": "Personas",
   "OUTFITS": "Vestimentas",
+  "DELETE": "Eliminar",
   "ACCESSORIES_PLACEHOLDER": "Pastel, flores, corona...",
   "DATES_ADVICE": "Favor de llenar cada espacio para que su cita sea agendada.",
   "DATES_MESSAGE_EXAMPLE": "Una sesión de fotos para el primer mes de mi bebé...",

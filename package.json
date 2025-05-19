@@ -9,7 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^9.2.1",
     "@astrojs/preact": "^4.0.5",
+    "@clerk/astro": "^2.7.2",
     "@emailjs/browser": "^4.4.1",
     "@fontsource-variable/onest": "^5.1.1",
     "@supabase/supabase-js": "^2.49.1",

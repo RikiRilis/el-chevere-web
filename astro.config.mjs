@@ -4,13 +4,14 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import preact from '@astrojs/preact';
 import vercel from '@astrojs/vercel';
+import clerk from "@clerk/astro";
 import * as dotenv from 'dotenv'
 
 dotenv.config()
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), preact()],
+  integrations: [tailwind(), preact(), clerk()],
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
@@ -36,6 +37,8 @@ export default defineConfig({
 			'import.meta.env.EMAILJS_TEMPLATE_ID': JSON.stringify(process.env.EMAILJS_TEMPLATE_ID),
 			'import.meta.env.SUPABASE_URL': JSON.stringify(process.env.SUPABASE_URL),
 			'import.meta.env.SUPABASE_ANON_KEY': JSON.stringify(process.env.SUPABASE_ANON_KEY),
+			'import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY': JSON.stringify(process.env.PUBLIC_CLERK_PUBLISHABLE_KEY),
+			'import.meta.env.CLERK_SECRET_KEY': JSON.stringify(process.env.CLERK_SECRET_KEY),
 		},
 	},
 });

@@ -12,6 +12,12 @@ import { getReasons } from '@/services/reasons'
 
 export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 	const [i18n] = useState(getI18N({ currentLocale }))
+	const today = new Date()
+	const maxDate = new Date()
+	maxDate.setDate(today.getDate() + 30)
+
+	const format = (date: Date) => date.toISOString().split('T')[0]
+
 	const { sending, sendSchedule } = useScheduler()
 	const [scheduleOptins, setScheduleOptions] = useState(getSchedule())
 	const formRef = useRef<HTMLFormElement | null>(null)
@@ -232,7 +238,9 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 								type='date'
 								name='date-date'
 								id='date-date'
-								defaultValue={new Date().toISOString().split('T')[0]}
+								defaultValue={format(today)}
+								min={format(today)}
+								max={format(maxDate)}
 							/>
 						</label>
 

@@ -1,11 +1,57 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/astro/server'
+import { defineMiddleware } from 'astro:middleware'
+import { supabase } from '@/db/supabase'
 
-const isProtectedRoute = createRouteMatcher(['/admin/dashboard'])
+const ONE_DAY_MS = 1000 * 60 * 60 * 24 // 1 day in milliseconds
 
-export const onRequest = clerkMiddleware((auth, context) => {
-	const { userId, redirectToSignIn } = auth()
+export const onRequest = defineMiddleware(async ({ cookies, redirect, url }, next) => {
+	const raw = cookies.get('admin_session')?.value
+	const pathname = url.pathname
 
-	if (isProtectedRoute(context.request) && !userId) {
-		return redirectToSignIn()
+	let isValidAdmin = false
+
+	if (raw) {
+		try {
+			// Decode the base64 session
+			// Parse the JSON data
+			const json = JSON.parse(Buffer.from(raw, 'base64').toString())
+			const { username, issuedAt } = json
+
+			// Verify if the session is still valid
+			if (Date.now() - issuedAt < ONE_DAY_MS) {
+				// Verify if the username exists in the database
+				const { data, error } = await supabase
+					.from('admins')
+					.select('username')
+					.eq('username', username)
+					.single()
+
+				if (!error && data) {
+					isValidAdmin = true
+				}
+			} else {
+				// Expired session
+				cookies.delete('admin_session', { path: '/' })
+			}
+		} catch (err) {
+			// Si la cookie no es válida o está mal formada
+			cookies.delete('admin_session', { path: '/' })
+			console.log('Invalid session cookie:', err)
+		}
 	}
+
+	// Redirect if already logged in
+	if (pathname === '/login' && isValidAdmin) {
+		return redirect('/admin/dashboard')
+	}
+
+	// Protected routes
+	// Check if the user is trying to access a protected route
+	const protectedRoutes = ['/admin/dashboard']
+	if (protectedRoutes.some((route) => pathname.startsWith(route))) {
+		if (!isValidAdmin) {
+			return redirect('/login')
+		}
+	}
+
+	return next()
 })

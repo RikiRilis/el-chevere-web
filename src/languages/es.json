@@ -24,7 +24,11 @@
   "SEND": "Enviar",
   "SENDING": "Enviando",
   "SAVE": "Guardar",
-
+  "LOGIN": "Iniciar sesión",
+  "LOGOUT": "Cerrar sesión",
+  "USERNAME": "Usuario",
+  "PASSWORD": "Contraseña",
+  "EMAIL_PASSWORD_WRONG": "¡Email o contraseña incorrectos!",
   "SAVING": "Guardando",
   "MESSAGE_PLACEHOLDER": "Escribe tu mensaje...",
   "ARTICLES": "Artículos",

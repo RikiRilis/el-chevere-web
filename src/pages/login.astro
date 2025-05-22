@@ -1,0 +1,28 @@
+---
+import MainTitle from '@/components/MainTitle.astro'
+import SectionContainer from '@/components/SectionContainer.astro'
+import { LoginForm } from '@/components/sections/LoginForm'
+import { Login as LoginIcon } from '@/icons/Login'
+import { getI18N } from '@/languages/index'
+import Layout from '@/layouts/Layout.astro'
+
+const currentLocale = Astro.currentLocale
+const i18N = getI18N({ currentLocale })
+---
+
+<Layout
+	title=`${i18N.LOGIN} - Foto Estudio El Chévere - Official Web`
+	description='Login page'
+	canonical='https://fotoestudioelchevere.com/login'
+>
+	<SectionContainer>
+		<div class='flex w-full max-w-4xl flex-col md:w-11/12 lg:w-8/12'>
+			<MainTitle>
+				<LoginIcon classes='size-8' />
+				{i18N.LOGIN}
+			</MainTitle>
+
+			<LoginForm client:visible />
+		</div>
+	</SectionContainer>
+</Layout>

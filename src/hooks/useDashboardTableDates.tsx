@@ -126,6 +126,50 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		}
 	}
 
+	const convertReason = (reason: string, currentLocale: string = 'es') => {
+		const i18n = getI18N({ currentLocale })
+		switch (reason) {
+			case 'month':
+				return i18n.MONTH
+			case 'birthday':
+				return i18n.BIRTHDAYS
+			case 'event':
+				return i18n.EVENT
+			case 'familiar':
+				return i18n.FAMILIAR
+			default:
+				return reason
+		}
+	}
+
+	const saveCurrentDate = async (status: string, uuid: string) => {
+		setSaving(true)
+		const res = await fetch('/api/db/update-date', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ status, uuid }),
+		})
+		const { error }: { error: any } = await res.json()
+		if (error) {
+			console.error('Error saving date:', error)
+		}
+		setSaving(false)
+	}
+
+	const deleteDate = async (uuid: string) => {
+		setSaving(true)
+		const res = await fetch('/api/db/delete-date', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ uuid }),
+		})
+		const { error }: { error: any } = await res.json()
+		if (error) {
+			console.error('Error deleting date:', error)
+		}
+		setSaving(false)
+	}
+
 	return {
 		dates: paginatedDates,
 		loading,
@@ -148,7 +192,10 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		setTomorrowsSort,
 		setSearching,
 		convertMode,
+		convertReason,
 		setPage,
 		setDatesShowing,
+		saveCurrentDate,
+		deleteDate,
 	}
 }

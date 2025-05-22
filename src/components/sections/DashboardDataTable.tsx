@@ -29,7 +29,7 @@ export const DashboardDataTable = ({
 	const [isViewOpen, setIsViewOpen] = useState(false)
 	const { search, setSearch } = useSearch()
 	const [isRowInfoOpen, setIsRowInfoOpen] = useState(false)
-	const [rowInfo, setRowInfo] = useState<Date>({} as Date)
+	const [rowInfo, setRowInfo] = useState<Date>({ time: '-' } as Date)
 	const {
 		dates,
 		loading,
@@ -43,7 +43,6 @@ export const DashboardDataTable = ({
 		totalPages,
 		saving,
 		datesShowing,
-		setSaving,
 		setNameSort,
 		setTimeSort,
 		setStatusSort,
@@ -51,7 +50,10 @@ export const DashboardDataTable = ({
 		setTomorrowsSort,
 		setSearching,
 		convertMode,
+		convertReason,
 		setPage,
+		saveCurrentDate,
+		deleteDate,
 	} = useDashboardTableDates({
 		numberOfDates,
 		search,
@@ -97,16 +99,28 @@ export const DashboardDataTable = ({
 			if (!saving) {
 				setIsRowInfoOpen((prev) => !prev)
 				document.body.style.overflowY = isRowInfoOpen ? 'auto' : 'hidden'
+				setRowInfo({ time: '-' } as Date)
 			}
+		}
+	}
+
+	const closeModal = () => {
+		if (!saving) {
+			setIsRowInfoOpen((prev) => !prev)
+			document.body.style.overflowY = isRowInfoOpen ? 'auto' : 'hidden'
+			setRowInfo({ time: '-' } as Date)
 		}
 	}
 
 	const handleSaving = (event: preact.JSX.TargetedEvent<HTMLButtonElement, Event>) => {
 		event.preventDefault()
-		setSaving((prev) => !prev)
-		setTimeout(() => {
-			setSaving((prev) => !prev)
-		}, 2000)
+		saveCurrentDate(rowInfo.status, rowInfo.uuid)
+	}
+
+	const handleDelete = (event: preact.JSX.TargetedEvent<HTMLButtonElement, Event>) => {
+		event.preventDefault()
+		deleteDate(rowInfo.uuid)
+		closeModal()
 	}
 
 	const handleViewToggle = () => setIsViewOpen((prev) => !prev)
@@ -141,7 +155,7 @@ export const DashboardDataTable = ({
 			>
 				<div
 					onClick={(e) => e.stopPropagation()}
-					className={`flex h-[70vh] w-full max-w-5xl flex-col justify-between gap-x-3 overflow-auto rounded-lg bg-back p-6 transition-transform duration-300 ease-out ${isRowInfoOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+					className={`flex h-fit w-full max-w-3xl flex-col justify-between gap-x-3 overflow-hidden truncate rounded-lg bg-back p-6 transition-transform duration-300 ease-out ${isRowInfoOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
 				>
 					<div className='flex w-full items-center justify-between'>
 						<span className={`inline-flex items-center gap-2 text-xl font-bold text-primary`}>
@@ -166,10 +180,104 @@ export const DashboardDataTable = ({
 						</span>
 					</div>
 
-					<div></div>
+					<div className='grid grid-cols-1 gap-4 py-6 sm:grid-cols-2'>
+						<div className='flex flex-col'>
+							<span className='text-sm text-secondary'>{i18n.EMAIL}</span>
+							<span className='text-base text-primary'>{rowInfo.email}</span>
+						</div>
+
+						<div className='flex flex-col'>
+							<span className='text-sm text-secondary'>{i18n.REASON}</span>
+							<p className='whitespace-pre-wrap text-base text-primary'>
+								{convertReason(rowInfo.reason)}
+							</p>
+						</div>
+
+						<div className='flex flex-col'>
+							<span className='text-sm text-secondary'>{i18n.ACCESSORIES}</span>
+							<span className='text-base text-primary'>{rowInfo.accessories}</span>
+						</div>
+
+						<div className='flex flex-col'>
+							<span className='text-sm text-secondary'>{i18n.PEOPLE}</span>
+							<span className='text-base text-primary'>{rowInfo.people}</span>
+						</div>
+
+						<div className='flex flex-col'>
+							<span className='text-sm text-secondary'>{i18n.OUTFITS}</span>
+							<span className='text-base text-primary'>{rowInfo.outfits}</span>
+						</div>
+
+						<div className='flex flex-col'>
+							<span className='text-sm text-secondary'>{i18n.PHONE}</span>
+							<span className='text-base text-primary'>{rowInfo.phone}</span>
+						</div>
+
+						<div className='flex flex-col'>
+							<span className='text-sm text-secondary'>{i18n.DATE}</span>
+							<span className='text-base text-primary'>{rowInfo.date}</span>
+						</div>
+
+						<div className='flex flex-col'>
+							<span className='text-sm text-secondary'>{i18n.TIME}</span>
+							<span className='text-base text-primary'>{rowInfo.time.replace('-', ':')}</span>
+						</div>
+
+						<div className='flex flex-col'>
+							<span className='text-sm text-secondary'>{i18n.MODE}</span>
+							<span className='text-base text-primary'>{convertMode(rowInfo.mode)}</span>
+						</div>
+
+						<div className='flex flex-col'>
+							<span className='text-sm font-semibold text-secondary'>{i18n.STATUS}</span>
+							<select
+								name='date-status'
+								defaultValue={rowInfo.status}
+								className='rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'
+							>
+								<option
+									{...(rowInfo.status === DateStatus.CONFIRMED
+										? { selected: true }
+										: { selected: false })}
+									className='bg-blue-950'
+									value={DateStatus.CONFIRMED}
+								>
+									{i18n.CONFIRMED}
+								</option>
+								<option
+									{...(rowInfo.status === DateStatus.DONE
+										? { selected: true }
+										: { selected: false })}
+									className='bg-blue-950'
+									value={DateStatus.DONE}
+								>
+									{i18n.DONE}
+								</option>
+								<option
+									{...(rowInfo.status === DateStatus.PENDING
+										? { selected: true }
+										: { selected: false })}
+									className='bg-blue-950'
+									value={DateStatus.PENDING}
+								>
+									{i18n.PENDING}
+								</option>
+								<option
+									{...(rowInfo.status === DateStatus.CANCELLED
+										? { selected: true }
+										: { selected: false })}
+									className='bg-blue-950'
+									value={DateStatus.CANCELLED}
+								>
+									{i18n.CANCELLED}
+								</option>
+							</select>
+						</div>
+					</div>
 
 					<div className={`flex w-full flex-row justify-end gap-3 p-2`}>
 						<button
+							onClick={handleDelete}
 							type='button'
 							{...(!saving ? {} : { disabled: true })}
 							className={`group relative flex h-fit w-fit flex-row items-center justify-center gap-2 overflow-hidden ${!saving ? 'cursor-pointer text-primary' : 'cursor-not-allowed bg-red-900 text-slate-400'} ${saving ? '' : 'active:border-red-500 active:text-danger sm:hover:border-danger sm:hover:text-danger'} rounded-xl border border-transparent px-3 py-2 text-lg font-bold transition`}
@@ -327,7 +435,7 @@ export const DashboardDataTable = ({
 									idx={(page - 1) * datesShowing + idx + 1}
 									name={row.name}
 									date={row.date}
-									time={`${row.time.replace('-', ':')}`}
+									time={row.time.replace('-', ':')}
 									status={row.status}
 									mode={convertMode(row.mode)}
 									phone={row.phone}

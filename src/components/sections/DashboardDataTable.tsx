@@ -269,12 +269,12 @@ export const DashboardDataTable = ({
 				<table className='w-full overflow-hidden rounded-lg text-left text-sm text-primary'>
 					<thead className='bg-blue-950/60 text-xs uppercase text-primary'>
 						<tr>
-							<th scope='col' className='select-none px-3 py-4'>
+							<th scope='col' className='w-10 select-none px-3 py-4'>
 								#
 							</th>
 							<th
 								scope='col'
-								className={`select-none items-center px-2 py-4 transition-colors ${nameSort ? 'text-accent' : ''}`}
+								className={`w-48 select-none items-center px-2 py-4 transition-colors ${nameSort ? 'text-accent' : ''}`}
 							>
 								<span onClick={handleNameSort} className='inline-flex cursor-pointer gap-1'>
 									{i18n.NAME}
@@ -283,15 +283,15 @@ export const DashboardDataTable = ({
 									/>
 								</span>
 							</th>
-							<th scope='col' className='select-none px-2 py-4'>
+							<th scope='col' className='w-32 select-none px-2 py-4'>
 								{i18n.PHONE}
 							</th>
-							<th scope='col' className='select-none px-2 py-4'>
+							<th scope='col' className='w-28 select-none px-2 py-4'>
 								{i18n.DATE}
 							</th>
 							<th
 								scope='col'
-								className={`select-none items-center px-2 py-4 transition-colors ${timeSort ? 'text-accent' : ''}`}
+								className={`w-20 select-none items-center px-2 py-4 transition-colors ${timeSort ? 'text-accent' : ''}`}
 							>
 								<span onClick={handleTimeSort} className='inline-flex cursor-pointer gap-1'>
 									{i18n.TIME}
@@ -300,12 +300,12 @@ export const DashboardDataTable = ({
 									/>
 								</span>
 							</th>
-							<th scope='col' className='select-none px-2 py-4'>
+							<th scope='col' className='w-28 select-none px-2 py-4'>
 								{i18n.MODE}
 							</th>
 							<th
 								scope='col'
-								className={`select-none items-center px-2 py-4 ${statusSort ? 'text-accent' : ''}`}
+								className={`w-36 select-none items-center px-2 py-4 ${statusSort ? 'text-accent' : ''}`}
 							>
 								<span onClick={handleStatusSort} className='inline-flex cursor-pointer gap-1'>
 									{i18n.STATUS}

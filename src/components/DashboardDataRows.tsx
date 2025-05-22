@@ -35,13 +35,13 @@ export const DashboardDataRows = ({
 			onClick={onClick}
 			className={`cursor-pointer transition-colors sm:hover:bg-blue-950/30 ${idx % 2 === 0 ? '' : 'bg-blue-950/10'}`}
 		>
-			<td className='p-3'>{idx}</td>
-			<td className='px-2 py-4'>{name}</td>
-			<td className='px-2 py-4'>{phone}</td>
-			<td className='px-2 py-4'>{date}</td>
-			<td className='px-2 py-4'>{time}</td>
-			<td className='px-2 py-4'>{mode}</td>
-			<td className='px-2 py-4'>
+			<td className='w-10 p-3'>{idx}</td>
+			<td className='w-48 truncate px-2 py-4'>{name}</td>
+			<td className='w-32 px-2 py-4'>{phone}</td>
+			<td className='w-28 px-2 py-4'>{date}</td>
+			<td className='w-20 px-2 py-4'>{time}</td>
+			<td className='w-28 px-2 py-4'>{mode}</td>
+			<td className='w-36 px-2 py-4'>
 				{status === DateStatus.DONE ? (
 					<div className='flex flex-row items-center gap-2'>
 						<span className='size-3 rounded-full bg-green-500'></span>

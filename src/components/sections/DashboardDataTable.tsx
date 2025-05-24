@@ -145,6 +145,9 @@ export const DashboardDataTable = ({
 		setTodaysSort(false)
 		handleViewToggle()
 	}
+	const handleLogout = () => {
+		window.location.href = '/api/logout'
+	}
 
 	return (
 		<>
@@ -353,6 +356,12 @@ export const DashboardDataTable = ({
 									className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'
 								>
 									{i18n.TOMORROWs_DATES}
+								</li>
+								<li
+									onClick={handleLogout}
+									className='block cursor-pointer select-none px-4 py-2 transition-colors hover:bg-secondary/20 hover:text-white'
+								>
+									{i18n.LOGOUT}
 								</li>
 							</ul>
 						</div>

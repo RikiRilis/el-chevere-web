@@ -41,7 +41,7 @@ export const LoginForm = ({ currentLocale }: { currentLocale?: string }) => {
 					alt='Logo Foto Estudio El Chévere'
 					loading='lazy'
 					decoding='async'
-					className={`mb-4 max-w-40 select-none shadow-lg transition-all duration-300 ease-in-out hover:scale-105`}
+					className={`mb-4 max-w-40 select-none transition-all duration-300 ease-in-out hover:scale-105`}
 				/>
 				<div className='mb-4'>
 					<label className='mb-1 inline-flex flex-col text-secondary' htmlFor='username'>

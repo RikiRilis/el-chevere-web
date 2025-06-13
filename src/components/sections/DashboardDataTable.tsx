@@ -43,6 +43,8 @@ export const DashboardDataTable = ({
 		totalPages,
 		saving,
 		datesShowing,
+		dateSort,
+		setDateSort,
 		setNameSort,
 		setTimeSort,
 		setStatusSort,
@@ -130,6 +132,7 @@ export const DashboardDataTable = ({
 	const handleNameSort = () => setNameSort((prev) => !prev)
 	const handleTimeSort = () => setTimeSort((prev) => !prev)
 	const handleStatusSort = () => setStatusSort((prev) => !prev)
+	const handleDateSort = () => setDateSort((prev) => !prev)
 	const handleAllDatesSort = () => {
 		setTodaysSort(false)
 		setTomorrowsSort(false)
@@ -145,6 +148,7 @@ export const DashboardDataTable = ({
 		setTodaysSort(false)
 		handleViewToggle()
 	}
+
 	const handleLogout = () => {
 		window.location.href = '/api/logout'
 	}
@@ -403,8 +407,16 @@ export const DashboardDataTable = ({
 							<th scope='col' className='w-32 select-none px-2 py-4'>
 								{i18n.PHONE}
 							</th>
-							<th scope='col' className='w-28 select-none px-2 py-4'>
-								{i18n.DATE}
+							<th
+								scope='col'
+								className={`w-28 select-none items-center px-2 py-4 transition-colors ${dateSort ? 'text-accent' : ''}`}
+							>
+								<span onClick={handleDateSort} className={'inline-flex cursor-pointer gap-1'}>
+									{i18n.DATE}
+									<SortAscendingNumbers
+										classes={`size-4 transition ${dateSort ? 'opacity-100' : 'opacity-0'}`}
+									/>
+								</span>
 							</th>
 							<th
 								scope='col'

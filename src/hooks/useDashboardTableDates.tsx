@@ -24,6 +24,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 	const [tomorrowsSort, setTomorrowsSort] = useState(false)
 	const [totalCount, setTotalCount] = useState(0)
 	const [saving, setSaving] = useState(false)
+	const [dateSort, setDateSort] = useState(false)
 	const { setValue, getValue, checkKey } = useLocalStorage('status_sort')
 	const totalPages = Math.ceil(totalCount / datesShowing)
 
@@ -32,6 +33,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		if (checkKey('time_sort')) setTimeSort(getValue('time_sort'))
 		if (checkKey('status_sort')) setStatusSort(getValue('status_sort'))
 		if (checkKey('todays_sort')) setTodaysSort(getValue('todays_sort'))
+		if (checkKey('date_sort')) setDateSort(getValue('date_sort'))
 		if (checkKey('tomorrows_sort')) setTomorrowsSort(getValue('tomorrows_sort'))
 	}, [])
 
@@ -40,8 +42,9 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		setValue('time_sort', timeSort)
 		setValue('status_sort', statusSort)
 		setValue('todays_sort', todaysSort)
+		setValue('date_sort', dateSort)
 		setValue('tomorrows_sort', tomorrowsSort)
-	}, [nameSort, timeSort, statusSort, todaysSort, tomorrowsSort])
+	}, [nameSort, timeSort, statusSort, todaysSort, tomorrowsSort, dateSort])
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -85,11 +88,19 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 	const sortedDates = useMemo(() => {
 		const datesCopy = [...allDates]
 
-		if (nameSort) datesCopy.sort((a, b) => a.name.localeCompare(b.name))
-
 		if (timeSort) {
 			datesCopy.sort((a, b) => Number(a.time.replace('-', '')) - Number(b.time.replace('-', '')))
 		}
+
+		if (dateSort) {
+			datesCopy.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+		}
+
+		if (!dateSort) {
+			datesCopy.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+		}
+
+		if (nameSort) datesCopy.sort((a, b) => a.name.localeCompare(b.name))
 
 		if (statusSort) {
 			datesCopy.sort((a, b) => {
@@ -104,7 +115,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		}
 
 		return datesCopy
-	}, [allDates, nameSort, timeSort, statusSort])
+	}, [allDates, nameSort, timeSort, statusSort, dateSort])
 
 	const paginatedDates = useMemo(() => {
 		const from = (page - 1) * datesShowing
@@ -184,6 +195,8 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		totalPages,
 		saving,
 		datesShowing,
+		dateSort,
+		setDateSort,
 		setSaving,
 		setNameSort,
 		setTimeSort,

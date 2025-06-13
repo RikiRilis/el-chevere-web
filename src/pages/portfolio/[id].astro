@@ -40,15 +40,15 @@ const category = getCategories(currentLocale).find((category) => category.id ===
 						?.sort(() => Math.random() - 0.5)
 						.map((image, index) => (
 							<a
-								href={`${image.src}.webp`}
+								href={`${image.src}`}
 								data-pswp-width={image.width}
 								data-pswp-height={image.height}
 								target='_blank'
 								class={`hoverZoomLink group relative mb-4 block cursor-zoom-in break-inside-avoid`}
 							>
 								<img
-									src={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
-									srcset={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
+									src={`https://www.fotoestudioelchevere.com/${image.src}`}
+									srcset={`https://www.fotoestudioelchevere.com/${image.src}`}
 									alt={`Image ${index + 1}`}
 									loading='lazy'
 									decoding='async'
@@ -58,8 +58,8 @@ const category = getCategories(currentLocale).find((category) => category.id ===
 								/>
 
 								<img
-									src={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
-									srcset={`https://www.fotoestudioelchevere.com/${image.src}.webp`}
+									src={`https://www.fotoestudioelchevere.com/${image.src}`}
+									srcset={`https://www.fotoestudioelchevere.com/${image.src}`}
 									alt={`Image ${index + 1}`}
 									loading='lazy'
 									decoding='async'

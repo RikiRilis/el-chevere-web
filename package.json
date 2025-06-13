@@ -18,6 +18,7 @@
     "@types/react-dom": "^19.0.3",
     "astro": "^5.1.6",
     "bcryptjs": "^3.0.2",
+    "image-size": "1.0.2",
     "just-debounce-it": "^3.2.0",
     "photoswipe": "^5.4.4",
     "preact": "^10.26.4",

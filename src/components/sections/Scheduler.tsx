@@ -14,7 +14,7 @@ export const Scheduler = ({ currentLocale }: { currentLocale?: string }) => {
 	const [i18n] = useState(getI18N({ currentLocale }))
 	const today = new Date()
 	const maxDate = new Date()
-	maxDate.setDate(today.getDate() + 30)
+	maxDate.setDate(today.getDate() + 180)
 
 	const format = (date: Date) => date.toISOString().split('T')[0]
 

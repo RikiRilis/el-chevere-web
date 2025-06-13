@@ -19,7 +19,7 @@ const posibleDatesTime = [
 	'14-40',
 	'15-20',
 	'16-00',
-	'17-40',
+	'16-40',
 	'17-20',
 	'18-00',
 ]
@@ -86,6 +86,19 @@ export function useScheduler() {
 			const selectedDate = new Date(scheduleData.date)
 			if (selectedDate < new Date(currentDate)) {
 				throw new Error('Date is in the past')
+			}
+
+			// Check if the date is a Sunday
+			if (selectedDate.getUTCDay() === 0) {
+				window.toast({
+					dismissible: true,
+					title: i18n.NO_SUNDAYS,
+					location: 'bottom-center',
+					type: 'warning',
+					icon: true,
+				})
+
+				throw new Error('Date is on Sunday')
 			}
 
 			// Check if current date and current time are valid

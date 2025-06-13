@@ -28,6 +28,8 @@
   "LOGOUT": "Cerrar sesión",
   "USERNAME": "Usuario",
   "PASSWORD": "Contraseña",
+  "INVALID_DATE": "Fecha inválida",
+  "NO_SUNDAYS": "Los domingos no están disponibles para citas.",
   "EMAIL_PASSWORD_WRONG": "¡Email o contraseña incorrectos!",
   "SAVING": "Guardando",
   "MESSAGE_PLACEHOLDER": "Escribe tu mensaje...",

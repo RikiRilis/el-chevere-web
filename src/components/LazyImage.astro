@@ -1,0 +1,39 @@
+---
+const { src, alt, width, height, className = '' } = Astro.props
+---
+
+<div class='relative h-auto w-full'>
+	<img
+		loading='lazy'
+		decoding='async'
+		src={src}
+		srcset={src}
+		alt={alt}
+		width={width}
+		height={height}
+		class={className}
+		data-lazy
+	/>
+</div>
+
+<script type='module'>
+	const observer = new IntersectionObserver(
+		(entries, observer) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					const img = entry.target
+					img.classList.remove('opacity-0')
+					img.classList.add('opacity-100')
+					observer.unobserve(img)
+				}
+			})
+		},
+		{
+			threshold: 0.1,
+		}
+	)
+
+	document.querySelectorAll('img[data-lazy]').forEach((img) => {
+		observer.observe(img)
+	})
+</script>

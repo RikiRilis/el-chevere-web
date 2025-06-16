@@ -16,7 +16,7 @@ const { src, alt, width, height, className = '' } = Astro.props
 	/>
 </div>
 
-<script is:inline>
+<script>
 	const observer = new IntersectionObserver(
 		(entries, observer) => {
 			entries.forEach((entry) => {

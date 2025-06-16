@@ -19,7 +19,6 @@ const { id, name, image, description } = Astro.props
 		<h4 class='p-2 text-center font-medium text-primary'>{name}</h4>
 
 		<LazyImage
-			client:visible
 			src={`https://www.fotoestudioelchevere.com${image}.webp`}
 			alt={description}
 			width={800}

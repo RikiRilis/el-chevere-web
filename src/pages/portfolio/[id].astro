@@ -48,7 +48,6 @@ const category = getCategories(currentLocale).find((category) => category.id ===
 								class={`hoverZoomLink group relative mb-4 block cursor-zoom-in break-inside-avoid overflow-hidden rounded-lg transition`}
 							>
 								<LazyImage
-									client:visible
 									src={`https://www.fotoestudioelchevere.com/${image.src}`}
 									alt={`Image ${index + 1}`}
 									width={image.width}

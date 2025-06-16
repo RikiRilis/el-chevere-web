@@ -22,6 +22,8 @@ const { id, name, image, description } = Astro.props
 			client:visible
 			src={`https://www.fotoestudioelchevere.com${image}.webp`}
 			alt={description}
+			width={800}
+			height={600}
 			className='h-60 w-full object-cover transition-transform group-hover:scale-105 sm:h-64 md:object-top lg:h-80'
 		/>
 

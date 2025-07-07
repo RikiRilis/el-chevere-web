@@ -116,13 +116,25 @@ export const DashboardDataTable = ({
 
 	const handleSaving = (event: preact.JSX.TargetedEvent<HTMLButtonElement, Event>) => {
 		event.preventDefault()
+
 		saveCurrentDate(rowInfo.status, rowInfo.uuid)
+		closeModal()
 	}
 
 	const handleDelete = (event: preact.JSX.TargetedEvent<HTMLButtonElement, Event>) => {
 		event.preventDefault()
+
+		if (!confirm(i18n.CONFIRM_DELETE)) return
+
 		deleteDate(rowInfo.uuid)
 		closeModal()
+	}
+
+	const handlUpdateRowInfoStatus = (event: preact.JSX.TargetedEvent<HTMLSelectElement, Event>) => {
+		event.preventDefault()
+		const element = event.currentTarget as HTMLSelectElement
+		const newStatus = element.value as DateStatus
+		setRowInfo((prev) => ({ ...prev, status: newStatus }))
 	}
 
 	const handleViewToggle = () => setIsViewOpen((prev) => !prev)
@@ -238,6 +250,7 @@ export const DashboardDataTable = ({
 						<div className='flex flex-col'>
 							<span className='text-sm font-semibold text-secondary'>{i18n.STATUS}</span>
 							<select
+								onChange={handlUpdateRowInfoStatus}
 								name='date-status'
 								defaultValue={rowInfo.status}
 								className='rounded-lg bg-accent/10 p-2 text-primary outline-none transition-all placeholder:text-slate-500 focus:outline-1 focus:outline-main placeholder:focus:invisible'

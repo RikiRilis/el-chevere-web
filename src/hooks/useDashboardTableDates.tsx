@@ -18,13 +18,13 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 	const [searching, setSearching] = useState(false)
 	const [page, setPage] = useState(1)
 	const [nameSort, setNameSort] = useState(false)
-	const [timeSort, setTimeSort] = useState(false)
+	const [timeSort, setTimeSort] = useState(true)
 	const [statusSort, setStatusSort] = useState(false)
 	const [todaysSort, setTodaysSort] = useState(false)
 	const [tomorrowsSort, setTomorrowsSort] = useState(false)
 	const [totalCount, setTotalCount] = useState(0)
 	const [saving, setSaving] = useState(false)
-	const [dateSort, setDateSort] = useState(false)
+	const [dateSort, setDateSort] = useState(true)
 	const { setValue, getValue, checkKey } = useLocalStorage('status_sort')
 	const totalPages = Math.ceil(totalCount / datesShowing)
 
@@ -93,11 +93,12 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		}
 
 		if (dateSort) {
-			datesCopy.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-		}
-
-		if (!dateSort) {
-			datesCopy.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+			datesCopy.sort((a, b) => {
+				const now = Date.now()
+				const diffA = Math.abs(new Date(a.date).getTime() - now)
+				const diffB = Math.abs(new Date(b.date).getTime() - now)
+				return diffA - diffB // el más cercano a "now" primero
+			})
 		}
 
 		if (nameSort) datesCopy.sort((a, b) => a.name.localeCompare(b.name))
@@ -164,6 +165,15 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		if (error) {
 			console.error('Error saving date:', error)
 		}
+
+		const updatedDates = allDates.map((date) => {
+			if (date.uuid === uuid) {
+				return { ...date, status }
+			}
+			return date
+		})
+		setAllDates(updatedDates)
+
 		setSaving(false)
 	}
 
@@ -178,6 +188,15 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		if (error) {
 			console.error('Error deleting date:', error)
 		}
+
+		const updatedDates = allDates.filter((date) => date.uuid !== uuid)
+		setAllDates(updatedDates)
+		setTotalCount(updatedDates.length)
+
+		if (page > Math.ceil(updatedDates.length / datesShowing)) {
+			setPage(Math.ceil(updatedDates.length / datesShowing))
+		}
+
 		setSaving(false)
 	}
 

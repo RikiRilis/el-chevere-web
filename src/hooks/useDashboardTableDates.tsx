@@ -72,10 +72,19 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 
 			setTotalCount(count)
 
+			// Filter by search term if provided
 			let filtered = data
 			if (search) {
 				filtered = filtered.filter((date) => date.name.toLowerCase().includes(search.toLowerCase()))
 			}
+
+			// Convert status to overdue if the date is past
+			filtered = filtered.map((date) => {
+				if (date.status === DateStatus.PENDING && new Date(date.date) < new Date()) {
+					return { ...date, status: DateStatus.OVERDUE }
+				}
+				return date
+			})
 
 			setAllDates(filtered)
 			setTotalCount(filtered.length)
@@ -97,7 +106,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 				const now = Date.now()
 				const diffA = Math.abs(new Date(a.date).getTime() - now)
 				const diffB = Math.abs(new Date(b.date).getTime() - now)
-				return diffA - diffB // el más cercano a "now" primero
+				return diffA - diffB
 			})
 		}
 
@@ -110,6 +119,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 					[DateStatus.PENDING]: 2,
 					[DateStatus.DONE]: 3,
 					[DateStatus.CANCELLED]: 4,
+					[DateStatus.OVERDUE]: 5,
 				}
 				return priority[a.status] - priority[b.status]
 			})

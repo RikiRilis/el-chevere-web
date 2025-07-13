@@ -185,6 +185,8 @@ export const DashboardDataTable = ({
 								<span title={i18n.PENDING} className='size-3 rounded-full bg-gray-500'></span>
 							) : rowInfo.status === DateStatus.CANCELLED ? (
 								<span title={i18n.CANCELLED} className='size-3 rounded-full bg-red-500'></span>
+							) : rowInfo.status === DateStatus.OVERDUE ? (
+								<span title={i18n.OVERDUE} className='size-3 rounded-full bg-yellow-500'></span>
 							) : (
 								<span title={i18n.CONFIRMED} className='size-3 rounded-full bg-orange-500'></span>
 							)}
@@ -281,6 +283,15 @@ export const DashboardDataTable = ({
 									value={DateStatus.PENDING}
 								>
 									{i18n.PENDING}
+								</option>
+								<option
+									{...(rowInfo.status === DateStatus.OVERDUE
+										? { selected: true }
+										: { selected: false })}
+									className='bg-blue-950'
+									value={DateStatus.OVERDUE}
+								>
+									{i18n.OVERDUE}
 								</option>
 								<option
 									{...(rowInfo.status === DateStatus.CANCELLED

@@ -3,4 +3,5 @@ export enum DateStatus {
 	PENDING = 'PENDING',
 	CONFIRMED = 'CONFIRMED',
 	CANCELLED = 'CANCELLED',
+	OVERDUE = 'OVERDUE',
 }

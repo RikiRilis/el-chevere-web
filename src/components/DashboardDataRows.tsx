@@ -57,6 +57,11 @@ export const DashboardDataRows = ({
 						<span className='size-3 rounded-full bg-red-500'></span>
 						<span>{i18n.CANCELLED}</span>
 					</div>
+				) : status === DateStatus.OVERDUE ? (
+					<div className='flex flex-row items-center gap-2'>
+						<span className='size-3 rounded-full bg-yellow-500'></span>
+						<span>{i18n.OVERDUE}</span>
+					</div>
 				) : (
 					<div className='flex flex-row items-center gap-2'>
 						<span className='size-3 rounded-full bg-orange-500'></span>

@@ -29,5 +29,9 @@ export const getFaqs = (currentLocale: string | undefined): Faq[] => {
 			answers: [i18n.FAQ_QA_8],
 			question: i18n.FAQ_Q_6,
 		},
+		{
+			answers: [i18n.FAQ_QA_9],
+			question: i18n.FAQ_Q_7,
+		},
 	]
 }

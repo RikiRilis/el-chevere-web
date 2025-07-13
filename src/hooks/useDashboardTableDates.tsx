@@ -80,7 +80,11 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 
 			// Convert status to overdue if the date is past
 			filtered = filtered.map((date) => {
-				if (date.status === DateStatus.PENDING && new Date(date.date) < new Date()) {
+				if (
+					new Date(date.date) < new Date() &&
+					date.status !== DateStatus.DONE &&
+					date.status !== DateStatus.CANCELLED
+				) {
 					return { ...date, status: DateStatus.OVERDUE }
 				}
 				return date
@@ -117,9 +121,9 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 				const priority: Record<string, number> = {
 					[DateStatus.CONFIRMED]: 1,
 					[DateStatus.PENDING]: 2,
-					[DateStatus.DONE]: 3,
+					[DateStatus.OVERDUE]: 3,
 					[DateStatus.CANCELLED]: 4,
-					[DateStatus.OVERDUE]: 5,
+					[DateStatus.DONE]: 5,
 				}
 				return priority[a.status] - priority[b.status]
 			})

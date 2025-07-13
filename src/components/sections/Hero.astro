@@ -4,12 +4,11 @@ import { getI18N } from '@/languages/index'
 const currentLocale = Astro.currentLocale
 const i18n = getI18N({ currentLocale })
 
-const today = new Date()
-const dayNumber = today.getDay() === 0 ? 7 : today.getDay() + 1
+const dayNumber = new Date().getDay() + 1
 ---
 
 <div
-	class={`parallax absolute left-0 top-0 h-screen w-full translate-y-0 bg-parallax-${dayNumber} bg-cover bg-fixed bg-center`}
+	class=`parallax absolute left-0 top-0 h-screen w-full translate-y-0 bg-parallax-${dayNumber} bg-cover bg-fixed bg-center`
 >
 </div>
 

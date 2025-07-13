@@ -17,6 +17,7 @@ import { Trash } from '@/icons/Trash'
 import { Save } from '@/icons/Save'
 import { DateStatus } from '@/interfaces/dateStatus'
 import { Close } from '@/icons/Close'
+import { useConvert } from '@/hooks/useConvert'
 
 export const DashboardDataTable = ({
 	numberOfDates,
@@ -30,6 +31,7 @@ export const DashboardDataTable = ({
 	const { search, setSearch } = useSearch()
 	const [isRowInfoOpen, setIsRowInfoOpen] = useState(false)
 	const [rowInfo, setRowInfo] = useState<Date>({ time: '-' } as Date)
+	const { convertMode, convertReason } = useConvert(currentLocale)
 	const {
 		dates,
 		loading,
@@ -51,8 +53,6 @@ export const DashboardDataTable = ({
 		setTodaysSort,
 		setTomorrowsSort,
 		setSearching,
-		convertMode,
-		convertReason,
 		setPage,
 		saveCurrentDate,
 		deleteDate,
@@ -117,7 +117,7 @@ export const DashboardDataTable = ({
 	const handleSaving = (event: preact.JSX.TargetedEvent<HTMLButtonElement, Event>) => {
 		event.preventDefault()
 
-		saveCurrentDate(rowInfo.status, rowInfo.uuid)
+		saveCurrentDate(rowInfo.status, rowInfo.uuid, currentLocale)
 		closeModal()
 	}
 

@@ -5,11 +5,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { getI18N } from '@/languages/index'
 import { currentDate, tomorrowDate } from '@/libs/consts'
 import { DateStatus } from '@/interfaces/dateStatus'
-
-interface DashboardTableDatesProps {
-	numberOfDates: number
-	search?: string | null
-}
+import type { DashboardTableDatesProps } from '@/interfaces/dashboardTableDatesProps'
 
 export function useDashboardTableDates({ numberOfDates, search = null }: DashboardTableDatesProps) {
 	const [loading, setLoading] = useState(true)
@@ -132,87 +128,111 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		return datesCopy
 	}, [allDates, nameSort, timeSort, statusSort, dateSort])
 
+	const saveCurrentDate = async (status: string, uuid: string, currentLocale: string = 'es') => {
+		const i18n = getI18N({ currentLocale })
+
+		setSaving(true)
+
+		try {
+			const res = await fetch('/api/db/update-date', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ status, uuid }),
+			})
+
+			const { error }: { error: any } = await res.json()
+
+			if (error) {
+				throw new Error(`Error saving date: ${error}`)
+			}
+
+			const updatedDates = allDates.map((date) => {
+				if (date.uuid === uuid) {
+					return { ...date, status }
+				}
+				return date
+			})
+
+			window.toast({
+				dismissible: true,
+				title: i18n.DATE_UPDATED,
+				location: 'bottom-center',
+				type: 'success',
+				icon: true,
+			})
+
+			setSaving(false)
+
+			setAllDates(updatedDates)
+		} catch (err) {
+			window.toast({
+				dismissible: true,
+				title: i18n.DATE_ERROR_UPDATING,
+				location: 'bottom-center',
+				type: 'error',
+				icon: true,
+			})
+
+			console.error(err)
+
+			setSaving(false)
+		}
+	}
+
+	const deleteDate = async (uuid: string, currentLocale: string = 'es') => {
+		const i18n = getI18N({ currentLocale })
+
+		setSaving(true)
+
+		try {
+			const res = await fetch('/api/db/delete-date', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ uuid }),
+			})
+			const { error }: { error: any } = await res.json()
+
+			if (error) {
+				throw new Error(`Error deleting date: ${error}`)
+			}
+
+			window.toast({
+				dismissible: true,
+				title: i18n.DATE_DELETED,
+				location: 'bottom-center',
+				type: 'success',
+				icon: true,
+			})
+
+			setSaving(false)
+
+			const updatedDates = allDates.filter((date) => date.uuid !== uuid)
+			setAllDates(updatedDates)
+			setTotalCount(updatedDates.length)
+
+			if (page > Math.ceil(updatedDates.length / datesShowing)) {
+				setPage(Math.ceil(updatedDates.length / datesShowing))
+			}
+		} catch (err) {
+			window.toast({
+				dismissible: true,
+				title: i18n.DATE_ERROR_DELETING,
+				location: 'bottom-center',
+				type: 'error',
+				icon: true,
+			})
+
+			console.error(err)
+
+			setSaving(false)
+		}
+	}
+
 	const paginatedDates = useMemo(() => {
 		const from = (page - 1) * datesShowing
 		const to = from + datesShowing
 		return sortedDates.slice(from, to)
 	}, [sortedDates, page, datesShowing])
-
-	const convertMode = (mode: string, currentLocale: string = 'es') => {
-		const i18n = getI18N({ currentLocale })
-		switch (mode) {
-			case 'time':
-				return i18n.SHEDULE_TYPE_TIME
-			case 'digital':
-				return i18n.SHEDULE_TYPE_DIGITAL
-			case 'both':
-				return i18n.SHEDULE_TYPE_BOTH
-			default:
-				return mode
-		}
-	}
-
-	const convertReason = (reason: string, currentLocale: string = 'es') => {
-		const i18n = getI18N({ currentLocale })
-		switch (reason) {
-			case 'month':
-				return i18n.MONTH
-			case 'birthday':
-				return i18n.BIRTHDAYS
-			case 'event':
-				return i18n.EVENT
-			case 'familiar':
-				return i18n.FAMILIAR
-			default:
-				return reason
-		}
-	}
-
-	const saveCurrentDate = async (status: string, uuid: string) => {
-		setSaving(true)
-		const res = await fetch('/api/db/update-date', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ status, uuid }),
-		})
-		const { error }: { error: any } = await res.json()
-		if (error) {
-			console.error('Error saving date:', error)
-		}
-
-		const updatedDates = allDates.map((date) => {
-			if (date.uuid === uuid) {
-				return { ...date, status }
-			}
-			return date
-		})
-		setAllDates(updatedDates)
-
-		setSaving(false)
-	}
-
-	const deleteDate = async (uuid: string) => {
-		setSaving(true)
-		const res = await fetch('/api/db/delete-date', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ uuid }),
-		})
-		const { error }: { error: any } = await res.json()
-		if (error) {
-			console.error('Error deleting date:', error)
-		}
-
-		const updatedDates = allDates.filter((date) => date.uuid !== uuid)
-		setAllDates(updatedDates)
-		setTotalCount(updatedDates.length)
-
-		if (page > Math.ceil(updatedDates.length / datesShowing)) {
-			setPage(Math.ceil(updatedDates.length / datesShowing))
-		}
-
-		setSaving(false)
-	}
 
 	return {
 		dates: paginatedDates,
@@ -237,8 +257,6 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 		setTodaysSort,
 		setTomorrowsSort,
 		setSearching,
-		convertMode,
-		convertReason,
 		setPage,
 		setDatesShowing,
 		saveCurrentDate,

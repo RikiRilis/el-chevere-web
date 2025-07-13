@@ -55,6 +55,11 @@
   "GRADUATIONS": "Graduations",
   "FIFTEENS": "Fifteens",
   "OVERDUE": "Overdue",
+  "DATE_TAKEN": "There is already two dates scheduled for this time. Please, choose another time!",
+  "DATE_UPDATED": "Date updated!",
+  "DATE_DELETED": "Date deleted!",
+  "DATE_ERROR_UPDATING": "Error updating date!",
+  "DATE_ERROR_DELETING": "Error deleting date!",
   "CONFIRM_DELETE": "Are you sure you want to delete this date?",
   "CAT_COUPLES_DESCRIPTION": "A collection of photos of couples in love, capturing their special moments together.",
   "CAT_GRADUATIONS_DESCRIPTION": "A collection of graduation photos celebrating academic achievements.",
@@ -129,5 +134,7 @@
   "FAQ_Q_5": "What sizes are handled?",
   "FAQ_QA_7": "We currently carry a wide variety of sizes for printed photos for shelves, walls, formal documents, etc. Sizes from 2x2 inches to 20x24 inches and other variants.",
   "FAQ_Q_6": "What if I want to have a photo shoot in a park far from the studio?",
-  "FAQ_QA_8": "We also specialize in outdoor photos (outside the studio) such as weddings, baptisms, 15 years old birthdays, outdoor portraits and other styles."
+  "FAQ_QA_8": "We also specialize in outdoor photos (outside the studio) such as weddings, baptisms, 15 years old birthdays, outdoor portraits and other styles.",
+  "FAQ_Q_7": "Can you send me all the unedited shots?",
+  "FAQ_QA_9": "No, we don't send unedited shots. We only send photos edited and selected by the client. Unedited shots are discarded after a certain time, or, if the client wishes, the photos can be saved for future selection."
 }

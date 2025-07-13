@@ -105,10 +105,12 @@ export function useScheduler() {
 			// and aren't in the past
 			const currentDateTime = new Date(currentDate)
 			const currentTime = new Date()
+
 			currentTime.setHours(
 				parseInt(scheduleTime.split('-')[0]),
 				parseInt(scheduleTime.split('-')[1])
 			)
+
 			if (currentDateTime.getTime() === selectedDate.getTime()) {
 				if (currentTime.getTime() < new Date().getTime()) {
 					throw new Error('Current date and time are in the past')
@@ -155,6 +157,14 @@ export function useScheduler() {
 						item.date === scheduleDate &&
 						isDoubleDate
 					) {
+						window.toast({
+							dismissible: true,
+							title: i18n.DATE_TAKEN,
+							location: 'bottom-center',
+							type: 'warning',
+							icon: true,
+						})
+
 						throw new Error('Time already taken')
 					}
 				})

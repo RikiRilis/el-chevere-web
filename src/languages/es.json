@@ -59,6 +59,11 @@
   "GRADUATIONS": "Graduaciones",
   "FIFTEENS": "Quinceañeras",
   "OVERDUE": "Atrasada",
+  "DATE_TAKEN": "Ya hay dos citas agendadas para esta hora. ¡Por favor, elige otra hora!",
+  "DATE_UPDATED": "¡Cita actualizada!",
+  "DATE_DELETED": "¡Cita eliminada!",
+  "DATE_ERROR_UPDATING": "¡Error al actualizar cita!",
+  "DATE_ERROR_DELETING": "¡Error al eliminar cita!",
   "CONFIRM_DELETE": "¿Estás seguro de que deseas eliminar esta cita?",
   "CAT_COUPLES_DESCRIPTION": "Una colección de fotografías de parejas enamoradas, capturando sus momentos especiales juntos.",
   "CAT_GRADUATIONS_DESCRIPTION": "Una colección de fotografías de graduación que celebran los logros académicos.",
@@ -133,5 +138,7 @@
   "FAQ_Q_5": "¿Cuáles tamaños se manejan?",
   "FAQ_QA_7": "Actualmente manejamos una gran variedad de tamaños para fotos impresas de repisa, pared, documentos formales y demás. Tamaños desde 2x2 pulgadas hasta 20x24 pulgadas y otras variantes.",
   "FAQ_Q_6": "¿Qué pasa si quiero hacerme una sesión de fotos en un parque retirado del estudio?",
-  "FAQ_QA_8": "Nosotros también nos dedicamos a las fotos en exteriores (fuera del estudio) como bodas, bautizos, quinceañeras, retratos al exterior y demás estilos."
+  "FAQ_QA_8": "Nosotros también nos dedicamos a las fotos en exteriores (fuera del estudio) como bodas, bautizos, quinceañeras, retratos al exterior y demás estilos.",
+  "FAQ_Q_7": "¿Me pueden enviar todas las tomas sin editar?",
+  "FAQ_QA_9": "No, no enviamos las tomas sin editar. Solo enviamos las fotos editadas y seleccionadas por el cliente. Las tomas sin editar son descartadas después de un tiempo, o, si así el cliente lo desea, se le pueden guardar las fotos para una futura selección."
 }

@@ -1,6 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+	safelist: [
+    'bg-parallax-1',
+    'bg-parallax-2',
+    'bg-parallax-3',
+    'bg-parallax-4',
+    'bg-parallax-5',
+    'bg-parallax-6',
+    'bg-parallax-7',
+  ],
 	theme: {
 		extend: {
 			colors: {

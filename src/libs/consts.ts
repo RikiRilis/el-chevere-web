@@ -10,6 +10,19 @@ import GitHub from '@/icons/GitHub.astro'
 import Instagram from '@/icons/Instagram.astro'
 import WhatsApp from '@/icons/WhatsApp.astro'
 
+export const businessEmail = 'fotoestudioelchevere@hotmail.com'
+export const businessInstagram = 'https://instagram.com/fotoestudioelchevere/'
+export const businessWhatsApp = 'https://wa.me/18095734173'
+export const gMapLocation = 'https://maps.app.goo.gl/5jkKp6yxqypxvy1B8'
+
+const date = new Date()
+export const currentYear = date.getFullYear()
+export const yearsSince = 1978
+export const satisfiedCustomers = 3500
+export const photoStyles = 10
+export const currentDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+export const tomorrowDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate() + 1).padStart(2, '0')}`
+
 export const navItemsProvider = (currentLocale: string | undefined): NavItem[] => {
 	const i18n = getI18N({ currentLocale })
 	return [
@@ -39,10 +52,6 @@ export const navItemsProvider = (currentLocale: string | undefined): NavItem[] =
 		},
 	]
 }
-
-export const businessEmail = 'fotoestudioelchevere@hotmail.com'
-export const businessInstagram = 'https://instagram.com/fotoestudioelchevere/'
-export const businessWhatsApp = 'https://wa.me/18095734173'
 
 export const philosophy = (currentLocale: string | undefined): Philosophy[] => {
 	const i18n = getI18N({ currentLocale })
@@ -89,11 +98,3 @@ export const footerLinks = (): FooterLink[] => {
 		},
 	]
 }
-
-const date = new Date()
-export const currentYear = date.getFullYear()
-export const yearsSince = 1978
-export const satisfiedCustomers = 3500
-export const photoStyles = 10
-export const currentDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
-export const tomorrowDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate() + 1).padStart(2, '0')}`

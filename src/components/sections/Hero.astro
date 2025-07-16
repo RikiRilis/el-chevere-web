@@ -1,14 +1,17 @@
 ---
+import DateCheck from '@/icons/DateCheck.astro'
+import Pin from '@/icons/Pin.astro'
 import { getI18N } from '@/languages/index'
+import { gMapLocation } from '@/libs/consts'
 
 const currentLocale = Astro.currentLocale
 const i18n = getI18N({ currentLocale })
 
-const dayNumber = new Date().getDay() + 1
+const parallax = `bg-parallax-${new Date().getDay() + 1}`
 ---
 
 <div
-	class=`parallax absolute left-0 top-0 h-screen w-full translate-y-0 bg-parallax-${dayNumber} bg-cover bg-fixed bg-center`
+	class={`parallax absolute left-0 top-0 h-screen w-full translate-y-0 ${parallax} bg-cover bg-fixed bg-center`}
 >
 </div>
 
@@ -24,6 +27,7 @@ const dayNumber = new Date().getDay() + 1
 				height='773'
 				loading='lazy'
 				alt='Foto Estudio El Chévere Hero Logo'
+				class='drop-shadow-lg'
 			/>
 		</a>
 		<p class='max-w-4xl text-pretty text-lg font-medium text-secondary md:text-xl'>
@@ -32,7 +36,7 @@ const dayNumber = new Date().getDay() + 1
 			{i18n.HERO_TEXT_2}
 		</p>
 
-		<div class='flex max-w-2xl flex-col gap-2 md:flex-row md:items-center md:gap-4'>
+		<div class='flex max-w-xl flex-col gap-2 md:flex-row md:items-center md:gap-4'>
 			<a
 				href='/schedule'
 				class='group relative mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 overflow-hidden rounded-xl border border-transparent bg-main px-3 py-2 text-lg font-bold text-primary transition active:border-blue-600 active:bg-sky-700 sm:hover:border-primary'
@@ -40,16 +44,22 @@ const dayNumber = new Date().getDay() + 1
 				<span
 					class='absolute left-0 h-full w-0 -skew-x-3 bg-accent transition-all duration-300 ease-in-out group-active:w-full sm:group-hover:w-full'
 				></span>
+
+				<DateCheck class='relative' />
+
 				<span class='relative'>{i18n.HERO_BUTTON_TEXT_1}</span>
 			</a>
 
 			<a
-				href='/#portfolio'
+				href={gMapLocation}
 				class='sm:hover:border-tranparent group relative mt-4 flex w-full cursor-pointer flex-row items-center justify-center gap-2 overflow-hidden rounded-xl border border-secondary bg-transparent px-3 py-2 text-lg font-bold text-primary transition active:border-transparent active:bg-blue-900 active:text-primary sm:hover:text-primary'
 			>
 				<span
 					class='absolute left-0 h-full w-0 -skew-x-3 bg-blue-950 transition-all duration-300 ease-in-out group-active:w-full sm:group-hover:w-full'
 				></span>
+
+				<Pin class='relative' />
+
 				<span class='relative'>{i18n.HERO_BUTTON_TEXT_2}</span>
 			</a>
 		</div>

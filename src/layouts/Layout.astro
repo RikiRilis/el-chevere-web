@@ -3,13 +3,16 @@ import SectionContainer from '@/components/SectionContainer.astro'
 import Contact from '@/components/sections/Contact.astro'
 import Faqs from '@/components/sections/Faqs.astro'
 import Footer from '@/components/sections/Footer.astro'
+import { Reviews } from '@/components/sections/Reviews'
 import SEO from '@/components/SEO.astro'
 import BackgroundGradient from '@/components/ui/BackgroundGradient.astro'
 import GoToTop from '@/components/ui/GoToTop.astro'
 import Header from '@/components/ui/Header.astro'
 import Toast from '@/components/ui/Toast.astro'
 import WhatsAppButton from '@/components/ui/WhatsAppButton.astro'
+import Star from '@/icons/Star.astro'
 import type { Preload } from '@/interfaces/preload'
+import { getI18N } from '@/languages/index'
 import '@fontsource-variable/onest'
 import { ClientRouter } from 'astro:transitions'
 
@@ -22,6 +25,10 @@ interface Props {
 }
 
 const { title, description, preload, canonical, image } = Astro.props
+const publishableKey = import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY
+
+const currentLocale = Astro.currentLocale
+const i18n = getI18N({ currentLocale })
 ---
 
 <!doctype html>
@@ -51,6 +58,20 @@ const { title, description, preload, canonical, image } = Astro.props
 
 			<SectionContainer id='faqs'>
 				<Faqs />
+			</SectionContainer>
+
+			<SectionContainer id='rating'>
+				<div class='flex w-full max-w-4xl flex-col md:w-11/12 lg:w-8/12'>
+					<h2
+						class='mb-8 flex items-center gap-x-3 text-3xl font-semibold text-primary sm:text-4xl'
+					>
+						<Star class='size-8' />
+
+						{i18n.RATING}
+					</h2>
+
+					<Reviews client:visible currentLocale={currentLocale} />
+				</div>
 			</SectionContainer>
 
 			<SectionContainer

@@ -9,7 +9,7 @@ import { getI18N } from '@/languages/index'
 import Layout from '../layouts/Layout.astro'
 
 const currentLocale = Astro.currentLocale
-const i18N = getI18N({ currentLocale })
+const i18n = getI18N({ currentLocale })
 
 const preload: Preload[] = [
 	{
@@ -20,39 +20,54 @@ const preload: Preload[] = [
 	{
 		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-babies.webp',
 		as: 'image',
-		type: 'image/avif',
+		type: 'image/webp',
 	},
 	{
 		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-weddings.webp',
 		as: 'image',
-		type: 'image/avif',
+		type: 'image/webp',
 	},
 	{
 		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-portraits.webp',
 		as: 'image',
-		type: 'image/avif',
+		type: 'image/webp',
 	},
 	{
 		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-events.webp',
 		as: 'image',
-		type: 'image/avif',
+		type: 'image/webp',
 	},
 	{
 		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-birthdays.webp',
 		as: 'image',
-		type: 'image/avif',
+		type: 'image/webp',
 	},
 	{
 		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-outdoors.webp',
 		as: 'image',
-		type: 'image/avif',
+		type: 'image/webp',
+	},
+	{
+		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-couples.webp',
+		as: 'image',
+		type: 'image/webp',
+	},
+	{
+		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-fifteens.webp',
+		as: 'image',
+		type: 'image/webp',
+	},
+	{
+		href: 'https://www.fotoestudioelchevere.com/statics/categories/cat-graduations.webp',
+		as: 'image',
+		type: 'image/webp',
 	},
 ]
 ---
 
 <Layout
 	title='Foto Estudio El Chévere - Official Web'
-	description={i18N.PAGE_DESCRIPTION}
+	description={i18n.PAGE_DESCRIPTION}
 	canonical='https://fotoestudioelchevere.com/'
 	preload={preload}
 >

@@ -26,7 +26,7 @@ const posibleDatesTime = [
 
 const posibleModes = ['digital', 'time', 'both']
 const posibleReasons = ['birthday', 'month', 'event', 'familiar']
-const noDoubleDatesTime = ['8-00', '8-40', '9-20']
+const noDoubleDatesTime = ['8-00', '8-40', '9-20', '14-00', '17-20', '18-00']
 
 export function useScheduler() {
 	const [sending, setSending] = useState(false)
@@ -144,6 +144,14 @@ export function useScheduler() {
 						item.time === scheduleTime &&
 						item.date === scheduleDate
 					) {
+						window.toast({
+							dismissible: true,
+							title: i18n.DATE_TAKEN,
+							location: 'bottom-center',
+							type: 'warning',
+							icon: true,
+						})
+
 						throw new Error('Time already taken')
 					}
 				})

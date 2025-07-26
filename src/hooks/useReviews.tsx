@@ -42,6 +42,10 @@ export function useReviews() {
 		setError(true)
 
 		try {
+			if (reviewData.title.length < 5 || reviewData.title.length > 40) {
+				throw new Error('Error sending date')
+			}
+
 			// Insert the review into the database
 			const response = await fetch('/api/db/insert-review', {
 				method: 'POST',

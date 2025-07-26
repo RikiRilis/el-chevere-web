@@ -56,6 +56,7 @@ export const Reviews = ({ currentLocale }: { currentLocale?: string }) => {
 							type='text'
 							name='review_title'
 							placeholder='Title'
+							maxLength={40}
 						/>
 					</label>
 
@@ -171,7 +172,7 @@ export const Reviews = ({ currentLocale }: { currentLocale?: string }) => {
 								<h3 className='ms-2 text-sm font-semibold text-primary'>{review.title}</h3>
 							</div>
 
-							<p className='mb-2 text-slate-400'>{review.description}</p>
+							<p className='mb-2 text-slate-400'>&quot;{review.description}&quot;</p>
 						</article>
 					))}
 			</div>

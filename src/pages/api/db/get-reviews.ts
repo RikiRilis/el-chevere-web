@@ -1,7 +1,7 @@
 import { supabase } from '@/db/supabase'
 
 interface RequestBody {
-	limit: NumberConstructor
+	limit: number
 }
 
 export async function POST({ request }: { request: Request }) {

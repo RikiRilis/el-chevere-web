@@ -10,8 +10,16 @@ import type { JSX } from 'preact'
 export const Reviews = ({ currentLocale }: { currentLocale?: string }) => {
 	const i18n = getI18N({ currentLocale })
 	const formRef = useRef<HTMLFormElement | null>(null)
-	const [rating, setRating] = useState(1)
-	const { allReviews, sending, loading, sendReview } = useReviews()
+	const [rating, setRating] = useState(0)
+	const {
+		allReviews,
+		reviewsCount,
+		sending,
+		loading,
+		reviewsShowing,
+		setReviewsShowing,
+		sendReview,
+	} = useReviews()
 
 	const handleSubmit = async (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
 		event.preventDefault()
@@ -132,7 +140,12 @@ export const Reviews = ({ currentLocale }: { currentLocale?: string }) => {
 			</div>
 
 			<div className='flex flex-col gap-6'>
-				<h2 className='font-bold text-primary'>{i18n.COSTUMERS_REVIEWS}</h2>
+				<h2 className='font-bold text-primary'>
+					{i18n.COSTUMERS_REVIEWS}{' '}
+					{reviewsCount > 0 && (
+						<span className='font-normal text-secondary/50'>(+{reviewsCount})</span>
+					)}
+				</h2>
 
 				{loading && <Loading classes='size-8 mx-auto text-primary' />}
 
@@ -176,6 +189,15 @@ export const Reviews = ({ currentLocale }: { currentLocale?: string }) => {
 						</article>
 					))}
 			</div>
+
+			{reviewsShowing < reviewsCount && (
+				<button
+					onClick={() => setReviewsShowing(reviewsShowing + 5)}
+					className='mt-4 w-full rounded-lg px-4 py-2 text-lg font-bold text-primary transition'
+				>
+					{i18n.SHOW_MORE}
+				</button>
+			)}
 		</div>
 	)
 }

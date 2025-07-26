@@ -77,7 +77,7 @@ export function useDashboardTableDates({ numberOfDates, search = null }: Dashboa
 			// Convert status to overdue if the date is past
 			filtered = filtered.map((date) => {
 				if (
-					new Date(date.date) < new Date() &&
+					new Date(`${date.date}T${date.time.replace('-', ':')}:00`) < new Date() &&
 					date.status !== DateStatus.DONE &&
 					date.status !== DateStatus.CANCELLED
 				) {
